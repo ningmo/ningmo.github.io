@@ -1,6 +1,6 @@
 ---
 title: supervisor tornado 多进程多端口配置
-categories: []
+categories: [python,supervisor,tornado]
 date: 2015-11-24 16:42:09
 ---
 
@@ -12,7 +12,7 @@ echo_supervisord_conf > /etc/supervisord.conf   # 默认echo_supervisord_conf �
 配置/etc/supervisord.conf
 
 ```
-<code>[program:app]
+[program:app]
 command=python /data/www/app/app.py --port=600%(process_num)d
 process_name=%(program_name)s%(process_num)d
 numprocs=6         ; 开启6个子进程
@@ -30,7 +30,7 @@ user=root                   ; setuid to this UNIX account to run the program
 redirect_stderr=true          ; redirect proc stderr to stdout (default false)
 stdout_logfile=/data/logs/supervisor/order.log        ; stdout log path, NONE for none; default AUTO
 stderr_logfile=/data/logs/supervisor/order_error.log        ; stderr log path, NONE for none; default AUTO
-;serverurl=AUTO                ; override serverurl computation (childutils)</code>
+;serverurl=AUTO                ; override serverurl computation (childutils)
 ```
 
 

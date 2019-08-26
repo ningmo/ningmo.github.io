@@ -3,6 +3,7 @@ title: angularjs ng-repeat checkbox
 categories:
   - js
 date: 2016-03-03 10:34:28
+tags: [angularjs]
 ---
 
 ```

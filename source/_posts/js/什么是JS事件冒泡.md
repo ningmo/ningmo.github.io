@@ -10,12 +10,17 @@ categories: js
 
 如何来阻止Jquery事件冒泡？
 
- 
+ 通过一个小例子来解释
 
-通过一个小例子来解释
-
-```
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default5.aspx.cs" Inherits="Default5"%>  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  <html xmlns="http://www.w3.org/1999/xhtml"> <head runat="server"> <title>Porschev---Jquery 事件冒泡</title>  <script src="jquery-1.3.2-vsdoc.js" type="text/javascript"></script>  </head> <body> <form id="form1" runat="server"> <div id="divOne" onclick="alert('我是最外层');"> <div id="divTwo" onclick="alert('我是中间层！')"> <a id="hr_three" href="http://www.baidu.com" mce_href="http://www.baidu.com" onclick="alert('我是最里层！')">点击我</a> </div> </div> </form> </body> </html>  
+```html
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script src="jquery-1.3.2-vsdoc.js" type="text/javascript"></script>  
+<body> 
+<form id="form1" runat="server"> <div id="divOne" onclick="alert('我是最外层');"> 
+  <div id="divTwo" onclick="alert('我是中间层！')"> <a id="hr_three" href="http://www.baidu.com" mce_href="http://www.baidu.com" onclick="alert('我是最里层！')">点击我</a> </div> </div> 
+</form> 
+</body> 
+</html>  
 ```
 
 比如上面这个页面，
@@ -41,7 +46,7 @@ categories: js
 如何来阻止?
 
 
-```
+```js
 
 1.event.stopPropagation(); 
 
@@ -52,8 +57,6 @@ categories: js
                 event.stopPropagation();
             });
         });
-       
-
 <script>
 
 ```
@@ -68,7 +71,7 @@ categories: js
 
 如果头部加入的是以下代码
 
- ```
+ ```js
 <script type="text/javascript"> $(function() {$("#hr_three").click(function(event) { return false;});}); <script>
  ```
 
@@ -82,15 +85,11 @@ categories: js
 
    事件处理过程中，阻止了事件冒泡，但不会阻击默认行为（它就执行了超链接的跳转）
 
- 
 
- 
 
 2.return false;
 
    事件处理过程中，阻止了事件冒泡，也阻止了默认行为（比如刚才它就没有执行超链接的跳转）
-
- 
 
  
 

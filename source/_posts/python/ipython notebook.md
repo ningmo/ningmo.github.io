@@ -1,6 +1,6 @@
 ---
 title: ipython notebook
-categories: []
+categories: [ipython,python]
 date: 2015-10-28 20:59:09
 ---
 
@@ -13,14 +13,14 @@ yum install sqlite-devel -y #
 
 修改源 vim ~/.pip/pip.conf
 
-```
+```ini
 [global]
 index-url = http://pypi.douban.com/simple
 trusted-host = pypi.douban.com
 ```
 
 开始
-```
+```shell
 pip install virtualenv
 virtualenv notebook
 source notebook/bin/activate
@@ -31,6 +31,7 @@ pip install MathJax
 ```
 ipython notebook
 如出现 ImportError: No module named notebook.notebookapp
+
 ```
 pip install jupyter
 ```

@@ -2,6 +2,7 @@
 title: angularjs 根据变量改变 动态加载模板
 categories:
   - js
+tags: [angularjs]
 date: 2015-10-12 13:56:46
 ---
 

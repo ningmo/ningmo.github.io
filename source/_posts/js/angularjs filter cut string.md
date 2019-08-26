@@ -2,6 +2,7 @@
 title: angularjs filter cut string
 categories:
   - js
+tags: [angularjs]
 date: 2015-11-11 11:40:21
 ---
 

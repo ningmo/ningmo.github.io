@@ -3,6 +3,7 @@ title: angularjs-yeoman环境配置
 categories:
   - js
 date: 2015-10-13 15:27:26
+tags: [angularjs]
 ---
 
 ```

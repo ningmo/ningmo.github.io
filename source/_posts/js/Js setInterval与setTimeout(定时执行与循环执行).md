@@ -1,6 +1,6 @@
 ---
 title: Js setInterval与setTimeout(定时执行与循环执行)
-categories: []
+categories: js
 date: 2012-12-16 00:36:11
 ---
 

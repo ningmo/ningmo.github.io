@@ -5,16 +5,18 @@ date: 2015-08-10 17:25:59
 ---
 
 主master
-```yum install salt-master
-salt-master -d
+```
+yum install salt-master salt-master -d
 ```
 客户端client
-```yum install salt-minion
+```shell
+yum install salt-minion
 ```
 在客户端的/etc/salt/minion 里面填写主的ip地址
 salt-minion-d
 客户端启动后会主动请求服务端是否信任
 服务端确认是否添加信任
+
 ```
 salt-key -A # 全部添加
 salt-key -a '...' #添加信任某个主机

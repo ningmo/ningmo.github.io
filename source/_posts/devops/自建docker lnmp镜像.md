@@ -1,9 +1,9 @@
 ---
-title: docker build lnmp
-categories: []
+title: 自建docker lnmp镜像
+tags: [linux,docker,centos,lnmp]
 date: 2016-06-05 11:59:28
 ---
-```
+```linux
 docker pull centos ＃ 拉取镜像到本地
 docker run  -i -t -p 8000:80  --name=centosDev centos  
 cat /etc/redhat-release #查看系统版本
@@ -32,7 +32,7 @@ vi /usr/local/openresty/nginx/conf/nginx.conf
 
 
 
-<blockquote>
+
 user  www;
 worker_processes  1;
 
@@ -84,14 +84,14 @@ http {
     #add_header Vary Accept-Encoding;
     include vhosts/*.conf;
 
-}</blockquote>
+}
 
 cd /usr/local/openresty/nginx/conf/
 mkdir vhosts
 vim vhosts/default.conf
 
 
-<blockquote>server {
+server {
         listen   80;
 
         root /data/www;
@@ -107,12 +107,12 @@ vim vhosts/default.conf
         {
             include fastcgi_params;
         }
-}</blockquote>
+}
 
 
 vim fastcgi_params
 
-<blockquote>if ($request_filename ~* (.*)\.php) {
+if ($request_filename ~* (.*)\.php) {
     set $php_url $1;
 }
 if (!-e $php_url.php) {
@@ -122,7 +122,7 @@ if (!-e $php_url.php) {
 fastcgi_ignore_client_abort  on;
 fastcgi_pass   127.0.0.1:9000;
 fastcgi_index  index.php;
-</blockquote>
+
 
 # mysql
 cd /data/src/

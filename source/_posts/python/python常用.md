@@ -8,7 +8,7 @@ date: 2015-08-10 21:45:03
 ```
 >>> a={'a':1,'b':2,'c':3}
 >>> b={'a':2,'c':3,'d':4}
->>> dict(a.viewitems() &amp; b.viewitems())
+>>> dict(a.viewitems(), b.viewitems())
 {'c': 3}
 ```
 获取当前可用变量
@@ -18,11 +18,11 @@ locals()
 ```
 生成器的应用yield
 ```def fab(max):
-    n,x,y = 0,0,1
-    if n > max
-        yield y
-        x,y = y,x+y
-        n=n+1
+n,x,y = 0,0,1
+if n > max
+yield y
+x,y = y,x+y
+n=n+1
 ```
 生成器结束时抛出StopIteration 异常 在for中不影响运行
 fab是生成器函数
