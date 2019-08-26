@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="angularjs 根据变量改变 动态加载模板">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2015/10/12/js/angularjs 根据变量改变 动态加载模板/">
+
+
+<meta name="description" content="directive 12345678return &amp;#123;        restrict: &amp;apos;E&amp;apos;,        replace: true,        templateUrl: &amp;apos;app/view/order.html&amp;apos;,        link: function (scope, element, attrs) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angularjs 根据变量改变 动态加载模板">
+<meta property="og:url" content="http://ningmo.github.io/2015/10/12/js/angularjs 根据变量改变 动态加载模板/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="directive 12345678return &amp;#123;        restrict: &amp;apos;E&amp;apos;,        replace: true,        templateUrl: &amp;apos;app/view/order.html&amp;apos;,        link: function (scope, element, attrs) &amp;#123;">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.307Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angularjs 根据变量改变 动态加载模板">
+<meta name="twitter:description" content="directive 12345678return &amp;#123;        restrict: &amp;apos;E&amp;apos;,        replace: true,        templateUrl: &amp;apos;app/view/order.html&amp;apos;,        link: function (scope, element, attrs) &amp;#123;">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> angularjs 根据变量改变 动态加载模板 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          angularjs 根据变量改变 动态加载模板
+        
+      </h1>
+
+      <time class="post-time">
+          Oct 12 2015
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>directive</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">return &#123;</span><br><span class="line">        restrict: &apos;E&apos;,</span><br><span class="line">        replace: true,</span><br><span class="line">        templateUrl: &apos;app/view/order.html&apos;,</span><br><span class="line">        link: function (scope, element, attrs) &#123;</span><br><span class="line">            scope.Type = attrs.Type;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>模板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div ng-switch on=&quot;item.Type&quot;&gt;</span><br><span class="line">  &lt;div ng-switch-when=&quot;1&quot;&gt;&lt;ng-include src=&quot;&apos;views/1.html&apos;&quot;&gt;&lt;/ng-include&gt;&lt;/div&gt;</span><br><span class="line">  &lt;div ng-switch-when=&quot;2&quot;&gt;&lt;ng-include src=&quot;&apos;views/2.html&apos;&quot;&gt;&lt;/ng-include&gt;&lt;/div&gt;</span><br><span class="line">  &lt;div ng-switch-when=&quot;3&quot;&gt;&lt;ng-include src=&quot;&apos;views/3.html&apos;&quot;&gt;&lt;/ng-include&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2015/10/13/js/angularjs-yeoman环境配置/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">angularjs-yeoman环境配置</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/09/29/php/oauth2.0原理/">
+        <span class="next-text nav-default">oauth2.0原理</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="微信开发本地调试">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2015/11/03/php/微信开发本地调试/">
+
+
+<meta name="description" content="整体思路是在外网将微信的请求转发至本地 方案 1(base windows)使用ngrok 地址 https://ngrok.com/下载并注册ngrok 获取自己的tokencmd到ngrok程序目录执行 ngrok 80(端口) 获取一个地址  通过此地址映射外网地址到本地80端口 例如http://a1b2c3.ngrok.com详细方案请参考 微信开发如何做本地调试 方案 2 (base">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信开发本地调试">
+<meta property="og:url" content="http://ningmo.github.io/2015/11/03/php/微信开发本地调试/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="整体思路是在外网将微信的请求转发至本地 方案 1(base windows)使用ngrok 地址 https://ngrok.com/下载并注册ngrok 获取自己的tokencmd到ngrok程序目录执行 ngrok 80(端口) 获取一个地址  通过此地址映射外网地址到本地80端口 例如http://a1b2c3.ngrok.com详细方案请参考 微信开发如何做本地调试 方案 2 (base">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.330Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信开发本地调试">
+<meta name="twitter:description" content="整体思路是在外网将微信的请求转发至本地 方案 1(base windows)使用ngrok 地址 https://ngrok.com/下载并注册ngrok 获取自己的tokencmd到ngrok程序目录执行 ngrok 80(端口) 获取一个地址  通过此地址映射外网地址到本地80端口 例如http://a1b2c3.ngrok.com详细方案请参考 微信开发如何做本地调试 方案 2 (base">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 微信开发本地调试 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          微信开发本地调试
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 03 2015
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>整体思路是在外网将微信的请求转发至本地</p>
+<p>方案 1(base windows)<br>使用ngrok 地址 <a href="https://ngrok.com/" target="_blank" rel="noopener">https://ngrok.com/</a><br>下载并注册ngrok 获取自己的token<br>cmd到ngrok程序目录<br>执行 ngrok 80(端口) 获取一个地址  通过此地址映射外网地址到本地80端口 例如<a href="http://a1b2c3.ngrok.com" target="_blank" rel="noopener">http://a1b2c3.ngrok.com</a><br>详细方案请参考 <a href="http://www.zhihu.com/question/25456655" target="_blank">微信开发如何做本地调试</a></p>
+<p>方案 2 (base VPS)<br>线上nginx将 your.domain.com:80 请求转发到 127.0.0.1:9999 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name your.domain.com;</span><br><span class="line"> </span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:9999;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本地执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh your.domain.com -R 9999:127.0.0.1:8888</span><br></pre></td></tr></table></figure>
+
+<p>本地程序监听127.0.0.1:8888即可<br>详细方案请参考 <a href="http://blog.lazybee.me/wechat-development/" target="_blank">微信接入调试方案</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2015/11/05/mysql/Mysql中，int(10)和int(11)有什么区别/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Mysql中，int(10)和int(11)有什么区别</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/10/31/php/php fastcgi_param白屏问题/">
+        <span class="next-text nav-default">php fastcgi_param白屏问题</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

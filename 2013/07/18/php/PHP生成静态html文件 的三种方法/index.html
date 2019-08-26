@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="PHP生成静态html文件 的三种方法">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2013/07/18/php/PHP生成静态html文件 的三种方法/">
+
+
+<meta name="description" content="1,下面使用模版的一个方法! 123456789101112131415 &amp;lt;?php $fp = fopen (&amp;quot;templets.html&amp;quot;,&amp;quot;a&amp;quot;); if ($fp)&amp;#123; $fup = fread ($fp,filesize(&amp;quot;templets.html&amp;quot;)); $fp2 = fopen (&amp;quot;html.sht">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP生成静态html文件 的三种方法">
+<meta property="og:url" content="http://ningmo.github.io/2013/07/18/php/PHP生成静态html文件 的三种方法/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="1,下面使用模版的一个方法! 123456789101112131415 &amp;lt;?php $fp = fopen (&amp;quot;templets.html&amp;quot;,&amp;quot;a&amp;quot;); if ($fp)&amp;#123; $fup = fread ($fp,filesize(&amp;quot;templets.html&amp;quot;)); $fp2 = fopen (&amp;quot;html.sht">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP生成静态html文件 的三种方法">
+<meta name="twitter:description" content="1,下面使用模版的一个方法! 123456789101112131415 &amp;lt;?php $fp = fopen (&amp;quot;templets.html&amp;quot;,&amp;quot;a&amp;quot;); if ($fp)&amp;#123; $fup = fread ($fp,filesize(&amp;quot;templets.html&amp;quot;)); $fp2 = fopen (&amp;quot;html.sht">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> PHP生成静态html文件 的三种方法 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          PHP生成静态html文件 的三种方法
+        
+      </h1>
+
+      <time class="post-time">
+          Jul 18 2013
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>1,下面使用模版的一个方法!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php </span><br><span class="line">$fp = fopen (&quot;templets.html&quot;,&quot;a&quot;); </span><br><span class="line">if ($fp)&#123; </span><br><span class="line">$fup = fread ($fp,filesize(&quot;templets.html&quot;)); </span><br><span class="line">$fp2 = fopen (&quot;html.shtml&quot;,&quot;w&quot;); </span><br><span class="line">if ($fwrite ($fp2,$fup))&#123; </span><br><span class="line">$fclose ($fp); </span><br><span class="line">$fcolse ($fp2); </span><br><span class="line">die (&quot;写入模板成功&quot;); </span><br><span class="line">&#125; else &#123; </span><br><span class="line">fclose ($fp); </span><br><span class="line">die (&quot;写入模板失败!&quot;); </span><br><span class="line">&#125; </span><br><span class="line">&#125; </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>简单的将模板写进一个文件中存为html.html<br>2,按时间生成html文件名<br> &lt;?<br>$content = “这是一个以日期时间为文件名的静态生成网页的测试文件，<br>文件名格式一般为<font color="#ff0000">年月日时分秒.html</font>“; </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$date = date(&apos;YmdHis&apos;); </span><br><span class="line">$fp = fopen (date(&apos;YmdHis&apos;) . &apos;.html&apos;,&quot;w&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>//本函数可用来打开本地或者远端的文件 ‘w’ 开文件方式为写入，<br>文件指针指到开始处，并将原文件的长度设为 0。若文件不存在，<br>则建立新文件。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">if (fwrite ($fp,$content))&#123;</span><br><span class="line">//格式是.int fwrite(int fp(文件名), string string(内容),</span><br><span class="line"> int [length](长度));本函数将字符串 string 写入文件资料流的指针 fp 上。</span><br><span class="line">若有指定长度 length，则会写入指定长度字符串，或是写到字符串结束。 </span><br><span class="line">fclose ($fp);//函数用来关闭已经打开的文件的指针 fp。</span><br><span class="line">成功返回 true，失败则返回 false。 </span><br><span class="line">die (&quot;写入模板成功&quot;); </span><br><span class="line">&#125; else &#123; </span><br><span class="line">fclose ($fp); </span><br><span class="line">die (&quot;写入模板失败!&quot;); </span><br><span class="line">&#125; </span><br><span class="line">echo ($content); </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3,下面为转换文件名的一个方法<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">$s_fname = &quot;93e.php&quot;; </span><br><span class="line">$o_fname = &quot;93e.htm&quot;; </span><br><span class="line">ob_end_clean(); </span><br><span class="line">ob_start(); </span><br><span class="line">include($s_fname); </span><br><span class="line">$length = ob_get_length(); </span><br><span class="line">$buffer = ob_get_contents(); </span><br><span class="line">$buffer = eregi_replace(&quot;r&quot;,&quot;&quot;,$buffer); </span><br><span class="line">ob_end_clean(); </span><br><span class="line"></span><br><span class="line">$fp = fopen($o_fname,&quot;w+&quot;); </span><br><span class="line">fwrite($fp,$buffer); </span><br><span class="line">fclose($fp); </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以把 93e.php转化为静态的HTML文件了 。要注意的是待转换的文件里不能有 ob_end_clean();和 ob_start();语句，且目录要有写权限。</p>
+<p>来自：<a href="http://www.phpchina.com/archives/view-36910-1.html" target="_blank" rel="noopener">http://www.phpchina.com/archives/view-36910-1.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2013/07/24/php/引用计数基本知识/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">引用计数基本知识</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2013/07/18/php/PHP生成静态html网页的三种方法/">
+        <span class="next-text nav-default">PHP生成静态html网页的三种方法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
