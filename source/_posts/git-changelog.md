@@ -1,6 +1,7 @@
 ---
 title: git changelog
 date: 2019-08-26 14:15:44
+categories: index 
 tags: [git,changelog]
 ---
 
@@ -45,6 +46,3 @@ git cz
 * chore 非 src 或者 测试文件的更新
 * revert commit 回退
 
-changelog生成示例
-
-![image-20190826160159203](/Users/y/Library/Application Support/typora-user-images/image-20190826160159203.png)
