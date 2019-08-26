@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="python常用">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/public/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2015/08/10/python/python常用/">
+
+
+<meta name="description" content="取得字典的交集 1234&amp;gt;&amp;gt;&amp;gt; a=&amp;#123;&amp;apos;a&amp;apos;:1,&amp;apos;b&amp;apos;:2,&amp;apos;c&amp;apos;:3&amp;#125;&amp;gt;&amp;gt;&amp;gt; b=&amp;#123;&amp;apos;a&amp;apos;:2,&amp;apos;c&amp;apos;:3,&amp;apos;d&amp;apos;:4&amp;#125;&amp;gt;&amp;gt;&amp;gt; dict(a.viewitems() &amp;amp;amp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python常用">
+<meta property="og:url" content="http://ningmo.github.io/2015/08/10/python/python常用/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="取得字典的交集 1234&amp;gt;&amp;gt;&amp;gt; a=&amp;#123;&amp;apos;a&amp;apos;:1,&amp;apos;b&amp;apos;:2,&amp;apos;c&amp;apos;:3&amp;#125;&amp;gt;&amp;gt;&amp;gt; b=&amp;#123;&amp;apos;a&amp;apos;:2,&amp;apos;c&amp;apos;:3,&amp;apos;d&amp;apos;:4&amp;#125;&amp;gt;&amp;gt;&amp;gt; dict(a.viewitems() &amp;amp;amp">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T05:22:28.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python常用">
+<meta name="twitter:description" content="取得字典的交集 1234&amp;gt;&amp;gt;&amp;gt; a=&amp;#123;&amp;apos;a&amp;apos;:1,&amp;apos;b&amp;apos;:2,&amp;apos;c&amp;apos;:3&amp;#125;&amp;gt;&amp;gt;&amp;gt; b=&amp;#123;&amp;apos;a&amp;apos;:2,&amp;apos;c&amp;apos;:3,&amp;apos;d&amp;apos;:4&amp;#125;&amp;gt;&amp;gt;&amp;gt; dict(a.viewitems() &amp;amp;amp">
+
+
+<link rel="stylesheet" type="text/css" href="/public/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> python常用 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/public/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/public/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/public/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          python常用
+        
+      </h1>
+
+      <time class="post-time">
+          Aug 10 2015
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>取得字典的交集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=&#123;&apos;a&apos;:1,&apos;b&apos;:2,&apos;c&apos;:3&#125;</span><br><span class="line">&gt;&gt;&gt; b=&#123;&apos;a&apos;:2,&apos;c&apos;:3,&apos;d&apos;:4&#125;</span><br><span class="line">&gt;&gt;&gt; dict(a.viewitems() &amp;amp; b.viewitems())</span><br><span class="line">&#123;&apos;c&apos;: 3&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取当前可用变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locals()</span><br></pre></td></tr></table></figure>
+
+<p>生成器的应用yield</p>
+<figure class="highlight plain"><figcaption><span>fab(max):</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n,x,y = 0,0,1</span><br><span class="line">if n &gt; max</span><br><span class="line">    yield y</span><br><span class="line">    x,y = y,x+y</span><br><span class="line">    n=n+1</span><br></pre></td></tr></table></figure>
+
+<p>生成器结束时抛出StopIteration 异常 在for中不影响运行<br>fab是生成器函数<br>fab（10）是fab返回的一个生成器<br><strong><span style="color: #ff0000;">生成器可用于读取大文件</span></strong></p>
+<p>导入包的方法<br>1.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f, filename, description = imp.find_module(&apos;re&apos;)</span><br><span class="line">re = imp.load_module(&apos;re&apos;, f, filename, description)</span><br></pre></td></tr></table></figure>
+
+<p>2.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re = __import__(&apos;re&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>3.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filename = &quot;mo.py&quot;</span><br><span class="line">f = open(filename )</span><br><span class="line">description = (&apos;.py&apos;, &apos;U&apos;, 1)</span><br><span class="line">mo = imp.load_module(&apos;some&apos;, f, filename, description)</span><br></pre></td></tr></table></figure>
+
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/public/2015/08/25/linux/开启nginx缓存/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">开启nginx缓存</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/public/2015/08/10/mysql/mysql语句优化/">
+        <span class="next-text nav-default">mysql语句优化</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/public/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/public/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/public/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

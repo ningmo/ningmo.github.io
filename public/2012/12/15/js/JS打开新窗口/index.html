@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="JS打开新窗口">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/public/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2012/12/15/js/JS打开新窗口/">
+
+
+<meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859this.Page.RegisterStartupScript(&amp;quot;key&amp;quot;, &amp;quot;&amp;amp;lt;script&amp;amp;gt;window.open(&amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS打开新窗口">
+<meta property="og:url" content="http://ningmo.github.io/2012/12/15/js/JS打开新窗口/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859this.Page.RegisterStartupScript(&amp;quot;key&amp;quot;, &amp;quot;&amp;amp;lt;script&amp;amp;gt;window.open(&amp;a">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T05:22:28.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS打开新窗口">
+<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859this.Page.RegisterStartupScript(&amp;quot;key&amp;quot;, &amp;quot;&amp;amp;lt;script&amp;amp;gt;window.open(&amp;a">
+
+
+<link rel="stylesheet" type="text/css" href="/public/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> JS打开新窗口 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/public/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/public/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/public/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          JS打开新窗口
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 15 2012
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">this.Page.RegisterStartupScript(&quot;key&quot;, &quot;&amp;lt;script&amp;gt;window.open(&apos;Error.aspx&apos;,target=&apos;blank&apos;)&amp;lt;/script&amp;gt;&quot;);</span><br><span class="line">this.Page.RegisterStartupScript(&quot;key&quot;, &quot;&amp;lt;script&amp;gt;window.open(&apos;Error.aspx&apos;,target=&apos;top&apos;)&amp;lt;/script&amp;gt;&quot;);</span><br><span class="line"></span><br><span class="line">window.open (&apos;page.html&apos;,&apos;newwindow&apos;,&apos;height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no&apos;) </span><br><span class="line"></span><br><span class="line">脚本运行后，page.html将在新窗体newwindow中打开，宽为100，高为400，距屏顶0象素，屏左0象素，无工具条，无菜单条，无滚动条，不可调整大小，无地址栏，无状态栏。</span><br><span class="line">请对照。</span><br><span class="line">上例中涉及的为常用的几个参数，除此以外还有很多其他参数，请见四。</span><br><span class="line">四、各项参数</span><br><span class="line">其中yes/no也可使用1/0；pixel value为具体的数值，单位象素。</span><br><span class="line">参数 | 取值范围 |说明 </span><br><span class="line">| |alwaysLowered | yes/no |指定窗口隐藏在所有窗口之后 </span><br><span class="line">alwaysRaised | yes/no |指定窗口悬浮在所有窗口之上 </span><br><span class="line">depended | yes/no |是否和父窗口同时关闭 </span><br><span class="line">directories | yes/no |Nav2和3的目录栏是否可见 </span><br><span class="line">height | pixel value |窗口高度 </span><br><span class="line">hotkeys | yes/no |在没菜单栏的窗口中设安全退出热键 </span><br><span class="line">innerHeight | pixel value |窗口中文档的像素高度 </span><br><span class="line">innerWidth | pixel value |窗口中文档的像素宽度 </span><br><span class="line">location | yes/no |位置栏是否可见 </span><br><span class="line">menubar | yes/no |菜单栏是否可见 </span><br><span class="line">outerHeight | pixel value |设定窗口(包括装饰边框)的像素高度 </span><br><span class="line">outerWidth | pixel value |设定窗口(包括装饰边框)的像素宽度 </span><br><span class="line">resizable | yes/no |窗口大小是否可调整 </span><br><span class="line">screenX | pixel value |窗口距屏幕左边界的像素长度 </span><br><span class="line">screenY | pixel value |窗口距屏幕上边界的像素长度 </span><br><span class="line">scrollbars | yes/no |窗口是否可有滚动栏 </span><br><span class="line">titlebar | yes/no |窗口题目栏是否可见 </span><br><span class="line">toolbar | yes/no |窗口工具栏是否可见 </span><br><span class="line">Width | pixel value |窗口的像素宽度 </span><br><span class="line">z-look | yes/no |窗口被激活后是否浮在其它窗口之上</span><br><span class="line"></span><br><span class="line">window.showModalDialog使用手册</span><br><span class="line">基本介绍：</span><br><span class="line">showModalDialog() (IE 4+支持)</span><br><span class="line">showModelessDialog() (IE 5+支持)</span><br><span class="line">window.showModalDialog()方法用来创建一个显示HTML内容的模态对话框。</span><br><span class="line">window.showModelessDialog()方法用来创建一个显示HTML内容的非模态对话框。</span><br><span class="line">使用方法：</span><br><span class="line">vReturnValue =window.showModalDialog(sURL [, vArguments] [,sFeatures])</span><br><span class="line">vReturnValue =window.showModelessDialog(sURL [, vArguments] [,sFeatures])</span><br><span class="line">参数说明：</span><br><span class="line">sURL--必选参数，类型：字符串。用来指定对话框要显示的文档的URL。</span><br><span class="line">vArguments--可选参数，类型：变体。用来向对话框传递参数。传递的参数类型不限，包括数组等。对话框通过window.dialogArguments来取得传递进来的参数。</span><br><span class="line">sFeatures--可选参数，类型：字符串。用来描述对话框的外观等信息，可以使用以下的一个或几个，用分号“;”隔开。</span><br><span class="line">1.dialogHeight :对话框高度，不小于１００px，ＩＥ４中dialogHeight 和 dialogWidth 默认的单位是em，而ＩＥ５中是px，为方便其见，在定义modal方式的对话框时，用px做单位。</span><br><span class="line">2.dialogWidth: 对话框宽度。</span><br><span class="line">3.dialogLeft: 离屏幕左的距离。</span><br><span class="line">4.dialogTop: 离屏幕上的距离。</span><br><span class="line">5.center: &#123;yes | no | 1| 0&#125;：窗口是否居中，默认yes，但仍可以指定高度和宽度。</span><br><span class="line">6.help: &#123;yes | no | 1| 0&#125;：是否显示帮助按钮，默认yes。</span><br><span class="line">7.resizable: &#123;yes | no | 1| 0&#125; ［ＩＥ５＋］：是否可被改变大小。默认no。</span><br><span class="line">8.status: &#123;yes | no | 1| 0&#125; ［IE5+］：是否显示状态栏。默认为yes[ Modeless]或no[Modal]。</span><br><span class="line">9.scroll:&#123; yes | no | 1| 0| on |off &#125;：指明对话框是否显示滚动条。默认为yes。</span><br><span class="line">下面几个属性是用在HTA中的，在一般的网页中一般不使用。</span><br><span class="line">10.dialogHide:&#123; yes | no | 1| 0| on |off &#125;：在打印或者打印预览时对话框是否隐藏。默认为no。</span><br><span class="line">11.edge:&#123; sunken |raised &#125;：指明对话框的边框样式。默认为raised。</span><br><span class="line">12.unadorned:&#123; yes | no | 1| 0| on | off &#125;：默认为no。</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/public/2012/12/16/js/js模拟点击事件/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">js模拟点击事件</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/public/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/public/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/public/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
