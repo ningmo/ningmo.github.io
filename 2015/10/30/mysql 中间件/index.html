@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="mysql 中间件">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2015/10/30/mysql 中间件/">
+
+
+<meta name="description" content="360的Atlas 1.读写分离 2.从库负载均衡 3.IP过滤 4.自动分表 5.DBA可平滑上下线DB 6.自动摘除宕机的DB altas 在10000/s的请求量级应该是毫无问题的 https://github.com/Qihoo360/Atlas/blob/master/README_ZH.md &amp;nbsp; kingshard（GO）  读写分离。 跨节点分表。 支持透明的MySQL连接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql 中间件">
+<meta property="og:url" content="http://ningmo.github.io/2015/10/30/mysql 中间件/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="360的Atlas 1.读写分离 2.从库负载均衡 3.IP过滤 4.自动分表 5.DBA可平滑上下线DB 6.自动摘除宕机的DB altas 在10000/s的请求量级应该是毫无问题的 https://github.com/Qihoo360/Atlas/blob/master/README_ZH.md &amp;nbsp; kingshard（GO）  读写分离。 跨节点分表。 支持透明的MySQL连接">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-23T09:24:57.192Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql 中间件">
+<meta name="twitter:description" content="360的Atlas 1.读写分离 2.从库负载均衡 3.IP过滤 4.自动分表 5.DBA可平滑上下线DB 6.自动摘除宕机的DB altas 在10000/s的请求量级应该是毫无问题的 https://github.com/Qihoo360/Atlas/blob/master/README_ZH.md &amp;nbsp; kingshard（GO）  读写分离。 跨节点分表。 支持透明的MySQL连接">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> mysql 中间件 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          mysql 中间件
+        
+      </h1>
+
+      <time class="post-time">
+          Oct 30 2015
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>360的Atlas</p>
+<p>1.读写分离</p>
+<p>2.从库负载均衡</p>
+<p>3.IP过滤</p>
+<p>4.自动分表</p>
+<p>5.DBA可平滑上下线DB</p>
+<p>6.自动摘除宕机的DB</p>
+<p>altas 在10000/s的请求量级应该是毫无问题的</p>
+<p><a href="https://github.com/Qihoo360/Atlas/blob/master/README_ZH.md" target="_blank" rel="noopener">https://github.com/Qihoo360/Atlas/blob/master/README_ZH.md</a></p>
+<p>&nbsp;</p>
+<p>kingshard（GO）</p>
+<ol>
+<li>读写分离。</li>
+<li>跨节点分表。</li>
+<li>支持透明的MySQL连接池，不必每次新建连接。</li>
+<li>支持客户端IP访问控制。</li>
+<li>平滑上线DB或下线DB，前端应用无感知。</li>
+<li>支持多个slave，slave之间通过权值进行负载均衡。</li>
+<li>支持强制读主库。</li>
+<li>支持将sql发送到特定的node。</li>
+<li>支持在单个node上执行事务，不支持跨多个node执行事务。</li>
+<li>支持跨node的count,sum,max和min等函数。</li>
+<li>支持单个分表的join操作，即支持分表和另一张不分表的join操作。</li>
+<li>支持order by,limit等操作。</li>
+<li>支持主流语言（java,php,python,C/C++,Go)SDK的mysql的prepare特性。</li>
+</ol>
+<p><a href="https://github.com/flike/kingshard/blob/master/README_ZH.md" target="_blank" rel="noopener">https://github.com/flike/kingshard/blob/master/README_ZH.md</a></p>
+<p>&nbsp;</p>
+<p>阿里的Cobar（java）</p>
+<p><a href="https://github.com/alibaba/cobar" target="_blank" rel="noopener">https://github.com/alibaba/cobar</a></p>
+<p>淘宝的 TDDL</p>
+<p><a href="https://github.com/alibaba/tb_tddl" target="_blank" rel="noopener">https://github.com/alibaba/tb_tddl</a></p>
+<p>百度的DBProxy</p>
+<p>Amoeba</p>
+<p><a href="http://www.biaodianfu.com/amoeba.html" target="_blank" rel="noopener">http://www.biaodianfu.com/amoeba.html</a></p>
+<p>mysqlnd_ms</p>
+<p>读写分离插件<a href="http://www.laruence.com/2011/10/05/2192.html" target="_blank" rel="noopener">http://www.laruence.com/2011/10/05/2192.html</a></p>
+<p>mysql官方的mysql-proxy</p>
+<p>OneProxy</p>
+<p>OneSQL</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2015/10/31/linux sed/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">linux sed</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/10/28/ipython notebook/">
+        <span class="next-text nav-default">ipython notebook</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

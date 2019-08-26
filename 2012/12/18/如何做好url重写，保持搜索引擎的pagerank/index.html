@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="如何做好url重写，保持搜索引擎的pagerank">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2012/12/18/如何做好url重写，保持搜索引擎的pagerank/">
+
+
+<meta name="description" content="下面是搜集到的一些操作步骤： 1、Apache 基本配置： 首先确定您使用的 Apache 版本以及是否加载了 mod_Rewrite 模块。 Apache 1.x 的用户请检查 conf/httpd.conf 中是否存在如下两段代码： LoadModule Rewrite_module libexec/mod_Rewrite.soAddModule mod_Rewrite.c Apache 2.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何做好url重写，保持搜索引擎的pagerank">
+<meta property="og:url" content="http://ningmo.github.io/2012/12/18/如何做好url重写，保持搜索引擎的pagerank/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="下面是搜集到的一些操作步骤： 1、Apache 基本配置： 首先确定您使用的 Apache 版本以及是否加载了 mod_Rewrite 模块。 Apache 1.x 的用户请检查 conf/httpd.conf 中是否存在如下两段代码： LoadModule Rewrite_module libexec/mod_Rewrite.soAddModule mod_Rewrite.c Apache 2.">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-23T09:24:57.351Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何做好url重写，保持搜索引擎的pagerank">
+<meta name="twitter:description" content="下面是搜集到的一些操作步骤： 1、Apache 基本配置： 首先确定您使用的 Apache 版本以及是否加载了 mod_Rewrite 模块。 Apache 1.x 的用户请检查 conf/httpd.conf 中是否存在如下两段代码： LoadModule Rewrite_module libexec/mod_Rewrite.soAddModule mod_Rewrite.c Apache 2.">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 如何做好url重写，保持搜索引擎的pagerank - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          如何做好url重写，保持搜索引擎的pagerank
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 18 2012
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>下面是搜集到的一些操作步骤：</p>
+<p>1、Apache 基本配置：</p>
+<p>首先确定您使用的 Apache 版本以及是否加载了 mod_Rewrite 模块。</p>
+<p>Apache 1.x 的用户请检查 conf/httpd.conf 中是否存在如下两段代码：</p>
+<p>LoadModule Rewrite_module libexec/mod_Rewrite.so<br>AddModule mod_Rewrite.c</p>
+<p>Apache 2.x 的用户请检查 conf/httpd.conf 中是否存在如下一段代码：</p>
+<p>LoadModule rewrite_module modules/mod_rewrite.so</p>
+<p>如果没有安装 mod_Rewrite，您可以重新编译 Apache，并在原有 configure 的内容中加入 –enable-Rewrite=shared， 注：如果前面有#，将其去掉。</p>
+<p>2、配置apache支持对 .htaccess 文件的解析</p>
+<p>查找：<br>&lt;Directory /&gt;<br>Options FollowSymLinks<br>AllowOverride None<br>&lt;/Directory&gt;<br>修改为：<br>&lt;Directory /&gt;<br>Options FollowSymLinks<br>AllowOverride All<br>&lt;/Directory&gt;</p>
+<p>在这些重写规则中，我们需要知道：</p>
+<p>1、重写规则的作用和范围<br>1) 可以使用在Apache主配置文件httpd.conf中<br>2) 可以使用在httpd.conf里定义的虚拟主机配置中<br>3) 可以使用在基本目录的跨越配置文件.htaccess中</p>
+<p>2、重写规则的主要应用条件</p>
+<p>只有当用户的WEB请求最终被导向到某台WEB服务器的Apache后台，则这台WEB服务器接受进来的请求，根据配置文件该请求是主配置还是虚拟主 机，再根据用户在浏览器中请求的URI来配对重写规则并且根据实际的请求路径配对.htaccess中的重写规则。最后把请求的内容传回给用户，该响应可 能有两种：</p>
+<p>1) 对浏览器请求内容的外部重定向(Redirect)到另一个URL。<br>让浏览器再次以新的URI发出请求(R=301或者R=302，临时的或是永久的重定向)<br>如：一个网站有正规的URL和别名URL，对别名URL进行重定向到正规URL，或者网站改换成了新的域名，则把旧的域名重定向到新的域名(Redirect)<br>2) 也可能是由Apache内部子请求代理产生新的内容送回给客户[P,L]<br>这是Apache内部根据重写后的URI内部通过代理模块请求内容并送回内容给客户，而客户端浏览器并不知道，浏览器中的URI不会被重写。但实际内容被Apache根据重写规则后的URI得到。<br>如：在公司防火墙上运行的Apache启动这种代理重写规则，代理对内部网段上的WEB服务器的请求。</p>
+<p>3:重写规则怎样工作？<br>我们假定在编译Apache时已经把mod_rewrite编译成模块，确信你的httpd.conf中有<br>LoadModule rewrite_module libexec/mod_rewrite.so<br>并且在Addmodule中有<br>Addmodule mod_rewrite.c<br>则可以使用重写规则。<br>当外部请求来到Apache，Apache调用重写规则中的定义来重写由用户浏览器指定请求的 URI，最后被重写的URI如果是重定向，则送由浏览器作再一次请求；如果是代理则把重写 后的URI交给代理模块请求最终的内容(Content),最后把内容送回给浏览器。</p>
+<p>4: 何时使用.htaccess中的重写规则定义？<br>假如你对你的的网站内容所在的服务器没有管理员权限，或者你的网站放在ISP的服务器 上托管等等条件下，你无法改写主配置文件，然而你可以对你的WEB站点内容所在的目录 有写权限，则你可以设置自己的.htaccess 文件达到同样的目的。但你需要确定主配置文件中对你的网站所在的目录定义了下面的内 容:</p>
+<p>Options Indexes FollowSymLinks<br>AllowOverride all</p>
+<p>否则你的.htaccess不会工作。</p>
+<p>5: 应用举例<br>假定Apache被编译安装在主机192.168.1.56的/usr/local/apache/ 目录下面，我们编 译进了重写和代理模块。</p>
+<p>1) 隐藏Apache下的某个目录，使得对该目录的任何请求都重定向到另一个文件。</p>
+<p>a&gt; httpd.conf的实现方法</p>
+<p>我们放下面的部分到/usr/local/apache/conf/httpd.conf</p>
+<p>options Indexes followsymlinks<br>allowoverride all<br>rewriteengine on<br>rewritebase /<br>rewriterule ^(.*)$ index.html.en [R=301]</p>
+<p>注：</p>
+<p>rewriteengine on 为重写引擎开关，如果设为off,则任何重写规则定义将不被应<br>用，该开关的另一好处就是如果为了临时拿掉重写规则，则改为off再重启动Apache即 可，不必将下面一条条的重写规则注释掉。<br>rewritebase / 的作用是如果在下面的rewriterule定义中被重写后的部分(此处为文件 名index.html.en)前面没有/，则是相对目录，相对于这个rewritebase后面的定义也就 是/usr/local/apache/htdocs/index.html.en,否则，如果此处没有rewritebase /这 一项，则被重写成 <a href="http://192.168.1.56/usr/local/apache/htdocs/manual/index.html.en" target="_blank" rel="noopener">http://192.168.1.56/usr/local/apache/htdocs/manual/index.html.en</a> ，显然是 不正确的。</p>
+<p>不过这里我们也可以不用rewritebase / , 而改为<br>rewriteengine on<br>rewriterule ^(.<em>)$ /index.html.en [R=301]<br>或者<br>rewriteengine on<br>rewriterule ^(.</em>)$ <a href="http://192.168.1.56/index.html.en" target="_blank" rel="noopener">http://192.168.1.56/index.html.en</a> [R=301]</p>
+<p>b&gt; .htaccess的实现方法</p>
+<p>我们先放下面的部分到httpd.conf</p>
+<p>options Indexes followsymlinks<br>allowoverride all</p>
+<p>然后放下面的部分到/usr/local/apache/htdocs/manual/.htaccess中<br>rewriteengine on<br>rewritebase /<br>rewriterule ^(.*)$ index.html.en [R=301]</p>
+<p>注：对文件.htaccess所作的任何改动不需要重启动Apache.</p>
+<p>问：要是把这个manual目录重定向到用户jephe的自己的主目录呢？<br>用下面的.htaccess方案。<br>rewriteengine on<br>rewritebase /~jephe/<br>rewriterule ^(.*)$ $1 [R=301]</p>
+<p>则对manual目录下任何文件的请求被重定向到~jephe目录下相同文件的请求。</p>
+<p>2) 转换<a href="http://www.username.domain.com的对于username的主页请求为" target="_blank" rel="noopener">www.username.domain.com的对于username的主页请求为</a><br><a href="http://www.domain.com/username" target="_blank" rel="noopener">www.domain.com/username</a></p>
+<p>对于HTTP/1.1的请求包括一个Host: HTTP头，我们能用下面的规则集重写<br><a href="http://www.username.domain.com/anypath" target="_blank" rel="noopener">http://www.username.domain.com/anypath</a> 到 /home/username/anypath</p>
+<p>Rewriteengine on<br>rewritecond %{HTTP_HOST} ^www.[^.]+.host.com$<br>rewriterule ^(.+) %{HTTP_HOST}$1 [C]<br>rewriterule ^www.([^.]+).host.com(.*) /home/$1$2</p>
+<p>注：<br>rewritecond 条件重写规则，当满足后面定义的条件后才会应用下面的重写规则，<br>rewritecond有各种变量 ，请查阅相关文档。</p>
+<p>3) 防火墙上的重写规则代理内部网段上服务器的请求。</p>
+<p>NameVirtualhost 1.2.3.4</p>
+<p>servername <a href="http://www.domain.com" target="_blank" rel="noopener">www.domain.com</a><br>rewriteengine on<br>proxyrequest on<br>rewriterule ^/(.*)$ <a href="http://192.168.1.3/$1" target="_blank" rel="noopener">http://192.168.1.3/$1</a> [P,L]</p>
+<p>注：当外部浏览器请求<a href="http://www.domain.com时被解析到IP地址1.2.3.4" target="_blank" rel="noopener">www.domain.com时被解析到IP地址1.2.3.4</a> ,Apache 交出<br>mod_rewrite处理转换成 <a href="http://192.168.1.3/$1后再交由代理模块mod_proxy得到内容后传送回用户的浏览器。" target="_blank" rel="noopener">http://192.168.1.3/$1后再交由代理模块mod_proxy得到内容后传送回用户的浏览器。</a></p>
+<p>4) 基本预先设定的转换MAP表进行重写 rewritemap</p>
+<p>转换<a href="http://www.domain.com/{countrycode}/anypath" target="_blank" rel="noopener">www.domain.com/{countrycode}/anypath</a> 到Map表中规定的URI,上面是虚拟主机 中的定义</p>
+<p>rewritelog /usr/local/apache/logs/rewrite.log<br>rewriteloglevel 9</p>
+<p>rewriteengine on<br>proxyrequest on<br>rewritemap sitemap txt:/usr/local/apache/conf/rewrite.map<br>rewriterule ^/([^/]+)+/(.<em>)$ http://%{REMOTE_HOST}::$1 [C]<br>rewriterule (.</em>)::([a-z]+)$ ${sitemap:$2|<a href="http://h.i.j.k/}" target="_blank" rel="noopener">http://h.i.j.k/}</a> [R=301,L]</p>
+<p>文件/usr/local/apache/conf/rewrite.map的内容如下:</p>
+<p>sg <a href="http://a.b.c.d/" target="_blank" rel="noopener">http://a.b.c.d/</a><br>sh <a href="http://e.f.g.h/" target="_blank" rel="noopener">http://e.f.g.h/</a></p>
+<p>注： 当用户请求<a href="http://www.domain.com/sg/anypath时被重写为" target="_blank" rel="noopener">http://www.domain.com/sg/anypath时被重写为</a><br><a href="http://a.b.c.d/anypath" target="_blank" rel="noopener">http://a.b.c.d/anypath</a> .<br>当需要调试时请用rewritelog and rewriteloglevel 9联合,9为最大即得到最多的调试 信息 最小为1，最小的调试信息，默认为0，没有调试信息。<br>sitemap的语法是${sitemap: LookupKey | Defaultvalue} ,有些书上把$写成了%是错 误的。</p>
+<p>301转向代码合集</p>
+<p><strong>1、IIS下301设置</strong></p>
+<p>Internet信息服务管理器 -&gt; 虚拟目录 -&gt; 重定向到URL，输入需要转向的目标URL，并选择“资源的永久重定向”。</p>
+<p><strong>2、ASP下的301转向代码</strong></p>
+<p>&lt;%@ Language=VBScript %&gt;<br>&lt;%<br>Response.Status=”301 Moved Permanently”<br>Response.AddHeader “Location”, “<a href="http://www.lesishu.cn/articles/301/”" target="_blank" rel="noopener">http://www.lesishu.cn/articles/301/”</a><br>%&gt;</p>
+<p><strong>3、ASP.Net下的301转向代码</strong></p>
+<p>&lt;script runat=”server”&gt;<br>private void Page_Load(object sender, System.EventArgs e)<br>{<br>Response.Status = “301 Moved Permanently”;<br>Response.AddHeader(”Location”,”<a href="http://www.lesishu.cn/articles/301/“" target="_blank" rel="noopener">http://www.lesishu.cn/articles/301/“</a>);<br>}<br>&lt;/script&gt;</p>
+<p><strong>4、PHP下的301转向代码</strong></p>
+<p>header(”HTTP/1.1 301 Moved Permanently”);<br>header(”Location: <a href="http://www.lesishu.cn/articles/301/”" target="_blank" rel="noopener">http://www.lesishu.cn/articles/301/”</a>);<br>exit();</p>
+<p><strong>5、CGI Perl下的301转向代码</strong></p>
+<p>$q = new CGI;<br>print $q-&gt;redirect(”<a href="http://www.new-url.com/”" target="_blank" rel="noopener">http://www.new-url.com/”</a>);</p>
+<p><strong>6、JSP下的301转向代码</strong></p>
+<p>&lt;%<br>response.setStatus(301);<br>response.setHeader( “Location”, “<a href="http://www.lesishu.cn/”" target="_blank" rel="noopener">http://www.lesishu.cn/”</a> );<br>response.setHeader( “Connection”, “close” );<br>%&gt;</p>
+<p><strong>7、Apache下301转向代码</strong></p>
+<p>新建.htaccess文件，输入下列内容（需要开启mod_rewrite）：</p>
+<p>1）将不带WWW的域名转向到带WWW的域名下</p>
+<p>Options +FollowSymLinks<br>RewriteEngine on<br>RewriteCond %{HTTP_HOST} ^lesishu.cn [NC]<br>RewriteRule ^(.*)$ <a href="http://www.lesishu.cn/$1" target="_blank" rel="noopener">http://www.lesishu.cn/$1</a> [L,R=301]</p>
+<p>2）重定向到新域名</p>
+<p>Options +FollowSymLinks<br>RewriteEngine on<br>RewriteRule ^(.*)$ <a href="http://www.lesishu.cn/$1" target="_blank" rel="noopener">http://www.lesishu.cn/$1</a> [L,R=301]</p>
+<p>3）使用正则进行301转向，实现伪静态</p>
+<p>Options +FollowSymLinks<br>RewriteEngine on<br>RewriteRule ^news-(.+).html$ news.php?id=$1</p>
+<p>将news.php?id=123这样的地址转向到news-123.html</p>
+<p><strong>8、Apache下vhosts.conf中配置301转向</strong></p>
+<p>为实现URL规范化，SEO通常将不带WWW的域名转向到带WWW域名，vhosts.conf中配置为：</p>
+<p>&lt;VirtualHost *:80&gt;<br>ServerName <a href="http://www.lesishu.cn" target="_blank" rel="noopener">www.lesishu.cn</a><br>DocumentRoot /home/lesishu<br>&lt;/VirtualHost&gt;</p>
+<p>&lt;VirtualHost <em>:80&gt;<br>ServerName lesishu.cn<br>RedirectMatch permanent ^/(.</em>) <a href="http://www.lesishu.cn/$1" target="_blank" rel="noopener">http://www.lesishu.cn/$1</a><br>&lt;/VirtualHost&gt;</p>
+<p>Apache下除了以上2种方法，还有其他配置方法和可选参数，建议阅读<a href="http://httpd.apache.org/docs/" target="_blank">Apache文档</a>。</p>
+<p><strong>301转向情况检测</strong></p>
+<p><a href="http://www.seoconsultants.com/tools/headers.asp" target="_blank">http://www.seoconsultants.com/tools/headers.asp</a></p>
+<p><a href="http://www.internetofficer.com/seo-tool/redirect-check/" target="_blank">http://www.internetofficer.com/seo-tool/redirect-check/</a></p>
+<p>在上述如此复杂的url重写的规则和知识中，我最终选择了使用php进行转向，因为规则比较复杂，呵呵。内容如下：</p>
+<p>&lt;?<br>error_reporting(0);</p>
+<p>$bbsdir = ‘bbs’;</p>
+<p>$tid_t = intval($_GET[‘t’]);<br>$tid_p = intval($_GET[‘p’]);</p>
+<p>if($tid_p) {</p>
+<p>require_once ‘./’.$bbsdir.’/include/common.inc.php’;</p>
+<p>$query = $db-&gt;query(“SELECT tid FROM {$tablepre}posts where pid=’$tid_p’ LIMIT 1″);</p>
+<p>$tid_t = $db-&gt;result($query);</p>
+<p>}</p>
+<p>if($tid_t) {</p>
+<p>header(“HTTP/1.1 301 Moved Permanently”);<br>header(“Location: “.$bbsdir.”/thread-”.$tid_t.”-1-1.html”);</p>
+<p>} else {</p>
+<p>header(“HTTP/1.1 301 Moved Permanently”);<br>header(“Location: “.$bbsdir.”/”);</p>
+<p>}</p>
+<p>?&gt;</p>
+<p>最终保留了大部分的pagerank，当然，在这个过程中还是有些损失的，所以，尽量的要在建站之初把这些都问题都解决好，就可以避免类似的问题。</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2012/12/18/Apache 的 URL 重写规则的标志详细说明/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Apache 的 URL 重写规则的标志详细说明</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2012/12/18/二级域名 转向/">
+        <span class="next-text nav-default">二级域名 转向</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

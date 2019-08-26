@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="php中对共享内存，消息队列的操作">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2013/01/16/php中对共享内存，消息队列的操作/">
+
+
+<meta name="description" content="php作为脚本程序，通常生命周期都很短，如在web应用中，一次请求就是php运行的一个周期，请求结束则生命周期截止。所以php在处理需要共 享的资源时，一般会将共享数据保存在数据库或dbm之类的文件中，再者就是利用内存实现共享。你可以选择已有的工具辅助你，像memcache；也可以自 己编写代码访问操作系统的共享内存段。 php中对共享内存段的操作有两组函数：System V IPC和Shared">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php中对共享内存，消息队列的操作">
+<meta property="og:url" content="http://ningmo.github.io/2013/01/16/php中对共享内存，消息队列的操作/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="php作为脚本程序，通常生命周期都很短，如在web应用中，一次请求就是php运行的一个周期，请求结束则生命周期截止。所以php在处理需要共 享的资源时，一般会将共享数据保存在数据库或dbm之类的文件中，再者就是利用内存实现共享。你可以选择已有的工具辅助你，像memcache；也可以自 己编写代码访问操作系统的共享内存段。 php中对共享内存段的操作有两组函数：System V IPC和Shared">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-23T09:24:57.306Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php中对共享内存，消息队列的操作">
+<meta name="twitter:description" content="php作为脚本程序，通常生命周期都很短，如在web应用中，一次请求就是php运行的一个周期，请求结束则生命周期截止。所以php在处理需要共 享的资源时，一般会将共享数据保存在数据库或dbm之类的文件中，再者就是利用内存实现共享。你可以选择已有的工具辅助你，像memcache；也可以自 己编写代码访问操作系统的共享内存段。 php中对共享内存段的操作有两组函数：System V IPC和Shared">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> php中对共享内存，消息队列的操作 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          php中对共享内存，消息队列的操作
+        
+      </h1>
+
+      <time class="post-time">
+          Jan 16 2013
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>php作为脚本程序，通常生命周期都很短，如在web应用中，一次请求就是php运行的一个周期，请求结束则生命周期截止。所以php在处理需要共 享的资源时，一般会将共享数据保存在数据库或dbm之类的文件中，再者就是利用内存实现共享。你可以选择已有的工具辅助你，像memcache；也可以自 己编写代码访问操作系统的共享内存段。</p>
+<p>php中对共享内存段的操作有两组函数：System V IPC和Shared Memory。 其中System V IPC系列函数能够更方便的操作数据，无需像Shared Memory那样必须自己掌握读写时的偏移量、长度等，也不用序列化/反序列化来回转换（因为Shared Memory函数只支持字符串格式的数据参数）。但是System V IPC系列不支持Windows，所以如果要在win环境下使用，只能选Shared Memory。</p>
+<p>因为php默认不支持这些函数，所以需要重编译php。如要使用：<br>System V信号量，编译时加上 –enable-sysvsem<br>System V共享内存，编译时加上 –enable-sysvshm<br>System V消息队列，编译时加上 –enable-sysvmsg<br>Shared Memory，编译时加上 –enable-shmop</p>
+<p>先写个Shared Memory的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$key = ftok(__FILE__, &apos;i&apos;);</span><br><span class="line">$size = 100;</span><br><span class="line">$shm_h = @shmop_open($key, &apos;c&apos;, 0644, $size);</span><br><span class="line">if($shm_h === false) &#123;</span><br><span class="line">        echo &quot;shmop open failed&quot;;</span><br><span class="line">        exit;</span><br><span class="line">&#125;</span><br><span class="line">$data = shmop_read($shm_h, 0, $size);</span><br><span class="line">$data = unserialize($data);</span><br><span class="line">//如果没有数据则写一个</span><br><span class="line">if(empty($data)) &#123;</span><br><span class="line">        echo &quot;there is no data&quot;;</span><br><span class="line">        $data = &quot;imdonkey&quot;;</span><br><span class="line">        //就算数据是文本，write时也要序列化</span><br><span class="line">        $write_size = shmop_write($shm_h, serialize($data), 0);</span><br><span class="line">        if($write_size === false) echo &quot;shmop write failed!&quot;;</span><br><span class="line">&#125;</span><br><span class="line">//如果有，显示出来，之后删掉</span><br><span class="line">else &#123;</span><br><span class="line">        echo &quot;shared memory data: &quot;;</span><br><span class="line">        print_r($data);</span><br><span class="line">        shmop_delete($shm_h);</span><br><span class="line">&#125;</span><br><span class="line">shmop_close($shm_h);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">再写个System V shm的例子：</span><br><span class="line">&lt;?php </span><br><span class="line">$shm_key = ftok(__FILE__, &apos;i&apos;);</span><br><span class="line">$memsize = 120;</span><br><span class="line">$shm_h = shm_attach($shm_key, $memsize, 0644);</span><br><span class="line">if($shm_h === false) &#123;</span><br><span class="line">        echo &quot;shmop open failed&quot;;</span><br><span class="line">        exit;</span><br><span class="line">&#125;</span><br><span class="line">$var_key = 3;</span><br><span class="line">$data = @shm_get_var($shm_h, $var_key);</span><br><span class="line">if(empty($data)) &#123;</span><br><span class="line">        $data = &quot;imdonkey&quot;;</span><br><span class="line">        echo &quot;there is no data, insert $data.\n&quot;;</span><br><span class="line">        shm_put_var($shm_h, $var_key, $data);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">        echo &quot;find data: $data\n&quot;;</span><br><span class="line">        shm_remove_var($shm_h, $var_key);</span><br><span class="line">&#125;</span><br><span class="line">shm_detach($shm_h);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，sysV对于每个数据都另外设立了对应的var_key，这样在同一内存区域可以保存多个数据，而不用像shmop中那样再申请另外一个共享内存区域，还免除了序列化的干扰（虽然数据最终还是以序列化的形式保存，但不用开发者去手动实现）。</p>
+<p>例子虽然简单，但也有一些需要注意的地方，不管是shm_attach还是shmop_open，所申请的内存的大小一定要满足后面数据的体积，这 个体积包括数据本身序列化后的长，还有php添加的少量header信息。php官方文档中有人提出了一种计算要申请的内存大小的公式，这个公式可以保证 所申请的内存足够存储一个指定的数据。公式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//当shm_attach第一次被调用时，php向共享内存写入一个header</span><br><span class="line">$shmHeaderSize = (PHP_INT_SIZE * 4) + 8;</span><br><span class="line">//当shm_put_var调用时，php会在序列化后的数据前面，加一个header</span><br><span class="line">$shmVarSize = (((strlen(serialize($foo))+ (4 * PHP_INT_SIZE)) /4 ) * 4 ) + 4;</span><br><span class="line">$memsize = $shmHeaderSize + $shmVarSize;</span><br></pre></td></tr></table></figure>
+
+<p>这个公式是否适用于所有情况，我不敢说，所以我想最好还是在程序中，将准备放入共享内存的数据结构设计好，尽量保证数据大小在某一范围内。</p>
+<p>还有就是为了防止共享内存被浪费，当数据无用时及时调用对应的remove方法释放资源。</p>
+<p>介绍完共享内存再顺带提一下消息队列Message Queue（也是在System V IPC函数组中），消息队列似乎可以视为另一种共享内存，只是数据存储的方式有些不同。简单来说，就是每个key对应一个队列，每个队列可以保存多个数据，数据间按照先进先出的原则进行操作。php文档中的例子很好的介绍了各函数的应用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">if ( sizeof($argv)&lt;2 ) &#123; </span><br><span class="line">        echo &quot;Usage: $argv[0] stat|send|receive|remove msgType MSG [msg] \n\n&quot; ; </span><br><span class="line">        echo &quot;   EX: $argv[0] send 1 \&quot;This is no 1\&quot; \n&quot; ; </span><br><span class="line">        echo &quot;       $argv[0] receive ID \n&quot; ; </span><br><span class="line">        echo &quot;       $argv[0] stat \n&quot; ; </span><br><span class="line">        echo &quot;       $argv[0] remove \n&quot; ; </span><br><span class="line">        exit; </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">$MSGKey = &quot;123456&quot; ; </span><br><span class="line">$seg = msg_get_queue($MSGKey) ; </span><br><span class="line"> </span><br><span class="line">switch ( $argv[1] ) &#123; </span><br><span class="line">    case &quot;send&quot;: </span><br><span class="line">        msg_send($seg, $argv[2], $argv[3]); </span><br><span class="line">        echo &quot;msg_send done...\n&quot; ; </span><br><span class="line">        break; </span><br><span class="line"> </span><br><span class="line">    case &quot;receive&quot;: </span><br><span class="line">        $stat = msg_stat_queue( $seg ); </span><br><span class="line">        echo &apos;Messages in the queue: &apos;.$stat[&apos;msg_qnum&apos;].&quot;\n&quot;; </span><br><span class="line">        if ( $stat[&apos;msg_qnum&apos;]&gt;0 ) &#123; </span><br><span class="line">            msg_receive($seg, $argv[2], $msgtype, 1024, $data, true, MSG_IPC_NOWAIT); </span><br><span class="line">            var_dump($msgtype); </span><br><span class="line">            var_dump($data); </span><br><span class="line">            echo &quot;\n&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            echo &quot;No Msg...\n&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">        break; </span><br><span class="line"> </span><br><span class="line">    case &quot;stat&quot;: </span><br><span class="line">      print_r( msg_stat_queue($seg) ); </span><br><span class="line">        break; </span><br><span class="line"> </span><br><span class="line">    case &quot;remove&quot;: </span><br><span class="line">        msg_remove_queue($seg); </span><br><span class="line">        break; </span><br><span class="line">&#125; </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>消息队列中的数据同样受到大小的约束，具体约束范围可通过msg_stat_queue的msg_qbytes看到。这段代码唯一有点小改动的地方就在接受消息时，指定了MSG_IPC_NOWAIT，不然如果目标队列没有数据，默认会一直等待。</p>
+<p>一般会用到共享内存或消息队列的情况，都会涉及到多线程/进程，或跨语言的数据传递。如果是php脚本/进程间共享数据，那只要小心点操作就没什么 问题。如果要求跨语言，那很可能遇到千奇百怪的问题，呵呵，我还没试过，但在网上看到别人发的苦水贴，以后有机会一定实验一下。</p>
+<p>在调试共享内存、信号量、消息队列时，可以配合Linux系统命令观察数据存储情况及信号量、消息队列资源分配情况，如ipcs, ipcrm命令。</p>
+<p>利用PHP操作Linux消息队列完成进程间通信<br>　　当我们开发的系统需要使用多进程方式运行时，进程间通信便成了至关重要的环节。消息队列（message queue）是Linux系统进程间通信的一种方式。</p>
+<p>　　关于Linux系统进程通信的概念及实现可查看：<a href="http://www.ibm.com/developerworks/cn/linux/l-ipc/" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/linux/l-ipc/</a></p>
+<p>　　关于Linux系统消息队列的概念及实现可查看：<a href="http://www.ibm.com/developerworks/cn/linux/l-ipc/part4/" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/linux/l-ipc/part4/</a><br>　　PHP的sysvmsg模块是对Linux系统支持的System V IPC中的System V消息队列函数族的封装。我们需要利用sysvmsg模块提供的函数来进进程间通信。先来看一段示例代码_1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">$message_queue_key = ftok(__FILE__, &apos;a&apos;);</span><br><span class="line"> </span><br><span class="line">$message_queue = msg_get_queue($message_queue_key, 0666);</span><br><span class="line">var_dump($message_queue);</span><br><span class="line"> </span><br><span class="line">$message_queue_status = msg_stat_queue($message_queue);</span><br><span class="line">print_r($message_queue_status);</span><br><span class="line"> </span><br><span class="line">//向消息队列中写</span><br><span class="line">msg_send($message_queue, 1, &quot;Hello,World!&quot;);</span><br><span class="line"> </span><br><span class="line">$message_queue_status = msg_stat_queue($message_queue);</span><br><span class="line">print_r($message_queue_status);</span><br><span class="line"> </span><br><span class="line">//从消息队列中读</span><br><span class="line">msg_receive($message_queue, 0, $message_type, 1024, $message, true, MSG_IPC_NOWAIT);</span><br><span class="line">print_r($message.&quot;\r\n&quot;);</span><br><span class="line"> </span><br><span class="line">msg_remove_queue($message_queue);</span><br><span class="line"> </span><br><span class="line">?&gt;  </span><br><span class="line">这段代码的运行结果如下：</span><br><span class="line">resource(4) of type (sysvmsg queue)</span><br><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [msg_perm.uid] =&gt; 1000</span><br><span class="line">    [msg_perm.gid] =&gt; 1000</span><br><span class="line">    [msg_perm.mode] =&gt; 438</span><br><span class="line">    [msg_stime] =&gt; 0</span><br><span class="line">    [msg_rtime] =&gt; 0</span><br><span class="line">    [msg_ctime] =&gt; 1279849495</span><br><span class="line">    [msg_qnum] =&gt; 0</span><br><span class="line">    [msg_qbytes] =&gt; 16384</span><br><span class="line">    [msg_lspid] =&gt; 0</span><br><span class="line">    [msg_lrpid] =&gt; 0</span><br><span class="line">)</span><br><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [msg_perm.uid] =&gt; 1000</span><br><span class="line">    [msg_perm.gid] =&gt; 1000</span><br><span class="line">    [msg_perm.mode] =&gt; 438</span><br><span class="line">    [msg_stime] =&gt; 1279849495</span><br><span class="line">    [msg_rtime] =&gt; 0</span><br><span class="line">    [msg_ctime] =&gt; 1279849495</span><br><span class="line">    [msg_qnum] =&gt; 1</span><br><span class="line">    [msg_qbytes] =&gt; 16384</span><br><span class="line">    [msg_lspid] =&gt; 2184</span><br><span class="line">    [msg_lrpid] =&gt; 0</span><br><span class="line">)</span><br><span class="line">Hello,World!</span><br></pre></td></tr></table></figure>
+
+<p>可以看到已成功从消息队列中读取“Hello,World!”字符串<br>　　下面列举一下示例代码中的主要函数：</p>
+<p>ftok ( string $pathname , string $proj )<br>    手册上给出的解释是：Convert a pathname and a project identifier to a System V IPC key。这个函数返回的键值唯一对应linux系统中一个消息队列。在获得消息队列的引用之前都需要调用这个函数。</p>
+<p>msg_get_queue ( int $key [, int $perms ] )<br>    msg_get_queue() 会根据传入的键值返回一个消息队列的引用。如果linux系统中没有消息队列与键值对应，msg_get_queue()将会创建一个新的消息队列。函数 的第二个参数需要传入一个int值，作为新创建的消息队列的权限值，默认为0666。这个权限值与linux命令chmod中使用的数值是同一个意思，因为在linux系统中一切皆是文件。</p>
+<p>msg_send ( resource $queue , int $msgtype , mixed $message [, bool $serialize [, bool $blocking [, int &amp;$errorcode ]]] )<br>    顾名思义，该函数用来向消息队列中写数据。</p>
+<p>msg_stat_queue ( resource $queue )<br>    这个函数会返回消息队列的元数据。消息队列元数据中的信息很完整，包括了消息队列中待读取的消息数、最后读写队列的进程ID等。示例代码在第8行调用该函数返回的数组中队列中待读取的消息数msg_qnum值为0。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msg_receive ( resource $queue , int $desiredmsgtype , int &amp;$msgtype , int $maxsize , mixed &amp;$message [, bool$unserialize [, int $flags [, int &amp;$errorcode ]]] )</span><br></pre></td></tr></table></figure>
+
+<pre><code>msg_receive用于读取消息队列中的数据。</code></pre><p>msg_remove_queue ( resource $queue )<br>    msg_remove_queue用于销毁一个队列。<br>示例代码_1只是展示了PHP操作消息队列函数的应用。下面的代码具体描述了进程间通信的场景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">$message_queue_key = ftok(__FILE__, &apos;a&apos;);</span><br><span class="line">$message_queue = msg_get_queue($message_queue_key, 0666);</span><br><span class="line"> </span><br><span class="line">$pids = array();</span><br><span class="line">for ($i = 0;  $i &lt; 5; $i++) &#123;</span><br><span class="line">        //创建子进程</span><br><span class="line">        $pids[$i] = pcntl_fork();</span><br><span class="line"> </span><br><span class="line">        if ($pids[$i]) &#123;</span><br><span class="line">                echo &quot;No.$i child process was created, the pid is $pids[$i]\r\n&quot;;</span><br><span class="line">        &#125; elseif ($pids[$i] == 0) &#123;</span><br><span class="line">                $pid = posix_getpid();</span><br><span class="line">                echo &quot;process.$pid is writing now\r\n&quot;;</span><br><span class="line"> </span><br><span class="line">                msg_send($message_queue, 1, &quot;this is process.$pid&apos;s data\r\n&quot;);</span><br><span class="line">                posix_kill($pid, SIGTERM);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">do &#123;</span><br><span class="line">        msg_receive($message_queue, 0, $message_type, 1024, $message, true, MSG_IPC_NOWAIT);</span><br><span class="line">        echo $message;</span><br><span class="line"> </span><br><span class="line">        //需要判断队列是否为空，如果为空就退出</span><br><span class="line">        //break;</span><br><span class="line">&#125; while(true)</span><br><span class="line"> </span><br><span class="line">?&gt;</span><br><span class="line">运行结果为：</span><br><span class="line">No.0 child process was created, the pid is 5249</span><br><span class="line">No.1 child process was created, the pid is 5250</span><br><span class="line">No.2 child process was created, the pid is 5251</span><br><span class="line">No.3 child process was created, the pid is 5252</span><br><span class="line">No.4 child process was created, the pid is 5253</span><br><span class="line">process.5251 is writing now</span><br><span class="line">this is process.5251&apos;s data</span><br><span class="line">process.5253 is writing now</span><br><span class="line">process.5252 is writing now</span><br><span class="line">process.5250 is writing now</span><br><span class="line">this is process.5253&apos;s data</span><br><span class="line">this is process.5252&apos;s data</span><br><span class="line">this is process.5250&apos;s data</span><br><span class="line">process.5249 is writing now</span><br><span class="line">this is process.5249&apos;s data</span><br></pre></td></tr></table></figure>
+
+<p>这段程序每次的运行结果都会不同，这正说明了多进程的异步性。从结果也能看出消息队列FIFO特性。</p>
+<p>以上便是我研究的一点心得。接下来将会继续研究PHP利用信号、socket等进行进程间通信的方法。</p>
+<p>转载自：<a href="http://www.cnblogs.com/fengwei/archive/2012/09/12/2682646.html" target="_blank" rel="noopener">http://www.cnblogs.com/fengwei/archive/2012/09/12/2682646.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2013/01/23/php消息队列/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">php消息队列</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2013/01/06/MYSQL的FULLTEXT索引功能/">
+        <span class="next-text nav-default">MYSQL的FULLTEXT索引功能</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
