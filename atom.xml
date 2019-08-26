@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>追寻一颗宁静的心</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://ningmo.github.io/"/>
+  <updated>2019-08-26T11:00:43.057Z</updated>
+  <id>http://ningmo.github.io/</id>
+  
+  <author>
+    <name>ningmo</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git changelog</title>
+    <link href="http://ningmo.github.io/2019/08/26/git-changelog/"/>
+    <id>http://ningmo.github.io/2019/08/26/git-changelog/</id>
+    <published>2019-08-26T06:15:44.000Z</published>
+    <updated>2019-08-26T11:00:43.057Z</updated>
+    
+    <content type="html"><![CDATA[<p>软件环境安装</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install commitizen -g # 也可在项目根目录本地安装 --save-dev</span><br><span class="line">npm install -g conventional-changelog-cli # 也可在项目根目录本地安装 --save-dev</span><br></pre></td></tr></table></figure><p>配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commitizen init cz-conventional-changelog --save-dev --save-exact</span><br></pre></td></tr></table></figure><p>如果出现报错<br>指定适配器</p><p>vim .czrc</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&quot;path&quot;: &quot;cz-conventional-changelog&quot;&#125;</span><br></pre></td></tr></table></figure><p>指定生成标准angular可选 angular/atom/…</p><figure class="highlight plain"><figcaption><span>-p angular -i CHANGELOG.md -s```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>git add .<br>git cz</p><pre><code>释义* feat 新功能* fix Bug修复* docs 文档更新* style 代码的格式，标点符号的更新* refactor 代码重构* perf 性能优化* test 测试更新* build 构建系统或者包依赖更新* ci CI 配置，脚本文件等更新* chore 非 src 或者 测试文件的更新* revert commit 回退</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;软件环境安装&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="index" scheme="http://ningmo.github.io/categories/index/"/>
+    
+    
+      <category term="git" scheme="http://ningmo.github.io/tags/git/"/>
+    
+      <category term="changelog" scheme="http://ningmo.github.io/tags/changelog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自建docker lnmp镜像</title>
+    <link href="http://ningmo.github.io/2016/06/05/devops/%E8%87%AA%E5%BB%BAdocker%20lnmp%E9%95%9C%E5%83%8F/"/>
+    <id>http://ningmo.github.io/2016/06/05/devops/自建docker lnmp镜像/</id>
+    <published>2016-06-05T03:59:28.000Z</published>
+    <updated>2019-08-26T08:04:27.174Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos ＃ 拉取镜像到本地</span><br><span class="line">docker run  -i -t -p 8000:80  --name=centosDev centos  </span><br><span class="line">cat /etc/redhat-release #查看系统版本</span><br><span class="line">&gt;CentOS Linux release 7.2.1511 (Core)</span><br><span class="line"></span><br><span class="line">＃ 开发环境安装  采取源码安装</span><br><span class="line">yum install kernel-devel  vim gcc cmake  -y</span><br><span class="line">mkdir /data/src -p</span><br><span class="line">cd /data/src/</span><br><span class="line">yum install wget -y</span><br><span class="line"></span><br><span class="line"># nginx   安装路径/usr/local/openresty/nginx/  运行用户www</span><br><span class="line">wget http://openresty.org/download/ngx_openresty-1.5.12.1.tar.gz</span><br><span class="line">tar zxvf  ngx_openresty-1.5.12.1.tar.gz</span><br><span class="line">cd ngx_openresty-1.5.12.1</span><br><span class="line">yum install readline-devel pcre-devel openssl-devel -y</span><br><span class="line">yum install gcc gcc-c++ make -y</span><br><span class="line">./configure --with-luajit -j2</span><br><span class="line">make -j2</span><br><span class="line">make install</span><br><span class="line">groupadd www</span><br><span class="line">useradd www -g www -M -s /sbin/nologin</span><br><span class="line">cd /usr/local/openresty/nginx/conf/</span><br><span class="line">mv nginx.conf nginx.conf.bak</span><br><span class="line">vi /usr/local/openresty/nginx/conf/nginx.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">user  www;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">#error_log  logs/error.log;</span><br><span class="line">#error_log  logs/error.log  notice;</span><br><span class="line">#error_log  logs/error.log  info;</span><br><span class="line"></span><br><span class="line">pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    use epoll;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    charset utf-8;</span><br><span class="line">    #log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">    #                  &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">    #                  &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line">    access_log off;</span><br><span class="line">    server_names_hash_bucket_size 128;</span><br><span class="line">    client_header_buffer_size 128k;</span><br><span class="line">    large_client_header_buffers 4 128k;</span><br><span class="line">    client_max_body_size 300m;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    server_tokens off;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    tcp_nodelay on;</span><br><span class="line"></span><br><span class="line">    fastcgi_connect_timeout 300;</span><br><span class="line">    fastcgi_send_timeout 300;</span><br><span class="line">    fastcgi_read_timeout 300;</span><br><span class="line">    fastcgi_buffer_size 64k;</span><br><span class="line">    fastcgi_buffers 4 64k;</span><br><span class="line">    fastcgi_busy_buffers_size 128k;</span><br><span class="line">    fastcgi_temp_file_write_size 128k;</span><br><span class="line"></span><br><span class="line">    #add_header Vary Accept-Encoding;</span><br><span class="line">    include vhosts/*.conf;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cd /usr/local/openresty/nginx/conf/</span><br><span class="line">mkdir vhosts</span><br><span class="line">vim vhosts/default.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen   80;</span><br><span class="line"></span><br><span class="line">        root /data/www;</span><br><span class="line">        index index.html index.htm;</span><br><span class="line"></span><br><span class="line">        server_name localhost;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">                try_files $uri $uri/ /index.html;</span><br><span class="line">                # include /etc/nginx/naxsi.rules</span><br><span class="line">        &#125;</span><br><span class="line">        location ~ .*\.php?$</span><br><span class="line">        &#123;</span><br><span class="line">            include fastcgi_params;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim fastcgi_params</span><br><span class="line"></span><br><span class="line">if ($request_filename ~* (.*)\.php) &#123;</span><br><span class="line">    set $php_url $1;</span><br><span class="line">&#125;</span><br><span class="line">if (!-e $php_url.php) &#123;</span><br><span class="line">    return 403;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fastcgi_ignore_client_abort  on;</span><br><span class="line">fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">fastcgi_index  index.php;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># mysql</span><br><span class="line">cd /data/src/</span><br><span class="line">wget http://120.52.72.20/cdn.mysql.com/c3pr90ntc0td//Downloads/MySQL-5.7/mysql-5.7.13.tar.gz</span><br><span class="line">tar zxvf mysql-5.7.13.tar.gz</span><br><span class="line">cd mysql-5.7.13</span><br><span class="line">cmake  -DCMAKE_BUILD_TYPE:STRING=Release -DMYSQL_USER=mysql -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/data/mysql -DSYSCONFDIR=/etc -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DWITH_FEDERATED_STORAGE_ENGINE=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DMYSQL_UNIX_ADDR=/data/mysql/mysql.sock -DMYSQL_TCP_PORT=3306 -DENABLED_LOCAL_INFILE=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DEXTRA_CHARSETS=all -DWITH_SSL=yes -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/usr/local/boost</span><br><span class="line">make &amp;&amp; make install  ＃ 30分钟...</span><br><span class="line">cp support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">chmod 755 /etc/init.d/mysqld</span><br><span class="line">groupadd mysql</span><br><span class="line">useradd mysql -g mysql -M -s /sbin/nologin</span><br><span class="line">mkdir /data/mysql</span><br><span class="line">chown mysql:mysql /data/mysql</span><br><span class="line">cd /usr/local/mysql</span><br><span class="line">cp support-files/my-default.cnf /etc/my.cnf</span><br><span class="line">/usr/local/mysql/bin/mysqld --initialize –user=mysql</span><br><span class="line">/etc/init.d/mysqld start</span><br><span class="line"></span><br><span class="line"># 线上镜像 docker pull ningmo/centos_lnmp:v1</span><br><span class="line"></span><br><span class="line"># php</span><br><span class="line">wget http://cn2.php.net/get/php-7.0.7.tar.gz/from/this/mirror</span><br><span class="line">tar zxvf mirror </span><br><span class="line">cd php-7.0.7</span><br><span class="line">yum install libxml2-devel libcurl-devel libjpeg-devel libpng-devel freetype-devel openldap-devel libmcrypt-devel -y</span><br><span class="line">cp -frp /usr/lib64/libldap* /usr/lib</span><br><span class="line">ln -s /usr/local/mysql/lib/libmysqlclient.so.18 /usr/lib</span><br><span class="line">ldconfig</span><br><span class="line">./configure --enable-fpm --enable-cgi --prefix=/usr/local/php --with-mysql=/usr/local/mysql/ --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir=/usr/lib --with-png-dir=/usr/lib --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --with-curl --enable-mbregex --enable-mbstring --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --with-mysqli=/usr/local/mysql/bin/mysql_config --with-pdo-mysql=/usr/local/mysql --enable-opcache=no</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">cp php.ini-production /usr/local/php/lib/php.ini -f</span><br><span class="line">cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm  -f</span><br><span class="line">chmod u+x /etc/init.d/php-fpm </span><br><span class="line">cd /usr/local/php/etc/</span><br><span class="line">cp php-fpm.conf.default php-fpm.conf   -f</span><br><span class="line">sed -i  &apos;s/nobody/www/g&apos;  /usr/local/php/etc/php-fpm.conf</span><br><span class="line">mkdir /data/www</span><br><span class="line">echo &quot;&lt;?php phpinfo();&quot; &gt;/data/www/index.php</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://ningmo.github.io/tags/linux/"/>
+    
+      <category term="docker" scheme="http://ningmo.github.io/tags/docker/"/>
+    
+      <category term="centos" scheme="http://ningmo.github.io/tags/centos/"/>
+    
+      <category term="lnmp" scheme="http://ningmo.github.io/tags/lnmp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>终端使用proxy</title>
+    <link href="http://ningmo.github.io/2016/05/16/linux/%E7%BB%88%E7%AB%AF%E4%BD%BF%E7%94%A8proxy/"/>
+    <id>http://ningmo.github.io/2016/05/16/linux/终端使用proxy/</id>
+    <published>2016-05-16T15:01:35.000Z</published>
+    <updated>2019-08-26T06:09:54.316Z</updated>
+    
+    <content type="html"><![CDATA[<p>最简单的方法是 执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:8087</span><br><span class="line">export https_proxy=http://127.0.0.1:8087</span><br></pre></td></tr></table></figure><p>(以上将http https协议代理到本地的8087端口 且只对当前终端窗口有效)<br>支持写法 <code>http_proxy=http://userName:password@proxyAddress:port</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最简单的方法是 执行&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/sp
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>angularjs ng-repeat checkbox</title>
+    <link href="http://ningmo.github.io/2016/03/03/js/angularjs%20ng-repeat%20checkbox/"/>
+    <id>http://ningmo.github.io/2016/03/03/js/angularjs ng-repeat checkbox/</id>
+    <published>2016-03-03T02:34:28.000Z</published>
+    <updated>2019-08-26T08:23:26.789Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;col-md-3&quot; ng-repeat=&quot;user in title.UserList&quot;&gt;</span><br><span class="line">    &lt;p class=&quot;form-control-static&quot;&gt;</span><br><span class="line">        &lt;input type=&quot;checkbox&quot; ng-checked=&quot;user.Role&quot; ng-model=&quot;item.UserId[user.UserId]&quot; ng-true-value=&quot;&apos;add_&#123;&#123;user.UserId&#125;&#125;&apos;&quot; ng-false-value=&quot;&apos;del_&#123;&#123;user.UserId&#125;&#125;&apos;&quot;/&gt;&amp;nbsp;&#123;&#123;user.UserName&#125;&#125;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="js" scheme="http://ningmo.github.io/categories/js/"/>
+    
+    
+      <category term="angularjs" scheme="http://ningmo.github.io/tags/angularjs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mac brew</title>
+    <link href="http://ningmo.github.io/2016/01/10/linux/mac%20brew/"/>
+    <id>http://ningmo.github.io/2016/01/10/linux/mac brew/</id>
+    <published>2016-01-10T08:11:32.000Z</published>
+    <updated>2019-08-26T06:09:54.315Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mysql 设计与开发优化</title>
+    <link href="http://ningmo.github.io/2015/12/25/mysql/mysql%20%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91%E4%BC%98%E5%8C%96/"/>
+    <id>http://ningmo.github.io/2015/12/25/mysql/mysql 设计与开发优化/</id>
+    <published>2015-12-25T07:54:40.000Z</published>
+    <updated>2019-08-26T06:09:54.319Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用InnoDB引擎 utf-8<br>表名字段名使用下划线间隔分割 字母小写</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;使用InnoDB引擎 utf-8&lt;br&gt;表名字段名使用下划线间隔分割 字母小写&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nohup/disown/setsid/screen</title>
+    <link href="http://ningmo.github.io/2015/12/15/linux/linux%E7%9A%84nohup%20disown%20setsid%20screen/"/>
+    <id>http://ningmo.github.io/2015/12/15/linux/linux的nohup disown setsid screen/</id>
+    <published>2015-12-15T15:46:43.000Z</published>
+    <updated>2019-08-26T06:09:54.314Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">nohup 可以将进程挂起 帐号退出时不受影响</span><br><span class="line">    nohup cp -r a b/ [&gt;/~/cp.log] &amp;  </span><br><span class="line">setsid 作用类似于nohup</span><br><span class="line">    swtsid cp -r a b/</span><br><span class="line">disown 使已经在运行的用户进程 不受用户退出限制</span><br><span class="line">    disown -h %1  # 1 为jobsID </span><br><span class="line">    如果已经在当前终端运行 </span><br><span class="line">        可以ctrl+z 挂起 </span><br><span class="line">        bg jobsID 放入后台</span><br><span class="line">        disown -h jobsID </span><br><span class="line"></span><br><span class="line">screen 适用于多条命令</span><br><span class="line"></span><br><span class="line">jobsID 可以通过jobs命令显示</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>angularjs同步请求</title>
+    <link href="http://ningmo.github.io/2015/12/15/js/angularjs%20%20%E5%90%8C%E6%AD%A5%E8%AF%B7%E6%B1%82/"/>
+    <id>http://ningmo.github.io/2015/12/15/js/angularjs  同步请求/</id>
+    <published>2015-12-15T06:15:32.000Z</published>
+    <updated>2019-08-26T08:22:55.486Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    .service(<span class="string">'Syncservice'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">fetch</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">           <span class="keyword">var</span> request;</span><br><span class="line">           <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span><br><span class="line">               request = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject) &#123;</span><br><span class="line">               request = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Your browser don't support XMLHttpRequest"</span>);</span><br><span class="line">           &#125;</span><br><span class="line">           request.open(<span class="string">'GET'</span>, url, <span class="literal">false</span>);</span><br><span class="line">           request.send(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (request.status === <span class="number">200</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span> request.responseText;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> &#123;</span><br><span class="line">           fetch: fetch</span><br><span class="line">       &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>调用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var data = Syncservice.fetch(&apos;/api/data/&apos;+i);</span><br></pre></td></tr></table></figure><p>当然 以上同步请求会阻断当前页面 在console中警告<br>​<figure class="highlight plain"><figcaption><span>XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience. For more help, check</span><a href="http://xhr.spec.whatwg.org/" target="_blank" rel="noopener">```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">意思就是在js的主进程中调用同步请求影响用户体验，可以使用worker进程进行同步请求 这样会有较好的用户体验 具体使用方法请自行google之</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;l
+      
+    
+    </summary>
+    
+      <category term="js" scheme="http://ningmo.github.io/categories/js/"/>
+    
+    
+      <category term="angularjs" scheme="http://ningmo.github.io/tags/angularjs/"/>
+    
+      <category term="js" scheme="http://ningmo.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php7 configure</title>
+    <link href="http://ningmo.github.io/2015/12/11/php/php7%20configure/"/>
+    <id>http://ningmo.github.io/2015/12/11/php/php7 configure/</id>
+    <published>2015-12-11T08:58:02.000Z</published>
+    <updated>2019-08-26T06:13:55.143Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--prefix=/usr/local/php7 --with-config-file-path=/usr/local/php7/etc --enable-fpm --with-fpm-user=www --with-fpm-group=www --with-mysqli=/usr/local/mysql/bin/mysql_config --with-pdo-mysql=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir=/usr/lib --with-png-dir=/usr/lib --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext --disable-fileinfo --enable-maintainer-zts</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux bash下 快捷键</title>
+    <link href="http://ningmo.github.io/2015/12/02/linux/linux%20bash%E4%B8%8B%20%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <id>http://ningmo.github.io/2015/12/02/linux/linux bash下 快捷键/</id>
+    <published>2015-12-02T15:02:56.000Z</published>
+    <updated>2019-08-26T06:09:54.312Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">c + a    # 光标跳转到最左</span><br><span class="line">c + e    # 光标跳转到最后</span><br><span class="line">c + w    # 删除最后输入的单词</span><br><span class="line">c + u    # 删除整行</span><br><span class="line">c + k    # 删除光标到末尾</span><br><span class="line">c + l    # 清屏</span><br><span class="line"></span><br><span class="line">c + z    # 挂起当前进程至后台</span><br><span class="line">         # jobs 查看挂起(相当与暂停)的进程</span><br><span class="line">         # fg jobsId 切换至进程</span><br><span class="line">         # bg jobsId 将挂起的进程 放至后台继续运行</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>lsof/nmap/netstat</title>
+    <link href="http://ningmo.github.io/2015/12/02/linux/linux%20lsof%20nmap%20netstat/"/>
+    <id>http://ningmo.github.io/2015/12/02/linux/linux lsof nmap netstat/</id>
+    <published>2015-12-02T13:52:07.000Z</published>
+    <updated>2019-08-26T06:09:54.312Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :22    # 显示22端口当前运行的程序</span><br><span class="line"></span><br><span class="line">lsof -c ssh  # 显示ssh进程打开的文件</span><br><span class="line"></span><br><span class="line">lsof -p 2120  #显示进程id2120打开的文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nmap -sP  192.168.1.0/24  #查看192.168.1.0/24有几个用户连接至本机</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">netstat -tunl #显示正在监听的网络服务端口</span><br><span class="line"></span><br><span class="line">netstat -tun #显示已连接的网络服务端口</span><br><span class="line"></span><br><span class="line">lsusb  # 显示usb设备</span><br><span class="line">lspic  # 显示pci设备</span><br><span class="line"></span><br><span class="line">tar zxvf  abc.tar.gz -C /your/path  #解压文件到指定目录</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux 上不去网</title>
+    <link href="http://ningmo.github.io/2015/12/02/linux/linux%20%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91/"/>
+    <id>http://ningmo.github.io/2015/12/02/linux/linux 上不去网/</id>
+    <published>2015-12-02T03:03:00.000Z</published>
+    <updated>2019-08-26T06:09:54.314Z</updated>
+    
+    <content type="html"><![CDATA[<p>linux 上不去网   ip dns无误 ping可以到达网关</p><p>可能原因 网卡睡眠</p><p>ethtool eht0  //查看eht0网口基本设置</p><p>mii-tool -w eth0</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;linux 上不去网   ip dns无误 ping可以到达网关&lt;/p&gt;
+&lt;p&gt;可能原因 网卡睡眠&lt;/p&gt;
+&lt;p&gt;ethtool eht0  //查看eht0网口基本设置&lt;/p&gt;
+&lt;p&gt;mii-tool -w eth0&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>xsl输出html代码 非闭合</title>
+    <link href="http://ningmo.github.io/2015/11/26/php/xsl%E8%BE%93%E5%87%BAhtml%E4%BB%A3%E7%A0%81%20%E9%9D%9E%E9%97%AD%E5%90%88/"/>
+    <id>http://ningmo.github.io/2015/11/26/php/xsl输出html代码 非闭合/</id>
+    <published>2015-11-26T13:29:44.000Z</published>
+    <updated>2019-08-26T06:09:54.328Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>&lt;xsl:text disable-output-escaping=&quot;yes&quot;&gt;&amp;lt;/div&amp;gt; &amp;lt;div class=&quot;row-fluid&quot;&amp;gt;&lt;/xsl:text&gt;···</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;pre&gt;&lt;code&gt;&amp;lt;xsl:text disable-output-escaping=&amp;quot;yes&amp;quot;&amp;gt;&amp;amp;lt;/div&amp;amp;gt; &amp;amp;lt;div class=&amp;quot;row-fluid&amp;quot;&amp;amp;gt;&amp;lt;/
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>msql 按值排序</title>
+    <link href="http://ningmo.github.io/2015/11/26/mysql/msql%20%E6%8C%89%E5%80%BC%E6%8E%92%E5%BA%8F/"/>
+    <id>http://ningmo.github.io/2015/11/26/mysql/msql 按值排序/</id>
+    <published>2015-11-26T13:25:14.000Z</published>
+    <updated>2019-08-26T06:09:54.317Z</updated>
+    
+    <content type="html"><![CDATA[<p><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORDER BY find_in_set(status,&apos;705,710,706,1027,707,709,708&apos;),create_time desc</span><br></pre></td></tr></table></figure></code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;code&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JS获取图片上传地址</title>
+    <link href="http://ningmo.github.io/2015/11/26/js/JS%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E5%9C%B0%E5%9D%80/"/>
+    <id>http://ningmo.github.io/2015/11/26/js/JS获取图片上传地址/</id>
+    <published>2015-11-26T13:24:20.000Z</published>
+    <updated>2019-08-26T06:09:54.306Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function getObjectURL(file) &#123;</span><br><span class="line">    var url = null ;</span><br><span class="line">    if (window.createObjectURL!=undefined) &#123; // basic</span><br><span class="line">        url = window.createObjectURL(file) ;</span><br><span class="line">    &#125; else if (window.URL!=undefined) &#123; // mozilla(firefox)</span><br><span class="line">        url = window.URL.createObjectURL(file) ;</span><br><span class="line">    &#125; else if (window.webkitURL!=undefined) &#123; // webkit or chrome</span><br><span class="line">        url = window.webkitURL.createObjectURL(file) ;</span><br><span class="line">    &#125;</span><br><span class="line">    return url ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mysql优化的几个方面</title>
+    <link href="http://ningmo.github.io/2015/11/26/mysql/%E4%BC%98%E5%8C%96%E4%BB%8E%E5%87%A0%E4%B8%AA%E6%96%B9%E9%9D%A2%E6%9D%A5%E8%AF%B4/"/>
+    <id>http://ningmo.github.io/2015/11/26/mysql/优化从几个方面来说/</id>
+    <published>2015-11-26T13:23:33.000Z</published>
+    <updated>2019-08-26T06:09:54.322Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="优化从几个方面来说"><a href="#优化从几个方面来说" class="headerlink" title="优化从几个方面来说"></a>优化从几个方面来说</h5><h5 id="表结构设计"><a href="#表结构设计" class="headerlink" title="表结构设计"></a>表结构设计</h5><h5 id="适当索引（主键-普通-唯一-全文组合）"><a href="#适当索引（主键-普通-唯一-全文组合）" class="headerlink" title="适当索引（主键 普通 唯一 全文组合）"></a>适当索引（主键 普通 唯一 全文组合）</h5><h5 id="mysql本身配置"><a href="#mysql本身配置" class="headerlink" title="mysql本身配置"></a>mysql本身配置</h5><h5 id="硬件配置"><a href="#硬件配置" class="headerlink" title="硬件配置"></a>硬件配置</h5><h5 id="SQL语句优化-存储过程"><a href="#SQL语句优化-存储过程" class="headerlink" title="SQL语句优化 存储过程"></a>SQL语句优化 存储过程</h5><h5 id="分表-分区"><a href="#分表-分区" class="headerlink" title="分表 分区"></a>分表 分区</h5><h5 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h5><h5 id="清理垃圾数据"><a href="#清理垃圾数据" class="headerlink" title="清理垃圾数据"></a>清理垃圾数据</h5>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;优化从几个方面来说&quot;&gt;&lt;a href=&quot;#优化从几个方面来说&quot; class=&quot;headerlink&quot; title=&quot;优化从几个方面来说&quot;&gt;&lt;/a&gt;优化从几个方面来说&lt;/h5&gt;&lt;h5 id=&quot;表结构设计&quot;&gt;&lt;a href=&quot;#表结构设计&quot; class=&quot;header
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mysql查看状态语句</title>
+    <link href="http://ningmo.github.io/2015/11/26/mysql/mysql%E6%9F%A5%E7%9C%8B%E7%8A%B6%E6%80%81%E8%AF%AD%E5%8F%A5/"/>
+    <id>http://ningmo.github.io/2015/11/26/mysql/mysql查看状态语句/</id>
+    <published>2015-11-26T13:22:04.000Z</published>
+    <updated>2019-08-26T06:09:54.321Z</updated>
+    
+    <content type="html"><![CDATA[<p><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">show status;</span><br><span class="line"></span><br><span class="line">show [session|global] status like &apos;com_insert|com_update...&apos;;</span><br><span class="line"></span><br><span class="line">show status like &apos;connerctions&apos;;</span><br><span class="line"></span><br><span class="line">show status like &apos;slow_queries&apos;;</span><br><span class="line"></span><br><span class="line">    show variables like &apos;long_query_time&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--开启慢查询日志 启动参数</span><br><span class="line"></span><br><span class="line">mysqld  --safemode --slow-query-log</span><br><span class="line"></span><br><span class="line">或者 mysqld -log-slow-queries=d/abc.log</span><br></pre></td></tr></table></figure></code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;code&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;s
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux mysql 授权以及 iptables开启3306</title>
+    <link href="http://ningmo.github.io/2015/11/25/linux/linux%20mysql%20%E6%8E%88%E6%9D%83%E4%BB%A5%E5%8F%8A%20iptables%E5%BC%80%E5%90%AF3306/"/>
+    <id>http://ningmo.github.io/2015/11/25/linux/linux mysql 授权以及 iptables开启3306/</id>
+    <published>2015-11-25T01:08:09.000Z</published>
+    <updated>2019-08-26T06:09:54.313Z</updated>
+    
+    <content type="html"><![CDATA[<p>mysql授权ip段访问mysql</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on *.* to &apos;yang&apos;@&apos;192.168.1.%&apos; identified  by &apos;123456&apos;;</span><br></pre></td></tr></table></figure><p>linux iptables开启3306端口 访问</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp -s 192.168.1.0/24  --dport 3306 -j ACCEPT</span><br><span class="line">/etc/init.d/iptables save</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;mysql授权ip段访问mysql&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td cl
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>supervisor tornado 多进程多端口配置</title>
+    <link href="http://ningmo.github.io/2015/11/24/python/supervisor%20tornado%20%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE/"/>
+    <id>http://ningmo.github.io/2015/11/24/python/supervisor tornado 多进程多端口配置/</id>
+    <published>2015-11-24T08:42:09.000Z</published>
+    <updated>2019-08-26T06:56:54.578Z</updated>
+    
+    <content type="html"><![CDATA[<p>base： nginx tornado<br>目标： tornado 实现多端口多进程运行</p><p>pip install supervisor<br>echo_supervisord_conf &gt; /etc/supervisord.conf   # 默认echo_supervisord_conf 在python/bin 目录下<br>配置/etc/supervisord.conf</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[program:app]</span><br><span class="line">command=python /data/www/app/app.py --port=600%(process_num)d</span><br><span class="line">process_name=%(program_name)s%(process_num)d</span><br><span class="line">numprocs=6         ; 开启6个子进程</span><br><span class="line">numprocs_start=1   ; 上面的process_num从1开始  </span><br><span class="line">directory=/data/www/app</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=false</span><br><span class="line">;startsecs=5                   ; number of secs prog must stay running (def. 1)</span><br><span class="line">startretries=3                ; max # of serial start failures (default 3)</span><br><span class="line">;stopsignal=QUIT               ; signal used to kill process (default TERM)</span><br><span class="line">;stopwaitsecs=10               ; max num secs to wait b4 SIGKILL (default 10)</span><br><span class="line">;stopasgroup=false             ; send stop signal to the UNIX process group (default false)</span><br><span class="line">;killasgroup=false             ; SIGKILL the UNIX process group (def false)</span><br><span class="line">user=root                   ; setuid to this UNIX account to run the program</span><br><span class="line">redirect_stderr=true          ; redirect proc stderr to stdout (default false)</span><br><span class="line">stdout_logfile=/data/logs/supervisor/order.log        ; stdout log path, NONE for none; default AUTO</span><br><span class="line">stderr_logfile=/data/logs/supervisor/order_error.log        ; stderr log path, NONE for none; default AUTO</span><br><span class="line">;serverurl=AUTO                ; override serverurl computation (childutils)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;base： nginx tornado&lt;br&gt;目标： tornado 实现多端口多进程运行&lt;/p&gt;
+&lt;p&gt;pip install supervisor&lt;br&gt;echo_supervisord_conf &amp;gt; /etc/supervisord.conf   # 默认ech
+      
+    
+    </summary>
+    
+      <category term="python" scheme="http://ningmo.github.io/categories/python/"/>
+    
+      <category term="supervisor" scheme="http://ningmo.github.io/categories/python/supervisor/"/>
+    
+      <category term="tornado" scheme="http://ningmo.github.io/categories/python/supervisor/tornado/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>openwrt chinadns</title>
+    <link href="http://ningmo.github.io/2015/11/22/linux/openwrt%20chinadns/"/>
+    <id>http://ningmo.github.io/2015/11/22/linux/openwrt chinadns/</id>
+    <published>2015-11-21T16:05:09.000Z</published>
+    <updated>2019-08-26T06:09:54.315Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip ipset resolveip iptables-mod-tproxy resolveip libopenssl luci-i18n-base-zh-cn</span><br><span class="line">reboot</span><br><span class="line">opkg update   # redo </span><br><span class="line">wget https://github.com/shadowsocks/ChinaDNS/releases/download/1.3.2/ChinaDNS_1.3.2_ar71xx.ipk</span><br><span class="line">wget http://openwrt-dist.sourceforge.net/releases/ar71xx/packages/shadowsocks-libev-spec_2.4.0-1_ar71xx.ipk</span><br><span class="line">wget http://openwrt-dist.sourceforge.net/releases/luci/packages/luci-app-chinadns_1.3.6-1_all.ipk</span><br><span class="line">wget http://openwrt-dist.sourceforge.net/releases/luci/packages/luci-app-shadowsocks-spec_1.3.6-1_all.ipk</span><br><span class="line"></span><br><span class="line">opkg install ChinaDNS_1.3.2_ar71xx.ipk</span><br><span class="line">opkg install shadowsocks-libev-spec_2.4.0-1_ar71xx.ipk</span><br><span class="line">opkg install luci-app-chinadns_1.3.6-1_all.ipk #chinadns的web界面，不过我的安装没有生效。web上没有出现菜单，但不影响使用</span><br><span class="line">opkg install luci-app-shadowsocks-spec_1.3.6-1_all.ipk</span><br><span class="line"></span><br><span class="line">/etc/init.d/chinadns enable</span><br><span class="line">/etc/init.d/shadowsocks enable</span><br><span class="line"></span><br><span class="line">wget -O- &apos;http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest&apos; | awk -F\| &apos;/CN\|ipv4/ &#123; printf(&quot;%s/%d\n&quot;, $4, 32-log($5)/log(2)) &#125;&apos; &gt; /etc/ignore.list</span><br></pre></td></tr></table></figure><p>vim /etc/config/network</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config interface &apos;wan&apos;</span><br><span class="line">        option ifname &apos;eth0&apos;</span><br><span class="line">        option proto &apos;dhcp&apos;</span><br><span class="line">        option peerdns &apos;0&apos;</span><br><span class="line">        option dns &apos;8.8.8.8 8.8.4.4 223.5.5.5&apos;</span><br></pre></td></tr></table></figure><p>详情参考：<a href="http://blog.91python.com/openwrt/shadowsocks/2015/10/15/tp720n-openwrt-shadowscoks.html" target="_blank">http://blog.91python.com/openwrt/shadowsocks/2015/10/15/tp720n-openwrt-shadowscoks.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
