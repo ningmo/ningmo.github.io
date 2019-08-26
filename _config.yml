@@ -14,7 +14,7 @@ timezone:
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://ningmo.github.io
-root: /public
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -52,7 +52,7 @@ index_generator:
   path: ''
   per_page: 20
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
