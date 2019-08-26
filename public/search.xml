@@ -879,6 +879,19 @@
     
     
     <entry>
+      <title>mysql_trigger_and_procedure</title>
+      <link href="/2013/07/31/mysql/mysql_trigger_and_procedure/"/>
+      <url>/2013/07/31/mysql/mysql_trigger_and_procedure/</url>
+      
+        <content type="html"><![CDATA[<h5 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h5><p>catabig为表名<br>所操作的数据： 添加的数据或修改后的数据为new  删除或修改前的数据为old<br>触发器需要避免死循环<br>如 insert操作触发触发器的insert操作 依次无限循环下去导致死循环</p><p>···<br>mysql&gt; delimiter //<br>mysql&gt; create trigger mytrigger before update<br>    -&gt;  on catabig for each row<br>    -&gt; begin<br>    -&gt;  set new.t=concat(new.t,old.t);<br>    -&gt; end//<br>Query OK, 0 rows affected (0.04 sec)</p><p>mysql&gt; delimiter ;<br>mysql&gt; select * from catabig;<br>+—-+——+<br>| id | t    |<br>+—-+——+<br>|  3 | PHP  |<br>+—-+——+<br>3 rows in set (0.00 sec)<br>mysql&gt; update catabig set t=’_upd’ where id=3;<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; select * from catabig;<br>+—-+———+<br>| id | t       |<br>+—-+———+<br>|  3 | _updPHP |<br>+—-+———+<br>3 rows in set (0.00 sec)<br>···</p><h5 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h5><p>···<br>delimiter //<br>create procedure mypro(ed int)<br>begin<br>    declare i int;  – 定义声明必须在最前面<br>    declare rs  int;<br>    set rs=0 ;<br>    set i=1 ;<br>    label1:loop<br>        if i&lt;=ed    then<br>            set rs=i+rs;<br>            set i=i+1;<br>            ITERATE label1;  – 继续循环<br>        else leave label1;   – 结束循环<br>        end if;<br>    end loop label1;             – 结束循环<br>    select rs;      – 不允许存在return（只有function可以有return）<br>end  //<br>delimiter ;<br> – 调用<br>mysql&gt; call mypro(100);<br>+——+<br>| rs   |<br>+——+<br>| 5050 |<br>+——+<br>1 row in set (0.00 sec)</p><p>Query OK, 0 rows affected (0.00 sec)<br>···</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>mysql触发器以及存储过程</title>
       <link href="/2013/07/31/mysql/%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/"/>
       <url>/2013/07/31/mysql/%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</url>
@@ -898,19 +911,6 @@
             <tag> mysql trigger </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>mysql_trigger_and_procedure</title>
-      <link href="/2013/07/31/mysql/mysql_trigger_and_procedure/"/>
-      <url>/2013/07/31/mysql/mysql_trigger_and_procedure/</url>
-      
-        <content type="html"><![CDATA[<h5 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h5><p>catabig为表名<br>所操作的数据： 添加的数据或修改后的数据为new  删除或修改前的数据为old<br>触发器需要避免死循环<br>如 insert操作触发触发器的insert操作 依次无限循环下去导致死循环</p><p>···<br>mysql&gt; delimiter //<br>mysql&gt; create trigger mytrigger before update<br>    -&gt;  on catabig for each row<br>    -&gt; begin<br>    -&gt;  set new.t=concat(new.t,old.t);<br>    -&gt; end//<br>Query OK, 0 rows affected (0.04 sec)</p><p>mysql&gt; delimiter ;<br>mysql&gt; select * from catabig;<br>+—-+——+<br>| id | t    |<br>+—-+——+<br>|  3 | PHP  |<br>+—-+——+<br>3 rows in set (0.00 sec)<br>mysql&gt; update catabig set t=’_upd’ where id=3;<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; select * from catabig;<br>+—-+———+<br>| id | t       |<br>+—-+———+<br>|  3 | _updPHP |<br>+—-+———+<br>3 rows in set (0.00 sec)<br>···</p><h5 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h5><p>···<br>delimiter //<br>create procedure mypro(ed int)<br>begin<br>    declare i int;  – 定义声明必须在最前面<br>    declare rs  int;<br>    set rs=0 ;<br>    set i=1 ;<br>    label1:loop<br>        if i&lt;=ed    then<br>            set rs=i+rs;<br>            set i=i+1;<br>            ITERATE label1;  – 继续循环<br>        else leave label1;   – 结束循环<br>        end if;<br>    end loop label1;             – 结束循环<br>    select rs;      – 不允许存在return（只有function可以有return）<br>end  //<br>delimiter ;<br> – 调用<br>mysql&gt; call mypro(100);<br>+——+<br>| rs   |<br>+——+<br>| 5050 |<br>+——+<br>1 row in set (0.00 sec)</p><p>Query OK, 0 rows affected (0.00 sec)<br>···</p>]]></content>
-      
-      
       
     </entry>
     
@@ -1308,10 +1308,10 @@
     
     <entry>
       <title>页面跳转</title>
-      <link href="/2012/12/18/js/js_jump_page/"/>
-      <url>/2012/12/18/js/js_jump_page/</url>
+      <link href="/2012/12/18/js/%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/"/>
+      <url>/2012/12/18/js/%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/</url>
       
-        <content type="html"><![CDATA[<p>···</p><meta http-equiv="refresh" content="3"><meta http-equiv="refresh" content="3;url=http:www.baidu.com">header("location:url");window.navigate('url');location.href='url';location.replace('url');//不能后退location.reload(true);···]]></content>
+        <content type="html"><![CDATA[<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"3;url=http:www.baidu.com"</span>&gt;</span></span><br><span class="line">header("location:url");</span><br><span class="line">window.navigate('url');</span><br><span class="line">location.href='url';</span><br><span class="line">location.replace('url');//不能后退</span><br><span class="line">location.reload(true);</span><br></pre></td></tr></table></figure>]]></content>
       
       
       
@@ -1321,10 +1321,10 @@
     
     <entry>
       <title>页面跳转</title>
-      <link href="/2012/12/18/js/%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/"/>
-      <url>/2012/12/18/js/%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/</url>
+      <link href="/2012/12/18/js/js_jump_page/"/>
+      <url>/2012/12/18/js/js_jump_page/</url>
       
-        <content type="html"><![CDATA[<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"3;url=http:www.baidu.com"</span>&gt;</span></span><br><span class="line">header("location:url");</span><br><span class="line">window.navigate('url');</span><br><span class="line">location.href='url';</span><br><span class="line">location.replace('url');//不能后退</span><br><span class="line">location.reload(true);</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>···</p><meta http-equiv="refresh" content="3"><meta http-equiv="refresh" content="3;url=http:www.baidu.com">header("location:url");window.navigate('url');location.href='url';location.replace('url');//不能后退location.reload(true);···]]></content>
       
       
       
