@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="php多线程">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2013/01/31/php/php多线程/">
+
+
+<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879&amp;lt;?phperror_reporting(E_ALL &amp;amp; ~E_NOTICE);/**">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php多线程">
+<meta property="og:url" content="http://ningmo.github.io/2013/01/31/php/php多线程/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879&amp;lt;?phperror_reporting(E_ALL &amp;amp; ~E_NOTICE);/**">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php多线程">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879&amp;lt;?phperror_reporting(E_ALL &amp;amp; ~E_NOTICE);/**">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> php多线程 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          php多线程
+        
+      </h1>
+
+      <time class="post-time">
+          Jan 31 2013
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(E_ALL &amp; ~E_NOTICE);</span><br><span class="line">/**</span><br><span class="line"> * @title:		PHP多线程类(Thread)</span><br><span class="line"> * @version:	1.0</span><br><span class="line"> * @author:		phper.org.cn &lt; web@phper.org.cn &gt;</span><br><span class="line"> * @published:	2010-11-2</span><br><span class="line"> * </span><br><span class="line"> * PHP多线程应用示例：</span><br><span class="line"> *  require_once &apos;thread.class.php&apos;;</span><br><span class="line"> *  $thread = new thread();</span><br><span class="line"> *  $thread-&gt;addthread(&apos;action_log&apos;,&apos;a&apos;);</span><br><span class="line"> *  $thread-&gt;addthread(&apos;action_log&apos;,&apos;b&apos;);</span><br><span class="line"> *  $thread-&gt;addthread(&apos;action_log&apos;,&apos;c&apos;);</span><br><span class="line"> *  $thread-&gt;runthread();</span><br><span class="line"> *  </span><br><span class="line"> *  function action_log($info) &#123;</span><br><span class="line"> *  	$log = &apos;log/&apos; . microtime() . &apos;.log&apos;;</span><br><span class="line"> *  	$txt = $info . &quot;\r\n\r\n&quot; . &apos;Set in &apos; . Date(&apos;h:i:s&apos;, time()) . (double)microtime() . &quot;\r\n&quot;;</span><br><span class="line"> *  	$fp = fopen($log, &apos;w&apos;);</span><br><span class="line"> *  	fwrite($fp, $txt);</span><br><span class="line"> *  	fclose($fp);</span><br><span class="line"> *  &#125;</span><br><span class="line"> */</span><br><span class="line">class thread &#123;</span><br><span class="line">	</span><br><span class="line">    var $hooks = array();</span><br><span class="line">    var $args = array();</span><br><span class="line">    #var $address=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">    function thread() &#123;</span><br><span class="line">		#$this-&gt;address=$address;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function addthread($func)</span><br><span class="line">    &#123;</span><br><span class="line">    	$args = array_slice(func_get_args(), 1);</span><br><span class="line">    	$this-&gt;hooks[] = $func;</span><br><span class="line">		$this-&gt;args[] = $args;</span><br><span class="line">		return true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function runthread()</span><br><span class="line">    &#123;</span><br><span class="line">    	if(isset($_GET[&apos;flag&apos;]))</span><br><span class="line">    	&#123;</span><br><span class="line">    		$flag = intval($_GET[&apos;flag&apos;]);</span><br><span class="line">    	&#125;</span><br><span class="line">    	if($flag || $flag === 0)</span><br><span class="line">		&#123;</span><br><span class="line">			call_user_func_array($this-&gt;hooks[$flag], $this-&gt;args[$flag]);</span><br><span class="line">		&#125;</span><br><span class="line">    	else </span><br><span class="line">    	&#123;</span><br><span class="line">        	for($i = 0, $size = count($this-&gt;hooks); $i &lt; $size; $i++)</span><br><span class="line">        	&#123;</span><br><span class="line">				/*</span><br><span class="line">				if($this-&gt;address)</span><br><span class="line">				&#123;</span><br><span class="line">					$addr=$this-&gt;address;</span><br><span class="line">				&#125;</span><br><span class="line">				else</span><br><span class="line">				&#123;</span><br><span class="line">					$addr=$_SERVER[&apos;HTTP_HOST&apos;];</span><br><span class="line">				&#125;</span><br><span class="line">				*/</span><br><span class="line">        		$fp=fsockopen($_SERVER[&apos;HTTP_HOST&apos;],$_SERVER[&apos;SERVER_PORT&apos;]);</span><br><span class="line">				if($fp)</span><br><span class="line">        		&#123;</span><br><span class="line">        			$out = &quot;GET &#123;$_SERVER[&apos;PHP_SELF&apos;]&#125;?flag=$i HTTP/1.1\r\n&quot;;</span><br><span class="line">        			$out .= &quot;Host: &#123;$_SERVER[&apos;HTTP_HOST&apos;]&#125;\r\n&quot;;</span><br><span class="line">        			$out .= &quot;Connection: Close\r\n\r\n&quot;;</span><br><span class="line">					fputs($fp,$out);</span><br><span class="line">	                fclose($fp);</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></p>
+
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2013/01/31/mysql/mysql分表hash方式/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">mysql分表hash方式</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2013/01/23/php/php定时执行任务的几个方法/">
+        <span class="next-text nav-default">php定时执行任务的几个方法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

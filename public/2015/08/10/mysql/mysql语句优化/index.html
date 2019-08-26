@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="mysql语句优化">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2015/08/10/mysql/mysql语句优化/">
+
+
+<meta name="description" content="1、请不要在SELECT中使用DISTINCT； #会用到临时表 2、尽可能不要SELECT *，而应该查询需要用到的指定几个字段； 3、不要对两个大表进行联合，无论是内联或外联。对于需要对两个或多个表进行联合查询的情况，可以做两次或多次数据库查询； 4、在WHERE条件中，尽可能对同类型的数据列进行比较； 5、在WHERE条件中，尽量让有索引的数据列在比较表达始中单独出现； 6、在WHERE条件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql语句优化">
+<meta property="og:url" content="http://ningmo.github.io/2015/08/10/mysql/mysql语句优化/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="1、请不要在SELECT中使用DISTINCT； #会用到临时表 2、尽可能不要SELECT *，而应该查询需要用到的指定几个字段； 3、不要对两个大表进行联合，无论是内联或外联。对于需要对两个或多个表进行联合查询的情况，可以做两次或多次数据库查询； 4、在WHERE条件中，尽可能对同类型的数据列进行比较； 5、在WHERE条件中，尽量让有索引的数据列在比较表达始中单独出现； 6、在WHERE条件">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.322Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql语句优化">
+<meta name="twitter:description" content="1、请不要在SELECT中使用DISTINCT； #会用到临时表 2、尽可能不要SELECT *，而应该查询需要用到的指定几个字段； 3、不要对两个大表进行联合，无论是内联或外联。对于需要对两个或多个表进行联合查询的情况，可以做两次或多次数据库查询； 4、在WHERE条件中，尽可能对同类型的数据列进行比较； 5、在WHERE条件中，尽量让有索引的数据列在比较表达始中单独出现； 6、在WHERE条件">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> mysql语句优化 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          mysql语句优化
+        
+      </h1>
+
+      <time class="post-time">
+          Aug 10 2015
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>1、请不要在SELECT中使用DISTINCT； #会用到临时表</p>
+<p>2、尽可能不要SELECT *，而应该查询需要用到的指定几个字段；</p>
+<p>3、不要对两个大表进行联合，无论是内联或外联。对于需要对两个或多个表进行联合查询的情况，可以做两次或多次数据库查询；</p>
+<p>4、在WHERE条件中，尽可能对同类型的数据列进行比较；</p>
+<p>5、在WHERE条件中，尽量让有索引的数据列在比较表达始中单独出现；</p>
+<p>6、在WHERE条件中，根据数据列排除不合条件数据量由多到少的次序排列条件，在不能确定排除数据多少的前提下，一般来说表达式中使用=、!=、&lt;&gt;要优先于&gt;、&lt;、&gt;=、&lt;=，更优先于LIKE；<br>  如果WHERE条件中的值是数字，那么不要使用单引号进行类型转换；如果WHERE条件中使用LIKE模式匹配，不要在模式开头使用通配符%；</p>
+<p>7、不要对WHERE条件中的非BINARY属性的CHAR/VARCHAR字段，进行大小写转换；</p>
+<p>8、尽可能不要在SELECT中使用GROUP BY，如果确实有必要，请与主管联系确认；<br>来源： <a href="http://www.cnblogs.com/siqi/p/3625885.html" target="_blank" rel="noopener">http://www.cnblogs.com/siqi/p/3625885.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2015/08/10/python/python常用/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">python常用</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/08/10/mysql/mysql优化/">
+        <span class="next-text nav-default">mysql优化</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
