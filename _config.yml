@@ -84,5 +84,5 @@ theme: polarbear
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-    repo: https://github.com/ningmo/ningmo.github.io.git
-    branch: master
+  repo: https://github.com/ningmo/ningmo.github.io.git
+  branch: master
