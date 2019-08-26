@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="配置 yum 源的两种方法">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2013/04/27/配置 yum 源的两种方法/">
+
+
+<meta name="description" content="由于 redhat的yum在线更新是收费的，如果没有注册的话不能使用，如果要使用，需将redhat的yum卸载后，重启安装，再配置其他源，以下为详细过程：  1.删除redhat原有的yum 1rpm -aq|grep yum|xargs rpm -e --nodeps  2.下载yum安装文件 1234wget http://mirrors.163.com/centos/6/os/x86_64/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置 yum 源的两种方法">
+<meta property="og:url" content="http://ningmo.github.io/2013/04/27/配置 yum 源的两种方法/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="由于 redhat的yum在线更新是收费的，如果没有注册的话不能使用，如果要使用，需将redhat的yum卸载后，重启安装，再配置其他源，以下为详细过程：  1.删除redhat原有的yum 1rpm -aq|grep yum|xargs rpm -e --nodeps  2.下载yum安装文件 1234wget http://mirrors.163.com/centos/6/os/x86_64/">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-23T09:24:57.343Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="配置 yum 源的两种方法">
+<meta name="twitter:description" content="由于 redhat的yum在线更新是收费的，如果没有注册的话不能使用，如果要使用，需将redhat的yum卸载后，重启安装，再配置其他源，以下为详细过程：  1.删除redhat原有的yum 1rpm -aq|grep yum|xargs rpm -e --nodeps  2.下载yum安装文件 1234wget http://mirrors.163.com/centos/6/os/x86_64/">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 配置 yum 源的两种方法 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          配置 yum 源的两种方法
+        
+      </h1>
+
+      <time class="post-time">
+          Apr 27 2013
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>由于 redhat的yum在线更新是收费的，如果没有注册的话不能使用，如果要使用，需将redhat的yum卸载后，重启安装，再配置其他源，以下为详细过程： </p>
+<p>1.删除redhat原有的yum</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -aq|grep yum|xargs rpm -e --nodeps</span><br></pre></td></tr></table></figure>
+
+<p>2.下载yum安装文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors.163.com/centos/6/os/x86_64/Packages/yum-3.2.27-14.el6.centos.noarch.rpm </span><br><span class="line">wget http://mirrors.163.com/centos/6/os/x86_64/Packages/yum-metadata-parser-1.1.2-14.1.el6.x86_64.rpm </span><br><span class="line">wget http://mirrors.163.com/centos/6/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.26-11.el6.noarch.rpm </span><br><span class="line">wget http://mirrors.163.com/centos/6/os/x86_64/Packages/python-iniparse-0.3.1-2.1.el6.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>3.进行安装yum </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh python-iniparse-0.3.1-2.1.el6.noarch.rpm </span><br><span class="line">rpm -ivh yum-metadata-parser-1.1.2-14.1.el6.x86_64.rpm </span><br><span class="line">rpm -ivh yum-3.2.27-14.el6.centos.noarch.rpm um-plugin-fastestmirror-1.1.26-11.el6.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>注意最后两个包必需同时安装，否则会相互依赖 </p>
+<p>4.更新repo文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d/rhel-debuginfo.repo /etc/yum.repos.d/rhel-debuginfo.repo.repo.bak</span><br><span class="line"></span><br><span class="line">vi /etc/yum.repos.d/rhel-debuginfo.repo</span><br></pre></td></tr></table></figure>
+
+<p>内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[base]</span><br><span class="line">name=CentOS-$releasever - Base</span><br><span class="line">baseurl=http://mirrors.163.com/centos/6.0/os/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-6</span><br><span class="line"></span><br><span class="line">#released updates</span><br><span class="line">[updates]</span><br><span class="line">name=CentOS-$releasever - Updates</span><br><span class="line">baseurl=http://mirrors.163.com/centos/6.0/updates/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-6</span><br><span class="line"></span><br><span class="line">#packages used/produced in the build but not released</span><br><span class="line">#[addons]</span><br><span class="line">#name=CentOS-$releasever - Addons</span><br><span class="line">#baseurl=http://mirrors.163.com/centos/$releasever/addons/$basearch/</span><br><span class="line">#gpgcheck=1</span><br><span class="line">#gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-6</span><br><span class="line">#additional packages that may be useful</span><br><span class="line">[extras]</span><br><span class="line">name=CentOS-$releasever - Extras</span><br><span class="line">baseurl=http://mirrors.163.com/centos/6.0/extras/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-6</span><br><span class="line">#additional packages that extend functionality of existing packages</span><br><span class="line">[centosplus]</span><br><span class="line">name=CentOS-$releasever - Plus</span><br><span class="line">baseurl=http://mirrors.163.com/centos/6.0/centosplus/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=0</span><br></pre></td></tr></table></figure>
+
+<p>5、yum clean all </p>
+<p>6、yum install vim #测试一下可不可以用</p>
+<p>【设置本地镜像作为yum源】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、mkdir /mnt/cdrom</span><br><span class="line"></span><br><span class="line">2   mount /dev/cdrom /mnt/cdrom  #挂着镜像，光盘</span><br><span class="line"></span><br><span class="line">3  mkdir /home/redhat-iso</span><br><span class="line"></span><br><span class="line">4  cp -Rf /mnt/cdrom/* /home/redhat-iso   #将光盘内的内容copy到某个路径下</span><br><span class="line"></span><br><span class="line">5  vi /etc/yum.repos.d/rhel-debuginfo.repo  #编辑repo文件</span><br></pre></td></tr></table></figure>
+
+<p>添加一下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[rhel_6_iso]</span><br><span class="line">name=local iso </span><br><span class="line">baseurl=file:///home/redhat-iso/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=file:///home/redhat-iso/RPM-GPG-KEY-CentOS-6 #该处的gpgkey文件应该改成iso镜像中的文件名</span><br></pre></td></tr></table></figure>
+
+<p>【关于yum的一点资料】</p>
+<p>一、yum是什么<br>yum = Yellow dog Updater, Modified<br>主要功能是更方便的添加/删除/更新RPM包.<br>它能自动解决包的倚赖性问题.<br>它能便于管理大量系统的更新问题</p>
+<p>二、 yum特点<br>*可以同时配置多个资源库(Repository)<br>*简洁的配置文件(/etc/yum.conf，/etc/yum.repos.d 下的文件)<br>*自动解决增加或删除rpm包时遇到的倚赖性问题<br>*使用方便<br>*保持与RPM数据库的一致性</p>
+<p>三、 yum安装<br>Centos/RHEL</p>
+<ol>
+<li>#rpm -ivh yum-2.4.3-4.el4.centos.noarch.rpm</li>
+</ol>
+<p>四、yum配置<br>yum的配置文件<br>yum的一切配置信息都储存在一个叫yum.conf的配置文件中，通常位于/etc目 录下，这是整个yum系统的重中之重，所以有必要详细介绍。下面是一个从网上找来的yum.con文件，让我们以此为例，进行说明。</p>
+<p>[main]<br>cachedir=/var/cache/yum<br>debuglevel=2<br>logfile=/var/log/yum.log<br>pkgpolicy=newest<br>distroverpkg=redhat-release<br>tolerant=1<br>exactarch=1<br>retries=1 </p>
+<p>[base]<br>name=Fedora Core $releasever - $basearch - Base<br>baseurl=<a href="http://download.atrpms.net/mirrors/fedoracore/$releasever/$basearch/os" target="_blank" rel="noopener">http://download.atrpms.net/mirrors/fedoracore/$releasever/$basearch/os</a><br><a href="http://rpmfind.net/linux/fedora/cor...er/$basearch/os" target="_blank" rel="noopener">http://rpmfind.net/linux/fedora/cor...er/$basearch/os</a><br><a href="http://mirror.clarkson.edu/pub/dist...er/$basearch/os" target="_blank" rel="noopener">http://mirror.clarkson.edu/pub/dist...er/$basearch/os</a> </p>
+<p>[updates-released]<br>name=Fedora Core $releasever - $basearch - Released Updates<br>baseurl=<a href="http://download.atrpms.net/mirrors/fedoracore/updates/$releasever/$basearch" target="_blank" rel="noopener">http://download.atrpms.net/mirrors/fedoracore/updates/$releasever/$basearch</a><br><a href="http://redhat.linux.ee/pub/fedora/l...sever/$basearch" target="_blank" rel="noopener">http://redhat.linux.ee/pub/fedora/l...sever/$basearch</a><br><a href="http://fr2.rpmfind.net/linux/fedora...sever/$basearch" target="_blank" rel="noopener">http://fr2.rpmfind.net/linux/fedora...sever/$basearch</a> </p>
+<p>[Fedora.us]<br>name=Fedora.us - $basearch - Extras<br>baseurl=<a href="http://fedora.linux.duke.edu/fedorax86_64/fedora.us/$releasever/$basearch/RPMS.stable" target="_blank" rel="noopener">http://fedora.linux.duke.edu/fedorax86_64/fedora.us/$releasever/$basearch/RPMS.stable</a> </p>
+<p>[Dag Wieers]<br>name=Dag RPM Repository for Fedora Core<br>baseurl=<a href="http://apt.sw.be/fedora/$releasever/en/$basearch/dag" target="_blank" rel="noopener">http://apt.sw.be/fedora/$releasever/en/$basearch/dag</a> </p>
+<p>[Livna]<br>Name=Livna RPM, Fedora Core $releasever - $basearch<br>baseurl=<a href="http://rpm.livna.org/fedora/$releasever/$basearch/RPMS.stable" target="_blank" rel="noopener">http://rpm.livna.org/fedora/$releasever/$basearch/RPMS.stable</a> </p>
+<p>[freshrpms]<br>name=FreshRPMs<br>baseurl=<a href="http://ayo.freshrpms.net/fedora/linux/$releasever/$basearch/freshrpms/" target="_blank" rel="noopener">http://ayo.freshrpms.net/fedora/linux/$releasever/$basearch/freshrpms/</a><br><a href="http://ftp.us2.freshrpms.net/linux/...arch/freshrpms/" target="_blank" rel="noopener">http://ftp.us2.freshrpms.net/linux/...arch/freshrpms/</a></p>
+<p>第一部分(这是yum的全局性设置。默认一般不必改动。)</p>
+<p>[main]<br>cachedir：yum缓存的目录，yum在此存储下载的rpm包和数据库，一般是/var/cache/yum。<br>debuglevel：除错级别，0-10,默认是2。<br>logfile：yum的日志文件，默认是/var/log/yum.log。<br>pkgpolicy：包的策略。一共有两个选项，newest和last，这个作用是如果你设置了多个repository，而同一软件在不同的repository中同时存在，yum应该安装哪一个，如果是newest，则yum会安装最新的那个版本。如果是last，则yum会将服务器id以字母表排序，并选择最后的那个服务器上的软件安装。一般都是选newest。<br>distroverpkg：指定一个软件包，yum会根据这个包判断你的发行版本，默认是redhat-release，也可以是安装的任何针对自己发行版的rpm包。<br>exactarch，有两个选项1和0,代表是否只升级和你安装软件包cpu体系一致的包，如果设为1，则如你安装了一个i386的rpm，则yum不会用1686的包来升级。<br>retries，网络连接发生错误后的重试次数，如果设为0，则会无限重试。<br>tolerent，也有1和0两个选项，表示yum是否容忍命令行发生与软件包有关的错误，比如你要安装1,2,3三个包，而其中3此前已经安装了，如果你设为1,则yum不会出现错误信息。默认是0。</p>
+<p>除了上述之外，还有一些可以添加的选项，如</p>
+<p>exclude=，排除某些软件在升级名单之外，可以用通配符，列表中各个项目要用空格隔开，这个对于安装了诸如美化包，中文补丁的朋友特别有用。<br>gpgchkeck= 有1和0两个选择，分别代表是否是否进行gpg校验，如果没有这一项，默认好像也是检查的。</p>
+<p>第二部分：</p>
+<p>配置repository服务器了，这是最令人激动的，有了好的repository，就如家门口开了大卖场，要什么东西稍微跑跑腿就行，对了这还是个免费的大卖场。<br>所有服务器设置都应该遵循如下格式：</p>
+<ol>
+<li>[serverid]</li>
+<li>name=Some name for this server</li>
+<li>baseurl=url://path/to/repository/</li>
+</ol>
+<p>其中serverid是用于区别各个不同的repository，必须有一个独一无二的名称。<br>name，是对repository的描述，支持像$releasever $basearch这样的变量;<br>baseurl是服务器设置中最重要的部分，只有设置正确，才能从上面获取软件。它的格式是：</p>
+<ol>
+<li>baseurl=url://server1/path/to/repository/</li>
+<li>url://server2/path/to/repository/</li>
+<li>url://server3/path/to/repository/</li>
+</ol>
+<p>其中url支持的协议有 http:// ftp:// file://三种。baseurl后可以跟多个url，你可以自己改为速度比较快的镜像站，但baseurl只能有一个，也就是说不能像如下格式：</p>
+<ol>
+<li>baseurl=url://server1/path/to/repository/</li>
+<li>baseurl=url://server2/path/to/repository/</li>
+<li>baseurl=url://server3/path/to/repository/</li>
+</ol>
+<p>其中url指向的目录必须是这个repository header目录的上一级，它也支持$releasever $basearch这样的变量。<br>url之后可以加上多个选项，如gpgcheck、exclude、failovermethod等，比如：</p>
+<ol>
+<li>[updates-released]</li>
+<li>name=Fedora Core $releasever - $basearch - Released Updates</li>
+<li>baseurl=<a href="http://download.atrpms.net/mirrors/fedoracore/updates/$releasever/$basearch" target="_blank" rel="noopener">http://download.atrpms.net/mirrors/fedoracore/updates/$releasever/$basearch</a></li>
+<li><a href="http://redhat.linux.ee/pub/fedora/linux/core/updates/$releasever/$basearch" target="_blank" rel="noopener">http://redhat.linux.ee/pub/fedora/linux/core/updates/$releasever/$basearch</a></li>
+<li><a href="http://fr2.rpmfind.net/linux/fedora/core/updates/$releasever/$basearch" target="_blank" rel="noopener">http://fr2.rpmfind.net/linux/fedora/core/updates/$releasever/$basearch</a></li>
+<li>gpgcheck=1</li>
+<li>exclude=gaim</li>
+<li>failovermethod=priority</li>
+</ol>
+<p>其中gpgcheck，exclude的含义和[main]部分相同，但只对此服务器起作用，failovermethode 有两个选项roundrobin和priority，意思分别是有多个url可供选择时，yum选择的次序，roundrobin是随机选择，如果连接失 败则使用下一个，依次循环，priority则根据url的次序从第一个开始。如果不指明，默认是roundrobin。</p>
+<p>几个变量</p>
+<p>$releasever，发行版的版本，从[main]部分的distroverpkg获取，如果没有，则根据redhat-release包进行判断。<br>$arch，cpu体系，如i686,athlon等<br>$basearch，cpu的基本体系组，如i686和athlon同属i386，alpha和alphaev6同属alpha。</p>
+<p>对yum.conf设定完成，我们就可以好好体验yum带来的方便了。</p>
+<p>五、RHEL/CENTOS的yum源<br>1、修改配置文件<br>2、导入GPG KEY</p>
+<p>导入每个reposity的GPG key，前面说过，yum可以使用gpg对包进行校验，确保下载包的完整性，所以我们先要到各个repository站点找到gpg key，一般都会放在首页的醒目位置，一些名字诸如 RPM-GPG-KEY.txt之类的纯文本文件，把它们下载，然后用rpm –import xxx.txt命令将它们导入，最好把发行版自带GPG-KEY也导入。rpm –import /usr/share/doc/redhat-release-*/RPM-GPG-KEY 官方软件升级用的上。</p>
+<p>六、扩展你的rpm包<br>1、rpmforge<br>Centos/RHEL默认的yum软件仓库非常有限,仅仅限于发行版本那几张盘里面的常规包和一些软件包的更新，利用RpmForge，可以增加非常多的第三方rpm软件包。</p>
+<p>获取<br><a href="http://dag.wieers.com/rpm/packages/rpmforge-release/" target="_blank" rel="noopener">http://dag.wieers.com/rpm/packages/rpmforge-release/</a><br>找到与系统平台架构匹配的rpmforge包安装之即可。安装完后.默认会在系统的/etc/yum.repos.d/下新增两个文件,mirrors-rpmforge和rpmforge.repo</p>
+<p>安装</p>
+<h1 id="rpm-ivh-rpmforge-release-0-3-6-1-el4-rf-i386-rpm"><a href="#rpm-ivh-rpmforge-release-0-3-6-1-el4-rf-i386-rpm" class="headerlink" title="rpm -ivh rpmforge-release-0.3.6-1.el4.rf.i386.rpm"></a>rpm -ivh rpmforge-release-0.3.6-1.el4.rf.i386.rpm</h1><h1 id="rpm-–import-http-dag-wieers-com-rpm-packages-RPM-GPG-KEY-dag-txt"><a href="#rpm-–import-http-dag-wieers-com-rpm-packages-RPM-GPG-KEY-dag-txt" class="headerlink" title="rpm –import http://dag.wieers.com/rpm/packages/RPM-GPG-KEY.dag.txt"></a>rpm –import <a href="http://dag.wieers.com/rpm/packages/RPM-GPG-KEY.dag.txt" target="_blank" rel="noopener">http://dag.wieers.com/rpm/packages/RPM-GPG-KEY.dag.txt</a></h1><p>2、加速yum更新速度<br>安装yum的fast mirror插件，可以加快 CentOS/RHEL yum的速度和提高稳定性，效果显著。<br>centos5 </p>
+<p> #yum -y install yum-fastestmirror<br>centos4<br> yum -y install yum-plugin-fastestmirror</p>
+<p>七、 yum使用<br>注:当第一次使用yum或yum资源库有更新时,yum会自动下载所有所需的headers放置于/var/cache/yum目录下,所需时间可能较长.</p>
+<p>系统更新(更新所有可以升级的rpm包,包括kernel)</p>
+<p>#yum -y update</p>
+<p>每天定期执行系统更新</p>
+<p>#chkconfig yum on</p>
+<p>#service yum start</p>
+<p>*rpm包的更新，检查可更新的rpm包</p>
+<p>#yum check-update</p>
+<p>更新所有的rpm包</p>
+<p>#yum update</p>
+<p>更新指定的rpm包,如更新kernel和kernel source</p>
+<p>#yum update kernel kernel-source</p>
+<p>大规模的版本升级,与yum update不同的是,连旧的淘汰的包也升级</p>
+<p>#yum upgrade</p>
+<p>*rpm包的安装和删除<br>安装rpm包,如xmms-mp3</p>
+<p>#yum install xmms-mp3</p>
+<p>删除rpm包,包括与该包有倚赖性的包</p>
+<p>#yum remove licq<br>注:同时会提示删除licq-gnome,licq-qt,licq-text</p>
+<p>*yum暂存(/var/cache/yum/)的相关参数<br>清除暂存中rpm包文件</p>
+<p>#yum clean packages</p>
+<p>清除暂存中rpm头文件</p>
+<p>#yum clean headers</p>
+<p>清除暂存中旧的rpm头文件</p>
+<p>#yum clean oldheaders</p>
+<p>清除暂存中旧的rpm头文件和包文件</p>
+<p>#yum clean 或#yum clean all<br>注:相当于yum clean packages + yum clean oldheaders</p>
+<p>*rpm包列表<br>列出资源库中所有可以安装或更新的rpm包</p>
+<p>#yum list</p>
+<p>列出资源库中特定的可以安装或更新以及已经安装的rpm包</p>
+<p>#yum list mozilla</p>
+<p>#yum list mozilla*<br>注:可以在rpm包名中使用匹配符,如列出所有以mozilla开头的rpm包</p>
+<p>列出资源库中所有可以更新的rpm包</p>
+<p>#yum list updates</p>
+<p>列出已经安装的所有的rpm包</p>
+<p>#yum list installed</p>
+<p>列出已经安装的但是不包含在资源库中的rpm包</p>
+<p>#yum list extras<br>注:通过其它网站下载安装的rpm包<br>*rpm包信息显示(info参数同list)</p>
+<p>列出资源库中所有可以安装或更新的rpm包的信息</p>
+<p>#yum info</p>
+<p>列出资源库中特定的可以安装或更新以及已经安装的rpm包的信息</p>
+<p>#yum info mozilla</p>
+<p>#yum info mozilla*<br>注:可以在rpm包名中使用匹配符,如列出所有以mozilla开头的rpm包的信息</p>
+<p>列出资源库中所有可以更新的rpm包的信息</p>
+<p>#yum info updates</p>
+<p>列出已经安装的所有的rpm包的信息</p>
+<p>#yum info installed</p>
+<p>列出已经安装的但是不包含在资源库中的rpm包的信息</p>
+<p>#yum info extras<br>注:通过其它网站下载安装的rpm包的信息</p>
+<p>*搜索rpm包<br>搜索匹配特定字符的rpm包</p>
+<p>#yum search mozilla<br>注:在rpm包名,包描述等中搜索</p>
+<p>搜索有包含特定文件名的rpm包</p>
+<p>#yum provides realplay</p>
+<p>八、yum常用问题解决<br>1、如果网速慢的话可以通过增加yum的超时时间，这样就不会总是因为超时而退出。</p>
+<p>#vi /etc/yum.conf</p>
+<p>#加上这么一句<br>timeout=120</p>
+<p>2、yum Existing lock错误的解决办法<br>如果系统启动的时候， yum出现Existing lock /var/run/yum.pid: another copy is running as pid 3380. Aborting.可以用下面的办法解决：<br>方法一<br>etc/init.d/yum-updatesd stop</p>
+<p>方法二</p>
+<p>#rm -f /var/run/yum.pid<br>主要原因就是yum在自动更新，只要关掉它就可以了。</p>
+<p>先安装fastestmirror，让系统yum的时候自动选择最快的镜像：</p>
+<p>#yum install yum-fastestmirror -y</p>
+<p>接下来说说RPMForge。</p>
+<p>RPMForge是一个安全、稳定并且更新及时的软件仓库，通过安装RPMForge可以是CentOS在进行yum update的时候多一个选择，有时候甚至是唯一的选择，比如想要升级rsync到3.0.x版本，如果懒得自己编译安装，就得依靠RPMForge了。</p>
+<p>1、先安装priority这个yum的插件，这个插件用来设定安装软件时候软件仓库的优先级，一般是默认先从官方base或者镜像安装，然后从社区用户contribute的软件中安装，再从第三方软件仓库中安装。</p>
+<p>#yum install yum-priorities</p>
+<p>2、手动编辑 /etc/yum.repos.d/ 目录中后缀为.repos的文件来设置软件仓库的优先级<br>priority=N(N是整数，范围从1-99，数字越小代表优先级越高)</p>
+<p>官方推荐配置是<br>[base], [addons], [updates], [extras] 这几部分 priority=1<br>[centosplus],[contrib] 这几部分priority=2<br>Third Party Repos such as rpmforge … priority=N  (where N is &gt; 10 and based on your preference)</p>
+<p>3、现在开始安装rpmforge的软件仓库<br>先下载rpmforge的安装包<br>      i386  wget <a href="http://apt.sw.be/redhat/el5/en/i386/RPMS.dag/rpmforge-release-0.3.6-1.el5.rf.i386.rpm" target="_blank" rel="noopener">http://apt.sw.be/redhat/el5/en/i386/RPMS.dag/rpmforge-release-0.3.6-1.el5.rf.i386.rpm</a></p>
+<pre><code>x86_64 wget http://apt.sw.be/redhat/el5/en/x86_64/RPMS.dag/rpmforge-release-0.3.6-1.el5.rf.x86_64.rpm</code></pre><p>安装</p>
+<pre><code>rpm -i rpmforge-release-0.3.6-1.el5.rf.*.rpm</code></pre><p>更改 /etc/yum.repos.d/rpmforge.repo 配置文件，添加<br>priority=1（或者2.3.4….）</p>
+<p>现在就可以使用rpmforge这个软件仓库了。比如yum update rsync，嘿嘿，成功升级到3.0.5了。</p>
+<p>来源： <a href="http://www.cnblogs.com/shuaixf/archive/2011/11/30/2268496.html" target="_blank" rel="noopener">http://www.cnblogs.com/shuaixf/archive/2011/11/30/2268496.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2013/06/20/什么是JS事件冒泡/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">什么是JS事件冒泡?"</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2013/03/30/phpMyAdmin安装配置方法全过程，及问题解决/">
+        <span class="next-text nav-default">phpMyAdmin安装配置方法全过程，及问题解决</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
