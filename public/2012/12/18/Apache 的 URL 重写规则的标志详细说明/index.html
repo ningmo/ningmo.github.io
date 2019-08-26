@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Apache 的 URL 重写规则的标志详细说明">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2012/12/18/Apache 的 URL 重写规则的标志详细说明/">
+
+
+<meta name="description" content="1) R[=code](force redirect) 强制外部重定向 强制在替代字符串加上 http://thishost/[:thisport]/前缀重定向到外部的 URL. 如果 code 不指定，将用缺省的 302 HTTP 状态码。2) F(force URL to be forbidden)禁用 URL,返回 403HTTP 状态码。3) G(force URL to be gone)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache 的 URL 重写规则的标志详细说明">
+<meta property="og:url" content="http://ningmo.github.io/2012/12/18/Apache 的 URL 重写规则的标志详细说明/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="1) R[=code](force redirect) 强制外部重定向 强制在替代字符串加上 http://thishost/[:thisport]/前缀重定向到外部的 URL. 如果 code 不指定，将用缺省的 302 HTTP 状态码。2) F(force URL to be forbidden)禁用 URL,返回 403HTTP 状态码。3) G(force URL to be gone)">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-23T09:24:57.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apache 的 URL 重写规则的标志详细说明">
+<meta name="twitter:description" content="1) R[=code](force redirect) 强制外部重定向 强制在替代字符串加上 http://thishost/[:thisport]/前缀重定向到外部的 URL. 如果 code 不指定，将用缺省的 302 HTTP 状态码。2) F(force URL to be forbidden)禁用 URL,返回 403HTTP 状态码。3) G(force URL to be gone)">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Apache 的 URL 重写规则的标志详细说明 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Apache 的 URL 重写规则的标志详细说明
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 18 2012
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>1) R[=code](force redirect) 强制外部重定向 强制在替代字符串加上 <a href="http://thishost/[:thisport]/前缀重定向到外部的" target="_blank" rel="noopener">http://thishost/[:thisport]/前缀重定向到外部的</a> URL. 如果 code 不指定，将用缺省的 302 HTTP 状态码。<br>2) F(force URL to be forbidden)禁用 URL,返回 403HTTP 状态码。<br>3) G(force URL to be gone) 强制 URL 为 GONE，返回 410HTTP 状态码。<br>4) P(force proxy) 强制使用代理转发。<br>5) L(last rule) 表明当前规则是最后一条规则，停止分析以后规则的重写。<br>6) N(next round) 重新从第一条规则开始运行重写过程。<br>7) C(chained with next rule) 与下一条规则关联 如果规则匹配则正常处理，该标志无效，如果不匹配，那么下面所有关联的 规则都跳过。<br>8) T=MIME-type(force MIME type) 强制 MIME 类型<br>9) NS (used only if no internal sub-request) 只用于不是内部子请求<br>10）NC(no case) 不区分大小写<br>11) QSA(query string append) 追加请求字符串<br>12) NE(no URI escaping of output) 不在输出转义特殊字符 例 如 ： RewriteRule /foo/(.<em>) /bar?arg=P1%3d$1 [R,NE] 将 能 正 确 的 将 /foo/zoo 转换成/bar?arg=P1=zed<br>13) PT(pass through to next handler) 传递给下一个处理 例如： RewriteRule ^/abc(.</em>) /def$1 [PT] # 将会交给/def 规则处理 Alias /def /ghi<br>14) S=num(skip next rule(s)) 跳过 num 条规则<br>15) E=VAR:VAL(set environment variable) 设置环境变量 Rewrite 规则表达式的说明： . 匹配任何单字符 wFlv i =n/ [chars] 匹配字符串:chars[o c~iDx%W [^chars] 不匹配字符串:charsLc&lt;eRVNd, text1|text2 可选择的字符串:text1 或 text2{ OT:3SS7 ? 匹配 0 到 1 个字符 A%Z)w z{ * 匹配 0 到多个字符 v4 <em>rPG v + 匹配 1 到多个字符” o c $ ^ 字符串开始标志 SKXBrD=$ 字符串结束标志&amp;LQ% \n 转义符标志 反向引用 $N 用于 RewriteRule 中匹配的变量调用(0 &lt;= N &lt;= 9)=_=*O EgO] 反向引用 %N 用于 RewriteCond 中最后一个匹配的变量调用(1 &lt;= N &lt;= 9) 实际操作 例子： RewriteEngine on RewriteCond %{HTTP_USER_AGENT} ^MSIE [NC,OR]_R N/7\ RewriteCond %{HTTP_USER_AGENT} ^Opera [NC]!&amp;’ # a RewriteRule ^.</em> - [F,L] 这里”-”表示没有替换，浏览器为 IE 和 Opera 的访客将 被禁止访问。 例子：<em>U( 1iv0 n RewriteEngine OnQWU5-p9e 8 RewriteBase /testQ3 K ;kS RewriteCond %{REQUEST_FILENAME}.php -frU/-Wq` B RewriteRule ([^/]+)$ /test/$1.php?7r mw y\ #for example: /test/admin =&gt; /test/admin.phpI v 80,hW RewriteRule ([^/]+).html$ /test/$1.php [L]aufcd57 #for example: /test/admin.html =&gt; /test/admin.php 限制目录只能显示图片 yKX: Z4I/ &lt; IfModule mod_rewrite.c&gt;+ #i ,87 RewriteEngine onL @ ^ !( RewriteCond %{REQUEST_FILENAME} !^.*.(gif|jpg|jpeg|png|swf)$mtHi9).,y| RewriteRule .</em>$ - [F,L][ 3bwbfHhi &lt; /IfModule&gt;</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2012/12/29/htaccess正则表达式/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">.htaccess正则表达式</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2012/12/18/如何做好url重写，保持搜索引擎的pagerank/">
+        <span class="next-text nav-default">如何做好url重写，保持搜索引擎的pagerank</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

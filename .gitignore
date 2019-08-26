@@ -1,0 +1,6 @@
+.DS_Store
+.idea/
+db.json
+*.log
+node_modules/
+.deploy*/

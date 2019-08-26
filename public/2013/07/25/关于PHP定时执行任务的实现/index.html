@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="关于PHP定时执行任务的实现">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2013/07/25/关于PHP定时执行任务的实现/">
+
+
+<meta name="description" content="PHP在这方面应该说是比较弱，如果只用php去实现可以如下： 1234567891011	ignore_user_abort();//关闭浏览器后，继续执行php代码	set_time_limit(0);//程序执行时间无限制	$sleep_time = 1;//多长时间执行一次	do&amp;#123;		$fp = fopen(&amp;apos;test.txt&amp;apos;,&amp;apos;a+&amp;apos;);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于PHP定时执行任务的实现">
+<meta property="og:url" content="http://ningmo.github.io/2013/07/25/关于PHP定时执行任务的实现/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="PHP在这方面应该说是比较弱，如果只用php去实现可以如下： 1234567891011	ignore_user_abort();//关闭浏览器后，继续执行php代码	set_time_limit(0);//程序执行时间无限制	$sleep_time = 1;//多长时间执行一次	do&amp;#123;		$fp = fopen(&amp;apos;test.txt&amp;apos;,&amp;apos;a+&amp;apos;);">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-23T09:24:57.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于PHP定时执行任务的实现">
+<meta name="twitter:description" content="PHP在这方面应该说是比较弱，如果只用php去实现可以如下： 1234567891011	ignore_user_abort();//关闭浏览器后，继续执行php代码	set_time_limit(0);//程序执行时间无限制	$sleep_time = 1;//多长时间执行一次	do&amp;#123;		$fp = fopen(&amp;apos;test.txt&amp;apos;,&amp;apos;a+&amp;apos;);">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 关于PHP定时执行任务的实现 - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          关于PHP定时执行任务的实现
+        
+      </h1>
+
+      <time class="post-time">
+          Jul 25 2013
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>PHP在这方面应该说是比较弱，如果只用php去实现可以如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">	ignore_user_abort();//关闭浏览器后，继续执行php代码</span><br><span class="line">	set_time_limit(0);//程序执行时间无限制</span><br><span class="line">	$sleep_time = 1;//多长时间执行一次</span><br><span class="line">	do&#123;</span><br><span class="line">		$fp = fopen(&apos;test.txt&apos;,&apos;a+&apos;);</span><br><span class="line">		fwrite($fp,&quot;这是一个php博客：phpddt.com \n&quot;);</span><br><span class="line">		fclose($fp);</span><br><span class="line">		sleep($sleep_time);</span><br><span class="line">	&#125;while(true);</span><br><span class="line">	</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是当我执行脚本的时候，即使我关闭了浏览器，我根本就没法去停止这段程序了，所以你需要一个执行脚本的开关，你可以用外部文件引入的方法来实现，在while循环的时候，include开关变量即可。那么就可以这样实现： 建立外部引入变量文件 switch.php 内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">return 1;//1执行脚本 0退出执行脚本</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>改良脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">	ignore_user_abort();//关闭浏览器后，继续执行php代码</span><br><span class="line">	set_time_limit(0);//程序执行时间无限制</span><br><span class="line">	$sleep_time = 5;//多长时间执行一次</span><br><span class="line">	$switch = include &apos;switch.php&apos;;</span><br><span class="line">	while($switch)&#123;</span><br><span class="line">		$switch = include &apos;switch.php&apos;;</span><br><span class="line">		$fp = fopen(&apos;test.txt&apos;,&apos;a+&apos;);</span><br><span class="line">		fwrite($fp,&quot;这是一个php博客：phpddt.com $switch \n&quot;);</span><br><span class="line">		fclose($fp);</span><br><span class="line">		sleep($sleep_time);</span><br><span class="line">	&#125;</span><br><span class="line">	exit();</span><br><span class="line">	</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这个脚本只是测试可行，具体效率应该不高，对于lamp,你完全可以使用crontab 来实现<br>From:<a href="http://www.phpddt.com/php/php-timed-task.html" target="_blank" rel="noopener">http://www.phpddt.com/php/php-timed-task.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2013/07/25/常用的PHP类库/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">useful php packages</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2013/07/25/对PHP输入输出流学习和认识/">
+        <span class="next-text nav-default">对PHP输入输出流学习和认识</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

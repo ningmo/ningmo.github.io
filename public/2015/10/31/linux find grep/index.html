@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="linux find grep">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追寻一颗宁静的心">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://ningmo.github.io/2015/10/31/linux find grep/">
+
+
+<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546在当前目录下所有文件中查找内容包含 string 的文件:find ./ -name &amp;quot;*&amp;quot; -exec grep &amp;quot;string&amp;quot; &amp;#123;&amp;#125; \;注意:在最后不能加 print">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux find grep">
+<meta property="og:url" content="http://ningmo.github.io/2015/10/31/linux find grep/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546在当前目录下所有文件中查找内容包含 string 的文件:find ./ -name &amp;quot;*&amp;quot; -exec grep &amp;quot;string&amp;quot; &amp;#123;&amp;#125; \;注意:在最后不能加 print">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-23T09:24:57.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux find grep">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546在当前目录下所有文件中查找内容包含 string 的文件:find ./ -name &amp;quot;*&amp;quot; -exec grep &amp;quot;string&amp;quot; &amp;#123;&amp;#125; \;注意:在最后不能加 print">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> linux find grep - 追寻一颗宁静的心 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追寻一颗宁静的心</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          linux find grep
+        
+      </h1>
+
+      <time class="post-time">
+          Oct 31 2015
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">在当前目录下所有文件中查找内容包含 string 的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep &quot;string&quot; &#123;&#125; \;</span><br><span class="line">注意:在最后不能加 print ,否则会出错.</span><br><span class="line"> </span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -l &quot;string&quot; &#123;&#125; \;</span><br><span class="line"> </span><br><span class="line">在当前目录下 *.c 中查找内容包含 string 的文件并列出字符所在的文件的所在行(不显示文件名):</span><br><span class="line">find ./ -name &quot;*.c&quot; -exec grep -n &quot;string&quot; &#123;&#125; \;</span><br><span class="line"> </span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件,所在行及所在行的内容:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -n &quot;string&quot; ./ &#123;&#125; \;</span><br><span class="line"> </span><br><span class="line">使用 find 查找时希望忽略某个目录(-prune)：</span><br><span class="line">如果希望在 /app 目录下查找文件， 但不希望在 /app/bin 目录下查找：</span><br><span class="line">find /app -name &quot;/app/bin&quot; -prune -o -print</span><br><span class="line"> </span><br><span class="line">使用 type 选项：</span><br><span class="line">如果要在 /etc 目录下查找所有的目录：</span><br><span class="line">find /etc -type d -print</span><br><span class="line"> </span><br><span class="line">如果要在 /etc 目录下查找 .svn 的目录：</span><br><span class="line">find /etc -name .svn -type d -print</span><br><span class="line"></span><br><span class="line">为了在当前目录下查找除目录以外的所有类型的文件：</span><br><span class="line">find . ! -type d -print</span><br><span class="line"> </span><br><span class="line">为了在当前目录下查找所有的符号链接文件， 可以用：</span><br><span class="line">find . -type l -print</span><br><span class="line"> </span><br><span class="line">find .  -mtime -4（4天内）/4(4天前的那一天)/+4（5天前）</span><br><span class="line"></span><br><span class="line">find         -name </span><br><span class="line">                -size   +50k</span><br><span class="line">                -type    f/b/c/d/l/sp...</span><br><span class="line">                -perm    -/+ /    755</span><br><span class="line">                -uid/user      201/yangsf</span><br><span class="line">                -gid/group    501/yangsf</span><br><span class="line">                -nouser/nogroup   </span><br><span class="line"></span><br><span class="line">===========================================================</span><br><span class="line">为了用 ls -l 命令列出所匹配到的文件， 可以把 ls -l 命令放在find命令的 -exec 选项中：</span><br><span class="line">find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line"> </span><br><span class="line">注： f 表示普通文件</span><br><span class="line">    exec 选项后面跟随着所要执行的命令， 然后是一对 &#123;&#125;， 一个空格和一个 \，最后是一个分号。</span><br></pre></td></tr></table></figure>
+
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2015/10/31/linux awk/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">linux awk</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/10/31/linux   tar 压缩解压缩/">
+        <span class="next-text nav-default">linux   tar 压缩解压缩</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">ningmo.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
