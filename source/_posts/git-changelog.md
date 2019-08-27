@@ -11,28 +11,30 @@ tags: [git,changelog]
 npm install commitizen -g # 也可在项目根目录本地安装 --save-dev
 npm install -g conventional-changelog-cli # 也可在项目根目录本地安装 --save-dev
 ```
+
 配置
 ```
 commitizen init cz-conventional-changelog --save-dev --save-exact
 ```
-如果出现报错 
+
+如果出现报错(极大可能是node版本问题 可以切换node版本)
 指定适配器
 
 vim .czrc
 ```
-
 {"path": "cz-conventional-changelog"}
 
 ```
 
 指定生成标准angular可选 angular/atom/...
 
-```conventional-changelog -p angular -i CHANGELOG.md -s```
-
 ```
+conventional-changelog -p angular -i CHANGELOG.md -s
+
 git add .
 git cz
 ```
+
 释义
 * feat 新功能
 * fix Bug修复
