@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>读取树状数据的方法 | 追寻一颗宁静的新</title>
+  <meta name="description" content="读取树状数据的方法一般在读取用“邻接列表算法”组织的数据时，需要使用递归逐层读取或者读取数据到数组，然后用递归或非递归的方法再行处理这里介绍一种边读边生成“树状”数组的方法 123456789101112131415161718192021222324252627282930mysql_connect();//测试数据$sql =&amp;lt;&amp;lt;&amp;lt; SQLselect * from (  s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="读取树状数据的方法">
+<meta property="og:url" content="http://ningmo.github.io/2013/03/23/mysql/读取树状数据的方法/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="读取树状数据的方法一般在读取用“邻接列表算法”组织的数据时，需要使用递归逐层读取或者读取数据到数组，然后用递归或非递归的方法再行处理这里介绍一种边读边生成“树状”数组的方法 123456789101112131415161718192021222324252627282930mysql_connect();//测试数据$sql =&amp;lt;&amp;lt;&amp;lt; SQLselect * from (  s">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.323Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="读取树状数据的方法">
+<meta name="twitter:description" content="读取树状数据的方法一般在读取用“邻接列表算法”组织的数据时，需要使用递归逐层读取或者读取数据到数组，然后用递归或非递归的方法再行处理这里介绍一种边读边生成“树状”数组的方法 123456789101112131415161718192021222324252627282930mysql_connect();//测试数据$sql =&amp;lt;&amp;lt;&amp;lt; SQLselect * from (  s">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://ningmo.github.io/2013/03/23/mysql/读取树状数据的方法/index.html">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+</head>
+
+
+<body class="main-center theme-pure" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form" method="GET" action="https://www.baidu.com/s?">
+	<div class="input-group">
+    	<input name="wd" type="text" class="form-control search-form-input" placeholder="Search" />
+	    <span class="input-group-btn">
+	    	<button type="submit" class=" btn btn-flat search-form-submit"><i class="icon icon-search"></i></button>
+	    </span>
+    </div>
+</form>
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ningmo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/sfhy20" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>本站部分内容来自互联网转载或内容整理,<br/>其中转载内容已标明出处,<br/>如有版权问题请联系管理人员</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithms/">Algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Js/">Js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Php/">Php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/index/">index</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ipython/">ipython</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ipython/python/">python</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">14</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/tar/">tar</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php-linux/">php linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/supervisor/">supervisor</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/supervisor/tornado/">tornado</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bubble/">bubble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/changelog/">changelog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/find/">find</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generator/">generator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grep/">grep</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lnmp/">lnmp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-trigger/">mysql trigger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpemail/">phpemail</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpexcel/">phpexcel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phppdf/">phppdf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/run/">run</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-mysql/读取树状数据的方法" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      读取树状数据的方法
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2013/03/23/mysql/读取树状数据的方法/" class="article-date">
+	  <time datetime="2013-03-23T14:46:55.000Z" itemprop="datePublished">2013-03-23</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </span>
+
+        
+
+        
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>读取树状数据的方法<br>一般在读取用“邻接列表算法”组织的数据时，需要使用递归逐层读取<br>或者读取数据到数组，然后用递归或非递归的方法再行处理<br>这里介绍一种边读边生成“树状”数组的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">mysql_connect();</span><br><span class="line"></span><br><span class="line">//测试数据</span><br><span class="line">$sql =&lt;&lt;&lt; SQL</span><br><span class="line">select * from (</span><br><span class="line">  select &apos;1&apos; as id, &apos;0&apos; as pid, &apos;Food&apos; as title</span><br><span class="line">  union all select &apos;2&apos;, &apos;1&apos;, &apos;Fruit&apos;</span><br><span class="line">  union all select &apos;3&apos;, &apos;2&apos;, &apos;Red&apos;</span><br><span class="line">  union all select &apos;4&apos;, &apos;3&apos;, &apos;Cherry&apos;</span><br><span class="line">  union all select &apos;5&apos;, &apos;2&apos;, &apos;Yellow&apos;</span><br><span class="line">  union all select &apos;6&apos;, &apos;5&apos;, &apos;Banana&apos;</span><br><span class="line">  union all select &apos;7&apos;, &apos;1&apos;, &apos;Meat&apos;</span><br><span class="line">  union all select &apos;8&apos;, &apos;7&apos;, &apos;Beef&apos;</span><br><span class="line">  union all select &apos;9&apos;, &apos;7&apos;, &apos;Pork&apos;</span><br><span class="line">  ) t</span><br><span class="line">  order by pid, id</span><br><span class="line">SQL;</span><br><span class="line"></span><br><span class="line">$rs = mysql_query($sql);</span><br><span class="line"></span><br><span class="line">$res = array(); //结果数组</span><br><span class="line">$ind = array(); //索引数组</span><br><span class="line">while($row = mysql_fetch_assoc($rs)) &#123;</span><br><span class="line">  list($id, $pid) = array_values($row); </span><br><span class="line">  $ind[$id] = $row;</span><br><span class="line">  if(isset($ind[$pid])) $ind[$pid][&apos;child&apos;][$id] =&amp; $ind[$id]; //构造索引</span><br><span class="line">  if($pid == 0) $res[$id] =&amp; $ind[$id]; //转存根节点组</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo &apos;&lt;xmp&gt;&apos; . print_r($res, 1);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [1] =&gt; Array</span><br><span class="line">        (</span><br><span class="line">            [id] =&gt; 1</span><br><span class="line">            [pid] =&gt; 0</span><br><span class="line">            [title] =&gt; Food</span><br><span class="line">            [child] =&gt; Array</span><br><span class="line">                (</span><br><span class="line">                    [2] =&gt; Array</span><br><span class="line">                        (</span><br><span class="line">                            [id] =&gt; 2</span><br><span class="line">                            [pid] =&gt; 1</span><br><span class="line">                            [title] =&gt; Fruit</span><br><span class="line">                            [child] =&gt; Array</span><br><span class="line">                                (</span><br><span class="line">                                    [3] =&gt; Array</span><br><span class="line">                                        (</span><br><span class="line">                                            [id] =&gt; 3</span><br><span class="line">                                            [pid] =&gt; 2</span><br><span class="line">                                            [title] =&gt; Red</span><br><span class="line">                                            [child] =&gt; Array</span><br><span class="line">                                                (</span><br><span class="line">                                                    [4] =&gt; Array</span><br><span class="line">                                                        (</span><br><span class="line">                                                            [id] =&gt; 4</span><br><span class="line">                                                            [pid] =&gt; 3</span><br><span class="line">                                                            [title] =&gt; Cherry</span><br><span class="line">                                                        )</span><br><span class="line"></span><br><span class="line">                                                )</span><br><span class="line"></span><br><span class="line">                                        )</span><br><span class="line"></span><br><span class="line">                                    [5] =&gt; Array</span><br><span class="line">                                        (</span><br><span class="line">                                            [id] =&gt; 5</span><br><span class="line">                                            [pid] =&gt; 2</span><br><span class="line">                                            [title] =&gt; Yellow</span><br><span class="line">                                            [child] =&gt; Array</span><br><span class="line">                                                (</span><br><span class="line">                                                    [6] =&gt; Array</span><br><span class="line">                                                        (</span><br><span class="line">                                                            [id] =&gt; 6</span><br><span class="line">                                                            [pid] =&gt; 5</span><br><span class="line">                                                            [title] =&gt; Banana</span><br><span class="line">                                                        )</span><br><span class="line"></span><br><span class="line">                                                )</span><br><span class="line"></span><br><span class="line">                                        )</span><br><span class="line"></span><br><span class="line">                                )</span><br><span class="line"></span><br><span class="line">                        )</span><br><span class="line"></span><br><span class="line">                    [7] =&gt; Array</span><br><span class="line">                        (</span><br><span class="line">                            [id] =&gt; 7</span><br><span class="line">                            [pid] =&gt; 1</span><br><span class="line">                            [title] =&gt; Meat</span><br><span class="line">                            [child] =&gt; Array</span><br><span class="line">                                (</span><br><span class="line">                                    [8] =&gt; Array</span><br><span class="line">                                        (</span><br><span class="line">                                            [id] =&gt; 8</span><br><span class="line">                                            [pid] =&gt; 7</span><br><span class="line">                                            [title] =&gt; Beef</span><br><span class="line">                                        )</span><br><span class="line"></span><br><span class="line">                                    [9] =&gt; Array</span><br><span class="line">                                        (</span><br><span class="line">                                            [id] =&gt; 9</span><br><span class="line">                                            [pid] =&gt; 7</span><br><span class="line">                                            [title] =&gt; Pork</span><br><span class="line">                                        )</span><br><span class="line"></span><br><span class="line">                                )</span><br><span class="line"></span><br><span class="line">                        )</span><br><span class="line"></span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>来自：<a href="http://bbs.csdn.net/topics/390364669" target="_blank" rel="noopener">http://bbs.csdn.net/topics/390364669</a></p>
+
+      
+    </div>
+  </article>
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2013/03/23/php/用户在线与离线/" title="用户在线与离线"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2013/03/03/mysql/批量更新表中的某个字段/" title="批量更新表中的某个字段"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  </div>
+</nav>
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ningmo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/sfhy20" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:ningmo.github.io ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+
+
+
+   
+
+
+
+
+
+
+
+
+</body>
+</html>

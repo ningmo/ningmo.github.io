@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>mysql存储过程详解 | 追寻一颗宁静的新</title>
+  <meta name="description" content="mysql存储过程详解  存储过程简介  我们常用的操作数据库语言SQL语句在执行的时候需要要先编译，然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它。 一个存储过程是一个可编程的函数，它在数据库中创建并保存。它可以有SQL语句和一些特殊的控制结构组成。当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql存储过程详解">
+<meta property="og:url" content="http://ningmo.github.io/2013/08/01/mysql/mysql存储过程详解/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="mysql存储过程详解  存储过程简介  我们常用的操作数据库语言SQL语句在执行的时候需要要先编译，然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它。 一个存储过程是一个可编程的函数，它在数据库中创建并保存。它可以有SQL语句和一些特殊的控制结构组成。当">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.321Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql存储过程详解">
+<meta name="twitter:description" content="mysql存储过程详解  存储过程简介  我们常用的操作数据库语言SQL语句在执行的时候需要要先编译，然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它。 一个存储过程是一个可编程的函数，它在数据库中创建并保存。它可以有SQL语句和一些特殊的控制结构组成。当">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://ningmo.github.io/2013/08/01/mysql/mysql存储过程详解/index.html">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+</head>
+
+
+<body class="main-center theme-pure" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form" method="GET" action="https://www.baidu.com/s?">
+	<div class="input-group">
+    	<input name="wd" type="text" class="form-control search-form-input" placeholder="Search" />
+	    <span class="input-group-btn">
+	    	<button type="submit" class=" btn btn-flat search-form-submit"><i class="icon icon-search"></i></button>
+	    </span>
+    </div>
+</form>
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ningmo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/sfhy20" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>本站部分内容来自互联网转载或内容整理,<br/>其中转载内容已标明出处,<br/>如有版权问题请联系管理人员</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithms/">Algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Js/">Js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Php/">Php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/index/">index</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ipython/">ipython</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ipython/python/">python</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">14</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/tar/">tar</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php-linux/">php linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/supervisor/">supervisor</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/supervisor/tornado/">tornado</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bubble/">bubble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/changelog/">changelog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/find/">find</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generator/">generator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grep/">grep</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lnmp/">lnmp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-trigger/">mysql trigger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpemail/">phpemail</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpexcel/">phpexcel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phppdf/">phppdf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/run/">run</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-mysql/mysql存储过程详解" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql存储过程详解
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2013/08/01/mysql/mysql存储过程详解/" class="article-date">
+	  <time datetime="2013-08-01T03:24:29.000Z" itemprop="datePublished">2013-08-01</time>
+	</a>
+</span>
+        
+        
+
+        
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>mysql存储过程详解</p>
+<ol>
+<li>存储过程简介</li>
+</ol>
+<p>我们常用的操作数据库语言SQL语句在执行的时候需要要先编译，然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它。</p>
+<p>一个存储过程是一个可编程的函数，它在数据库中创建并保存。它可以有SQL语句和一些特殊的控制结构组成。当希望在不同的应用程序或平台上执行相同的函数，或者封装特定功能时，存储过程是非常有用的。数据库中的存储过程可以看做是对编程中面向对象方法的模拟。它允许控制数据的访问方式。</p>
+<p>存储过程通常有以下优点：</p>
+<p>(1).存储过程增强了SQL语言的功能和灵活性。存储过程可以用流控制语句编写，有很强的灵活性，可以完成复杂的判断和较复杂的运算。</p>
+<p>(2).存储过程允许标准组件是编程。存储过程被创建后，可以在程序中被多次调用，而不必重新编写该存储过程的SQL语句。而且数据库专业人员可以随时对存储过程进行修改，对应用程序源代码毫无影响。</p>
+<p>(3).存储过程能实现较快的执行速度。如果某一操作包含大量的Transaction-SQL代码或分别被多次执行，那么存储过程要比批处理的执行速度快很多。因为存储过程是预编译的。在首次运行一个存储过程时查询，优化器对其进行分析优化，并且给出最终被存储在系统表中的执行计划。而批处理的Transaction-SQL语句在每次运行时都要进行编译和优化，速度相对要慢一些。</p>
+<p>(4).存储过程能过减少网络流量。针对同一个数据库对象的操作（如查询、修改），如果这一操作所涉及的Transaction-SQL语句被组织程存储过程，那么当在客户计算机上调用该存储过程时，网络中传送的只是该调用语句，从而大大增加了网络流量并降低了网络负载。</p>
+<p>(5).存储过程可被作为一种安全机制来充分利用。系统管理员通过执行某一存储过程的权限进行限制，能够实现对相应的数据的访问权限的限制，避免了非授权用户对数据的访问，保证了数据的安全。</p>
+<ol start="2">
+<li>关于MySQL的存储过程</li>
+</ol>
+<p>存储过程是数据库存储的一个重要的功能，但是MySQL在5.0以前并不支持存储过程，这使得MySQL在应用上大打折扣。好在MySQL 5.0终于开始已经支持存储过程，这样即可以大大提高数据库的处理速度，同时也可以提高数据库编程的灵活性。</p>
+<ol start="3">
+<li>MySQL存储过程的创建</li>
+</ol>
+<p>(1). 格式</p>
+<p>MySQL存储过程创建的格式：CREATE PROCEDURE 过程名 ([过程参数[,…]])<br>[特性 …] 过程体</p>
+<p>这里先举个例子：</p>
+<p>mysql&gt; DELIMITER //<br>mysql&gt; CREATE PROCEDURE proc1(OUT s int)<br>-&gt; BEGIN<br>-&gt; SELECT COUNT(*) INTO s FROM user;<br>-&gt; END<br>-&gt; //<br>mysql&gt; DELIMITER ;</p>
+<p>注：</p>
+<p>（1）这里需要注意的是DELIMITER //和DELIMITER ;两句，DELIMITER是分割符的意思，因为MySQL默认以”;”为分隔符，如果我们没有声明分割符，那么编译器会把存储过程当成SQL语句进行处理，则存储过程的编译过程会报错，所以要事先用DELIMITER关键字申明当前段分隔符，这样MySQL才会将”;”当做存储过程中的代码，不会执行这些代码，用完了之后要把分隔符还原。</p>
+<p>（2）存储过程根据需要可能会有输入、输出、输入输出参数，这里有一个输出参数s，类型是int型，如果有多个参数用”,”分割开。</p>
+<p>（3）过程体的开始与结束使用BEGIN与END进行标识。</p>
+<p>这样，我们的一个MySQL存储过程就完成了，是不是很容易呢?看不懂也没关系，接下来，我们详细的讲解。</p>
+<p>(2). 声明分割符</p>
+<p>其实，关于声明分割符，上面的注解已经写得很清楚，不需要多说，只是稍微要注意一点的是：如果是用MySQL的Administrator管理工具时，可以直接创建，不再需要声明。</p>
+<p>(3). 参数</p>
+<p>MySQL存储过程的参数用在存储过程的定义，共有三种参数类型,IN,OUT,INOUT,形式如：</p>
+<p>CREATE PROCEDURE([[IN |OUT |INOUT ] 参数名 数据类形…])</p>
+<p>IN 输入参数:表示该参数的值必须在调用存储过程时指定，在存储过程中修改该参数的值不能被返回，为默认值</p>
+<p>OUT 输出参数:该值可在存储过程内部被改变，并可返回</p>
+<p>INOUT 输入输出参数:调用时指定，并且可被改变和返回</p>
+<p>Ⅰ. IN参数例子</p>
+<p>创建:</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE demo_in_parameter(IN p_in int)<br>-&gt; BEGIN<br>-&gt; SELECT p_in;<br>-&gt; SET p_in=2;<br>-&gt; SELECT p_in;<br>-&gt; END;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>执行结果:</p>
+<p>mysql &gt; SET @p_in=1;<br>mysql &gt; CALL demo_in_parameter(@p_in);<br>+——+<br>| p_in |<br>+——+<br>|   1  |<br>+——+</p>
+<p>+——+<br>| p_in |<br>+——+<br>|   2  |<br>+——+</p>
+<p>mysql&gt; SELECT @p_in;<br>+——-+<br>| @p_in |<br>+——-+<br>|  1    |<br>+——-+</p>
+<p>以上可以看出，p_in虽然在存储过程中被修改，但并不影响@p_id的值</p>
+<p>Ⅱ.OUT参数例子</p>
+<p>创建:</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE demo_out_parameter(OUT p_out int)<br>-&gt; BEGIN<br>-&gt; SELECT p_out;<br>-&gt; SET p_out=2;<br>-&gt; SELECT p_out;<br>-&gt; END;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>执行结果:</p>
+<p>mysql &gt; SET @p_out=1;<br>mysql &gt; CALL sp_demo_out_parameter(@p_out);<br>+——-+<br>| p_out |<br>+——-+<br>| NULL  |<br>+——-+</p>
+<p>+——-+<br>| p_out |<br>+——-+<br>|   2   |<br>+——-+</p>
+<p>mysql&gt; SELECT @p_out;<br>+——-+<br>| p_out |<br>+——-+<br>|   2   |<br>+——-+</p>
+<p>Ⅲ. INOUT参数例子</p>
+<p>创建:</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE demo_inout_parameter(INOUT p_inout int)<br>-&gt; BEGIN<br>-&gt; SELECT p_inout;<br>-&gt; SET p_inout=2;<br>-&gt; SELECT p_inout;<br>-&gt; END;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>执行结果:</p>
+<p>mysql &gt; SET @p_inout=1;<br>mysql &gt; CALL demo_inout_parameter(@p_inout) ;<br>+———+<br>| p_inout |<br>+———+<br>|    1    |<br>+———+</p>
+<p>+———+<br>| p_inout |<br>+———+<br>|    2    |<br>+———+</p>
+<p>mysql &gt; SELECT @p_inout;<br>+———-+<br>| @p_inout |<br>+———-+<br>|    2     |<br>+———-+</p>
+<p>(4). 变量</p>
+<p>Ⅰ. 变量定义</p>
+<p>DECLARE variable_name [,variable_name…] datatype [DEFAULT value];</p>
+<p>其中，datatype为MySQL的数据类型，如:int, float, date, varchar(length)</p>
+<p>例如:</p>
+<p>DECLARE l_int int unsigned default 4000000;<br>DECLARE l_numeric number(8,2) DEFAULT 9.95;<br>DECLARE l_date date DEFAULT ‘1999-12-31’;<br>DECLARE l_datetime datetime DEFAULT ‘1999-12-31 23:59:59’;<br>DECLARE l_varchar varchar(255) DEFAULT ‘This will not be padded’;</p>
+<p>Ⅱ. 变量赋值</p>
+<p>SET 变量名 = 表达式值 [,variable_name = expression …]</p>
+<p>Ⅲ. 用户变量</p>
+<p>ⅰ. 在MySQL客户端使用用户变量</p>
+<p>mysql &gt; SELECT ‘Hello World’ into @x;<br>mysql &gt; SELECT @x;<br>+————-+<br>|   @x        |<br>+————-+<br>| Hello World |<br>+————-+<br>mysql &gt; SET @y=’Goodbye Cruel World’;<br>mysql &gt; SELECT @y;<br>+———————+<br>|     @y              |<br>+———————+<br>| Goodbye Cruel World |<br>+———————+</p>
+<p>mysql &gt; SET @z=1+2+3;<br>mysql &gt; SELECT @z;<br>+——+<br>| @z   |<br>+——+<br>|  6   |<br>+——+</p>
+<p>ⅱ. 在存储过程中使用用户变量</p>
+<p>mysql &gt; CREATE PROCEDURE GreetWorld( ) SELECT CONCAT(@greeting,’ World’);<br>mysql &gt; SET @greeting=’Hello’;<br>mysql &gt; CALL GreetWorld( );<br>+—————————-+<br>| CONCAT(@greeting,’ World’) |<br>+—————————-+<br>|  Hello World               |<br>+—————————-+</p>
+<p>ⅲ. 在存储过程间传递全局范围的用户变量</p>
+<p>mysql&gt; CREATE PROCEDURE p1()   SET @last_procedure=’p1’;<br>mysql&gt; CREATE PROCEDURE p2() SELECT CONCAT(‘Last procedure was ‘,@last_proc);<br>mysql&gt; CALL p1( );<br>mysql&gt; CALL p2( );<br>+———————————————–+<br>| CONCAT(‘Last procedure was ‘,@last_proc  |<br>+———————————————–+<br>| Last procedure was p1                         |<br>+———————————————–+</p>
+<p>注意:</p>
+<p>①用户变量名一般以@开头</p>
+<p>②滥用用户变量会导致程序难以理解及管理</p>
+<p>(5). 注释</p>
+<p>MySQL存储过程可使用两种风格的注释</p>
+<p>双模杠：–</p>
+<p>该风格一般用于单行注释</p>
+<p>c风格： 一般用于多行注释</p>
+<p>例如：</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc1 –name存储过程名<br>-&gt; (IN parameter1 INTEGER)<br>-&gt; BEGIN<br>-&gt; DECLARE variable1 CHAR(10);<br>-&gt; IF parameter1 = 17 THEN<br>-&gt; SET variable1 = ‘birds’;<br>-&gt; ELSE<br>-&gt; SET variable1 = ‘beasts’;<br>-&gt; END IF;<br>-&gt; INSERT INTO table1 VALUES (variable1);<br>-&gt; END<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<ol start="4">
+<li>MySQL存储过程的调用</li>
+</ol>
+<p>用call和你过程名以及一个括号，括号里面根据需要，加入参数，参数包括输入参数、输出参数、输入输出参数。具体的调用方法可以参看上面的例子。</p>
+<ol start="5">
+<li>MySQL存储过程的查询</li>
+</ol>
+<p>我们像知道一个数据库下面有那些表，我们一般采用show tables;进行查看。那么我们要查看某个数据库下面的存储过程，是否也可以采用呢？答案是，我们可以查看某个数据库下面的存储过程，但是是令一钟方式。</p>
+<p>我们可以用</p>
+<p>select name from mysql.proc where db=’数据库名’;</p>
+<p>或者</p>
+<p>select routine_name from information_schema.routines where routine_schema=’数据库名’;</p>
+<p>或者</p>
+<p>show procedure status where db=’数据库名’;</p>
+<p>进行查询。</p>
+<p>如果我们想知道，某个存储过程的详细，那我们又该怎么做呢？是不是也可以像操作表一样用describe 表名进行查看呢？</p>
+<p>答案是：我们可以查看存储过程的详细，但是需要用另一种方法：</p>
+<p>SHOW CREATE PROCEDURE 数据库.存储过程名;</p>
+<p>就可以查看当前存储过程的详细。</p>
+<ol start="6">
+<li>MySQL存储过程的修改</li>
+</ol>
+<p>ALTER PROCEDURE</p>
+<p>更改用CREATE PROCEDURE 建立的预先指定的存储过程，其不会影响相关存储过程或存储功能。</p>
+<ol start="7">
+<li>MySQL存储过程的删除</li>
+</ol>
+<p>删除一个存储过程比较简单，和删除表一样：</p>
+<p>DROP PROCEDURE</p>
+<p>从MySQL的表格中删除一个或多个存储过程。</p>
+<ol start="8">
+<li>MySQL存储过程的控制语句</li>
+</ol>
+<p>(1). 变量作用域</p>
+<p>内部的变量在其作用域范围内享有更高的优先权，当执行到end。变量时，内部变量消失，此时已经在其作用域外，变量不再可见了，应为在存储<br>过程外再也不能找到这个申明的变量，但是你可以通过out参数或者将其值指派<br>给会话变量来保存其值。</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc3()<br>-&gt; begin<br>-&gt; declare x1 varchar(5) default ‘outer’;<br>-&gt; begin<br>-&gt; declare x1 varchar(5) default ‘inner’;<br>-&gt; select x1;<br>-&gt; end;<br>-&gt; select x1;<br>-&gt; end;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>(2). 条件语句</p>
+<p>Ⅰ. if-then -else语句</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc2(IN parameter int)<br>-&gt; begin<br>-&gt; declare var int;<br>-&gt; set var=parameter+1;<br>-&gt; if var=0 then<br>-&gt; insert into t values(17);<br>-&gt; end if;<br>-&gt; if parameter=0 then<br>-&gt; update t set s1=s1+1;<br>-&gt; else<br>-&gt; update t set s1=s1+2;<br>-&gt; end if;<br>-&gt; end;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>Ⅱ. case语句：</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc3 (in parameter int)<br>-&gt; begin<br>-&gt; declare var int;<br>-&gt; set var=parameter+1;<br>-&gt; case var<br>-&gt; when 0 then<br>-&gt; insert into t values(17);<br>-&gt; when 1 then<br>-&gt; insert into t values(18);<br>-&gt; else<br>-&gt; insert into t values(19);<br>-&gt; end case;<br>-&gt; end;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>(3). 循环语句</p>
+<p>Ⅰ. while ···· end while：</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc4()<br>-&gt; begin<br>-&gt; declare var int;<br>-&gt; set var=0;<br>-&gt; while var&lt;6 do<br>-&gt; insert into t values(var);<br>-&gt; set var=var+1;<br>-&gt; end while;<br>-&gt; end;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>Ⅱ. repeat···· end repeat：</p>
+<p>它在执行操作后检查结果，而while则是执行前进行检查。</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc5 ()<br>-&gt; begin<br>-&gt; declare v int;<br>-&gt; set v=0;<br>-&gt; repeat<br>-&gt; insert into t values(v);<br>-&gt; set v=v+1;<br>-&gt; until v&gt;=5<br>-&gt; end repeat;<br>-&gt; end;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>Ⅲ. loop ·····end loop:</p>
+<p>loop循环不需要初始条件，这点和while 循环相似，同时和repeat循环一样不需要结束条件, leave语句的意义是离开循环。</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc6 ()<br>-&gt; begin<br>-&gt; declare v int;<br>-&gt; set v=0;<br>-&gt; LOOP_LABLE:loop<br>-&gt; insert into t values(v);<br>-&gt; set v=v+1;<br>-&gt; if v &gt;=5 then<br>-&gt; leave LOOP_LABLE;<br>-&gt; end if;<br>-&gt; end loop;<br>-&gt; end;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<p>Ⅳ. LABLES 标号：</p>
+<p>标号可以用在begin repeat while 或者loop 语句前，语句标号只能在合法的语句前面使用。可以跳出循环，使运行指令达到复合语句的最后一步。</p>
+<p>(4). ITERATE迭代</p>
+<p>Ⅰ. ITERATE:</p>
+<p>通过引用复合语句的标号,来从新开始复合语句</p>
+<p>mysql &gt; DELIMITER //<br>mysql &gt; CREATE PROCEDURE proc10 ()<br>-&gt; begin<br>-&gt; declare v int;<br>-&gt; set v=0;<br>-&gt; LOOP_LABLE:loop<br>-&gt; if v=3 then<br>-&gt; set v=v+1;<br>-&gt; ITERATE LOOP_LABLE;<br>-&gt; end if;<br>-&gt; insert into t values(v);<br>-&gt; set v=v+1;<br>-&gt; if v&gt;=5 then<br>-&gt; leave LOOP_LABLE;<br>-&gt; end if;<br>-&gt; end loop;<br>-&gt; end;<br>-&gt; //<br>mysql &gt; DELIMITER ;</p>
+<ol start="9">
+<li>MySQL存储过程的基本函数</li>
+</ol>
+<p>(1).字符串类</p>
+<p>CHARSET(str) //返回字串字符集<br>CONCAT (string2 [,… ]) //连接字串<br>INSTR (string ,substring ) //返回substring首次在string中出现的位置,不存在返回0<br>LCASE (string2 ) //转换成小写<br>LEFT (string2 ,length ) //从string2中的左边起取length个字符<br>LENGTH (string ) //string长度<br>LOAD_FILE (file_name ) //从文件读取内容<br>LOCATE (substring , string [,start_position ] ) 同INSTR,但可指定开始位置<br>LPAD (string2 ,length ,pad ) //重复用pad加在string开头,直到字串长度为length<br>LTRIM (string2 ) //去除前端空格<br>REPEAT (string2 ,count ) //重复count次<br>REPLACE (str ,search_str ,replace_str ) //在str中用replace_str替换search_str<br>RPAD (string2 ,length ,pad) //在str后用pad补充,直到长度为length<br>RTRIM (string2 ) //去除后端空格<br>STRCMP (string1 ,string2 ) //逐字符比较两字串大小,<br>SUBSTRING (str , position [,length ]) //从str的position开始,取length个字符,<br>注：mysql中处理字符串时，默认第一个字符下标为1，即参数position必须大于等于1</p>
+<p>mysql&gt; select substring(‘abcd’,0,2);<br>+———————–+<br>| substring(‘abcd’,0,2) |<br>+———————–+<br>|                       |<br>+———————–+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select substring(‘abcd’,1,2);<br>+———————–+<br>| substring(‘abcd’,1,2) |<br>+———————–+<br>|     ab                |<br>+———————–+<br>1 row in set (0.02 sec)</p>
+<p>TRIM([[BOTH|LEADING|TRAILING] [padding] FROM]string2) //去除指定位置的指定字符<br>UCASE (string2 ) //转换成大写<br>RIGHT(string2,length) //取string2最后length个字符<br>SPACE(count) //生成count个空格</p>
+<p>(2).数学类</p>
+<p>ABS (number2 ) //绝对值<br>BIN (decimal_number ) //十进制转二进制<br>CEILING (number2 ) //向上取整<br>CONV(number2,from_base,to_base) //进制转换<br>FLOOR (number2 ) //向下取整<br>FORMAT (number,decimal_places ) //保留小数位数<br>HEX (DecimalNumber ) //转十六进制<br>注：HEX()中可传入字符串，则返回其ASC-11码，如HEX(‘DEF’)返回4142143<br>也可以传入十进制整数，返回其十六进制编码，如HEX(25)返回19<br>LEAST (number , number2 [,..]) //求最小值<br>MOD (numerator ,denominator ) //求余<br>POWER (number ,power ) //求指数<br>RAND([seed]) //随机数<br>ROUND (number [,decimals ]) //四舍五入,decimals为小数位数]</p>
+<p>注：返回类型并非均为整数，如：<br>(1)默认变为整形值</p>
+<p>mysql&gt; select round(1.23);<br>+————-+<br>| round(1.23) |<br>+————-+<br>|           1 |<br>+————-+<br>1 row in set (0.00 sec)</p>
+<p>mysql&gt; select round(1.56);<br>+————-+<br>| round(1.56) |<br>+————-+<br>|           2 |<br>+————-+<br>1 row in set (0.00 sec)</p>
+<p>(2)可以设定小数位数，返回浮点型数据</p>
+<p>mysql&gt; select round(1.567,2);<br>+—————-+<br>| round(1.567,2) |<br>+—————-+<br>|           1.57 |<br>+—————-+<br>1 row in set (0.00 sec)</p>
+<p>SIGN (number2 ) //</p>
+<p>(3).日期时间类<br>ADDTIME (date2 ,time_interval ) //将time_interval加到date2<br>CONVERT_TZ (datetime2 ,fromTZ ,toTZ ) //转换时区<br>CURRENT_DATE ( ) //当前日期<br>CURRENT_TIME ( ) //当前时间<br>CURRENT_TIMESTAMP ( ) //当前时间戳<br>DATE (datetime ) //返回datetime的日期部分<br>DATE_ADD (date2 , INTERVAL d_value d_type ) //在date2中加上日期或时间<br>DATE_FORMAT (datetime ,FormatCodes ) //使用formatcodes格式显示datetime<br>DATE_SUB (date2 , INTERVAL d_value d_type ) //在date2上减去一个时间<br>DATEDIFF (date1 ,date2 ) //两个日期差<br>DAY (date ) //返回日期的天<br>DAYNAME (date ) //英文星期<br>DAYOFWEEK (date ) //星期(1-7) ,1为星期天<br>DAYOFYEAR (date ) //一年中的第几天<br>EXTRACT (interval_name FROM date ) //从date中提取日期的指定部分<br>MAKEDATE (year ,day ) //给出年及年中的第几天,生成日期串<br>MAKETIME (hour ,minute ,second ) //生成时间串<br>MONTHNAME (date ) //英文月份名<br>NOW ( ) //当前时间<br>SEC_TO_TIME (seconds ) //秒数转成时间<br>STR_TO_DATE (string ,format ) //字串转成时间,以format格式显示<br>TIMEDIFF (datetime1 ,datetime2 ) //两个时间差<br>TIME_TO_SEC (time ) //时间转秒数]<br>WEEK (date_time [,start_of_week ]) //第几周<br>YEAR (datetime ) //年份<br>DAYOFMONTH(datetime) //月的第几天<br>HOUR(datetime) //小时<br>LAST_DAY(date) //date的月的最后日期<br>MICROSECOND(datetime) //微秒<br>MONTH(datetime) //月<br>MINUTE(datetime) //分返回符号,正负或0<br>SQRT(number2) //开平方</p>
+<p>&nbsp;</p>
+<p>From:<a href="http://xdj651897373-126-com.iteye.com/blog/1819924" target="_blank">http://xdj651897373-126-com.iteye.com/blog/1819924</a></p>
+
+      
+    </div>
+  </article>
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2015/08/10/devops/saltstack入门/" title="saltstack入门"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2013/07/31/mysql/mysql_trigger_and_procedure/" title="mysql_trigger_and_procedure"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  </div>
+</nav>
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ningmo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/sfhy20" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:ningmo.github.io ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+
+
+
+   
+
+
+
+
+
+
+
+
+</body>
+</html>

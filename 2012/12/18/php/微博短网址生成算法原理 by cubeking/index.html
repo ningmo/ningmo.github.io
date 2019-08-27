@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>微博短网址生成算法原理 by cubeking | 追寻一颗宁静的新</title>
+  <meta name="description" content="短网址（Short URL），顾名思义就是在形式上比较短的网址。通常用的是asp或者php转向，在Web 2.0的今天，不得不说，这是一个潮流。目前已经有许多类似服务，借助短网址您可以用简短的网址替代原来冗长的网址，让使用者可以更容易的分享链接。 例如：http://t.cn/SzjPjA  表示http://hi.baidu.com/cubeking/ 短网址服务，可能很多朋友都已经不再陌">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微博短网址生成算法原理 by cubeking">
+<meta property="og:url" content="http://ningmo.github.io/2012/12/18/php/微博短网址生成算法原理 by cubeking/index.html">
+<meta property="og:site_name" content="追寻一颗宁静的心">
+<meta property="og:description" content="短网址（Short URL），顾名思义就是在形式上比较短的网址。通常用的是asp或者php转向，在Web 2.0的今天，不得不说，这是一个潮流。目前已经有许多类似服务，借助短网址您可以用简短的网址替代原来冗长的网址，让使用者可以更容易的分享链接。 例如：http://t.cn/SzjPjA  表示http://hi.baidu.com/cubeking/ 短网址服务，可能很多朋友都已经不再陌">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-26T06:09:54.330Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微博短网址生成算法原理 by cubeking">
+<meta name="twitter:description" content="短网址（Short URL），顾名思义就是在形式上比较短的网址。通常用的是asp或者php转向，在Web 2.0的今天，不得不说，这是一个潮流。目前已经有许多类似服务，借助短网址您可以用简短的网址替代原来冗长的网址，让使用者可以更容易的分享链接。 例如：http://t.cn/SzjPjA  表示http://hi.baidu.com/cubeking/ 短网址服务，可能很多朋友都已经不再陌">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://ningmo.github.io/2012/12/18/php/微博短网址生成算法原理 by cubeking/index.html">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+</head>
+
+
+<body class="main-center theme-pure" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form" method="GET" action="https://www.baidu.com/s?">
+	<div class="input-group">
+    	<input name="wd" type="text" class="form-control search-form-input" placeholder="Search" />
+	    <span class="input-group-btn">
+	    	<button type="submit" class=" btn btn-flat search-form-submit"><i class="icon icon-search"></i></button>
+	    </span>
+    </div>
+</form>
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ningmo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/sfhy20" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>本站部分内容来自互联网转载或内容整理,<br/>其中转载内容已标明出处,<br/>如有版权问题请联系管理人员</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithms/">Algorithms</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Js/">Js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Php/">Php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/index/">index</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ipython/">ipython</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ipython/python/">python</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">14</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/tar/">tar</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php-linux/">php linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/supervisor/">supervisor</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/python/supervisor/tornado/">tornado</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithms/">Algorithms</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bubble/">bubble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/changelog/">changelog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elasticsearch/">elasticsearch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/find/">find</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generator/">generator</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grep/">grep</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/image/">image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lnmp/">lnmp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-trigger/">mysql trigger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpemail/">phpemail</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpexcel/">phpexcel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phppdf/">phppdf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/run/">run</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/select/">select</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-php/微博短网址生成算法原理 by cubeking" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      微博短网址生成算法原理 by cubeking
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2012/12/18/php/微博短网址生成算法原理 by cubeking/" class="article-date">
+	  <time datetime="2012-12-18T15:12:08.000Z" itemprop="datePublished">2012-12-18</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </span>
+
+        
+
+        
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><strong>   <a href="http://baike.baidu.com/view/2693499.htm" target="_blank">短网址</a>（Short URL），顾名思义就是在形式上比较短的网址。通常用的是asp或者php转向，在Web 2.0的今天，不得不说，这是一个潮流。目前已经有许多类似服务，借助短网址您可以用简短的网址替代原来冗长的网址，让使用者可以更容易的分享链接。</strong></p>
+<p><strong>例如：<a href="http://t.cn/SzjPjA" target="_blank" rel="noopener">http://t.cn/SzjPjA</a>  表示<a href="http://hi.baidu.com/cubeking/" target="_blank" rel="noopener">http://hi.baidu.com/cubeking/</a></strong></p>
+<p>短网址服务，可能很多朋友都已经不再陌生，现在大部分微博、手机邮件提醒等地方已经有很多应用模式了，并占据了一定的市场。估计很多朋友现在也正在使用。</p>
+<p>看过新浪的短连接服务，发现后面主要有6个字符串组成，于是第一个想到的就是原来公司写的一个游戏激活码规则，也就是下面的算法2，</p>
+<p>26个大写字母 26小写字母，10个数字，随机生成6个然后插入数据库对应一个id，短连接跳转的时候，根据字符串查询到对应id，即可实现相应的跳转！不过2的62次方，不知道有没有重复的，小概率可以，但是对应不是很大的网站应该足够了</p>
+<p>自从twitter推出短网址(shorturl),继之国内各大微博跟风,google公开goo.gl使用API,短网址之风愈演愈烈.不得不说这是一个新兴又一大热门web2.0服务.现整理一下,包括完整短网址网站,<a href="http://hi.baidu.com/cubeking/blog/item/5e73241e5d75769786d6b658.html" target="_blank"><strong>短网址生成原理</strong></a>,算法举例,以及优劣比较,同时还介绍几个phper个人实现的.</p>
+<p><strong>算法原理<br></strong><strong>算法一<br></strong>1)将长网址md5生成32位签名串,分为4段, 每段8个字节;<br>2)对这四段循环处理, 取8个字节, 将他看成16进制串与0x3fffffff(30位1)与操作, 即超过30位的忽略处理;<br>3)这30位分成6段, 每5位的数字作为字母表的索引取得特定字符, 依次进行获得6位字符串;<br>4)总的md5串可以获得4个6位串; 取里面的任意一个就可作为这个长url的短url地址;</p>
+<p>这种算法,虽然会生成4个,但是仍然存在重复几率,下面的算法一和三,就是这种的实现.</p>
+<p><strong>算法二<br></strong>a-zA-Z0-9 这64位取6位组合,可产生500多亿个组合数量.把数字和字符组合做一定的映射,就可以产生唯一的字符串,如第62个组合就是aaaaa9,第63个组合就是aaaaba,再利用洗牌算法，把原字符串打乱后保存，那么对应位置的组合字符串就会是无序的组合。<br>把长网址存入数据库,取返回的id,找出对应的字符串,例如返回ID为1，那么对应上面的字符串组合就是bbb,同理 ID为2时，字符串组合为bba,依次类推,直至到达64种组合后才会出现重复的可能，所以如果用上面的62个字符，任意取6个字符组合成字符串的话，你的数据存量达到500多亿后才会出现重复的可能。<br>具体参看这里彻底完善新浪微博接口和超短URL算法,算法四可以算作是此算法的一种实现,此算法一般不会重复,但是如果是统计的话,就有很大问题,特别是对域名相关的统计,就抓瞎了.</p>
+<p><strong>简单生成短网址方法</strong></p>
+<p><strong>&lt;?php</strong></p>
+<p>02function <strong>base62</strong>($x)03{04    $show= ‘’;05    while($x&gt; 0) {06        $s= $x% 62;07        if($s&gt; 35) {08            $s= chr($s+61);            09        } elseif($s&gt; 9 &amp;&amp; $s&lt;=35) {10            $s= chr($s+ 55);11        }12        $show.= $s;13        $x= floor($x/62);14    }15    return $show;    16}17  18function <strong>urlShort</strong>($url)19{20    $url= crc32($url);21    $result= sprintf(“%u”, $url);22    return base62($result);23}24  25echo <strong>urlShort</strong>(“<a href="http://hi.baidu.com/cubeking/" target="_blank" rel="noopener">http://hi.baidu.com/cubeking/</a>“);<strong>?&gt;</strong><br><a href="http://hi.baidu.com/cubeking/blog/item/5e73241e5d75769786d6b658.html" target="_blank"><strong>短网址算法</strong></a><strong>枚举</strong></p>
+<p>代码如下:<br>&lt;?php<br>function shorturl($input) {<br>$base32 = array (<br>‘a’, ‘b’, ‘c’, ‘d’, ‘e’, ‘f’, ‘g’, ‘h’,<br>‘i’, ‘j’, ‘k’, ‘l’, ‘m’, ‘n’, ‘o’, ‘p’,<br>‘q’, ‘r’, ‘s’, ‘t’, ‘u’, ‘v’, ‘w’, ‘x’,<br>‘y’, ‘z’, ‘0’, ‘1’, ‘2’, ‘3’, ‘4’, ‘5’<br>);</p>
+<p>$hex = md5($input);<br>$hexLen = strlen($hex);<br>$subHexLen = $hexLen / 8;<br>$output = array();</p>
+<p>for ($i = 0; $i &lt; $subHexLen; $i++) {<br>$subHex = substr ($hex, $i * 8, 8);<br>$int = 0x3FFFFFFF &amp; (1 * (‘0x’.$subHex));<br>$out = ‘’;</p>
+<p>for ($j = 0; $j &lt; 6; $j++) {<br>$val = 0x0000001F &amp; $int;<br>$out .= $base32[$val];<br>$int = $int &gt;&gt; 5;<br>}</p>
+<p>$output[] = $out;<br>}</p>
+<p>return $output;<br>}<br>?&gt;</p>
+<p><strong>另一个是纯随机数算法<br></strong>&lt;?php<br>function random($length, $pool = ‘’)<br>{<br>$random = ‘’;</p>
+<p>if (empty($pool)) {<br>$pool    = ‘abcdefghkmnpqrstuvwxyz’;<br>$pool   .= ‘23456789’;<br>}</p>
+<p>srand ((double)microtime()*1000000);</p>
+<p>for($i = 0; $i &lt; $length; $i++)<br>{<br>$random .= substr($pool,(rand()%(strlen ($pool))), 1);<br>}</p>
+<p>return $random;<br>}<br>?&gt;</p>
+<p>各大微博短网址(ShortUrl)的算法 ,第一种算法的C#实现<br>&lt;?php<br>// 这是c#代码,受编辑器的限制,只能用php<br>public static string[] ShortUrl(string url)<br>{<br>//可以自定义生成MD5加密字符传前的混合KEY<br>string key = “Leejor”;<br>//要使用生成URL的字符<br>string[] chars = new string[]{<br>“a”,”b”,”c”,”d”,”e”,”f”,”g”,”h”,<br>“i”,”j”,”k”,”l”,”m”,”n”,”o”,”p”,<br>“q”,”r”,”s”,”t”,”u”,”v”,”w”,”x”,<br>“y”,”z”,”0”,”1”,”2”,”3”,”4”,”5”,<br>“6”,”7”,”8”,”9”,”A”,”B”,”C”,”D”,<br>“E”,”F”,”G”,”H”,”I”,”J”,”K”,”L”,<br>“M”,”N”,”O”,”P”,”Q”,”R”,”S”,”T”,<br>“U”,”V”,”W”,”X”,”Y”,”Z”</p>
+<p>};<br>//对传入网址进行MD5加密<br>string hex = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(key + url, “md5”);</p>
+<p>string[] resUrl = new string[4];</p>
+<p>for (int i = 0; i &lt; 4; i++)<br>{<br>//把加密字符按照8位一组16进制与0x3FFFFFFF进行位与运算<br>int hexint = 0x3FFFFFFF &amp; Convert.ToInt32(“0x” + hex.Substring(i * 8, 8), 16);<br>string outChars = string.Empty;<br>for (int j = 0; j &lt; 6; j++)<br>{<br>//把得到的值与0x0000003D进行位与运算，取得字符数组chars索引<br>int index = 0x0000003D &amp; hexint;<br>//把取得的字符相加<br>outChars += chars[index];<br>//每次循环按位右移5位<br>hexint = hexint &gt;&gt; 5;<br>}<br>//把字符串存入对应索引的输出数组<br>resUrl[i] = outChars;<br>}</p>
+<p>return resUrl;<br>}<br>?&gt;</p>
+<p>高进制数字转换,使用六十二进制将十进制数字变“短”。例如数据库中第 56800235583 条信息，对应的短网址后缀可以是 ZZZZZZ 。<br>下面是存储示例：</p>
+<p>&lt;?php<br>//id 自增序列/自增编号<br>//url 目标链接<br>//<em>suffix</em> 短网址后缀 （并不需要存储在数据库内）<br>+————+———————–+———+<br>|id          | url                   | <em>suffix</em>|<br>+————+———————–+———+<br>|123456      | <a href="http://zoeey.com/" target="_blank" rel="noopener">http://zoeey.com/</a>     | w7e     |<br>+————+———————–+———+<br>|123457      | <a href="http://www.zoeey.com/" target="_blank" rel="noopener">http://www.zoeey.com/</a> | w7f     |<br>+————+———————–+———+<br>|56800235582 | <a href="http://zoeey.org/" target="_blank" rel="noopener">http://zoeey.org/</a>     | ZZZZZY  |<br>+————+———————–+———+<br>|56800235583 | <a href="http://www.zoeey.org/" target="_blank" rel="noopener">http://www.zoeey.org/</a> | ZZZZZZ  |<br>+————+———————–+———+<br>?&gt;<br>短网址使用流程：<br>提交网址存储后获取其编号 如：123456<br>用dec2Any将编号转换为62进制，并拼接网址 如：<a href="http://go.to/w7e" target="_blank" rel="noopener">http://go.to/w7e</a><br>用户访问到 <a href="http://go.to/w7e" target="_blank" rel="noopener">http://go.to/w7e</a> 时，提取短网址后缀 w7e<br>用any2Dec将短网址后缀转换为10进制，得到链接编号 如：123456<br>使用编号查询链接，并进行跳转[/list]<br>下面是进制转换所需要的源码：<br>&lt;?php<br>/*</p>
+<ul>
+<li>MoXie (<a href="mailto:SysTem128@GMail.Com" target="_blank" rel="noopener">SysTem128@GMail.Com</a>) 2010-6-30 17:53:57</li>
+<li></li>
+<li>Copyright &amp;copy; 2008-2010 Zoeey.Org . All rights are reserved.</li>
+<li>Code license: Apache License  Version 2.0</li>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener">http://www.apache.org/licenses/LICENSE-2.0.txt</a></li>
+<li>/<br>error_reporting(E_ALL);</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>返回一字符串，十进制 number 以 radix 进制的表示。</li>
+<li>@param dec       需要转换的数字</li>
+<li>@param toRadix    输出进制。当不在转换范围内时，此参数会被设定为 2，以便及时发现。</li>
+<li>@return    指定输出进制的数字</li>
+<li>/<br>function dec2Any($dec, $toRadix) {<br>$MIN_RADIX = 2;<br>$MAX_RADIX = 62;<br>$num62 = ‘0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ’;<br>if ($toRadix &lt; $MIN_RADIX || $toRadix &gt; $MAX_RADIX) {<br>$toRadix = 2;<br>}<br>if ($toRadix == 10) {<br>return $dec;<br>}<br>// -Long.MIN_VALUE 转换为 2 进制时长度为65<br>$buf = array();<br>$charPos = 64;<br>$isNegative = $dec &lt; 0; //(bccomp($dec, 0) &lt; 0);<br>if (!$isNegative) {<br>$dec = -$dec; // bcsub(0, $dec);<br>}</li>
+</ul>
+<p>while (bccomp($dec, -$toRadix) &lt;= 0) {<br>$buf[$charPos–] = $num62[-bcmod($dec, $toRadix)];<br>$dec = bcdiv($dec, $toRadix);<br>}<br>$buf[$charPos] = $num62[-$dec];<br>if ($isNegative) {<br>$buf[–$charPos] = ‘-‘;<br>}<br>$_any = ‘’;<br>for ($i = $charPos; $i &lt; 65; $i++) {<br>$_any .= $buf[$i];<br>}<br>return $_any;<br>}</p>
+<p>/**</p>
+<ul>
+<li>返回一字符串，包含 number 以 10 进制的表示。&lt;br /&gt;</li>
+<li>fromBase 只能在 2 和 62 之间（包括 2 和 62）。</li>
+<li>@param number    输入数字</li>
+<li>@param fromRadix    输入进制</li>
+<li>@return  十进制数字</li>
+<li>/<br>function any2Dec($number, $fromRadix) {<br>$num62 = ‘0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ’;<br>$dec = 0;<br>$digitValue = 0;<br>$len = strlen($number) - 1;<br>for ($t = 0; $t &lt;= $len; $t++) {<br>$digitValue = strpos($num62, $number[$t]);<br>$dec = bcadd(bcmul($dec, $fromRadix), $digitValue);<br>}<br>return $dec;<br>}</li>
+</ul>
+<p>$sol = ‘&lt;br /&gt;’ . PHP_EOL;<br>echo dec2Any(‘56800235583’, 62), $sol; // ZZZZZZ<br>echo any2Dec(‘ZZZZZZ’, 62), $sol; // 56800235583<br>echo dec2Any(‘123456’, 62), $sol; // w7e<br>echo any2Dec(‘w7e’, 62), $sol; // 123456<br>?&gt;</p>
+<p>另外,介绍一下goo.gl接口api的应用.<br>据说此算法是各种短网址服务中 “……（这是）互联网上最稳定、最安全、最快速的短网址服务。”(google声称)</p>
+<p>有人做了比较，证明确实如此。</p>
+<p>除了速度快，goo.gl还提供详细的点击统计。比如，Yahoo首页的短网址是<a href="http://goo.gl/QuXj，那么它的统计数据就在http://goo.gl/info/QuXj。加上后缀&quot;.qr&quot;，还能得到这个网址的二维条形码，Yahoo的就是http://goo.gl/QuXj.qr。" target="_blank" rel="noopener">http://goo.gl/QuXj，那么它的统计数据就在http://goo.gl/info/QuXj。加上后缀&quot;.qr&quot;，还能得到这个网址的二维条形码，Yahoo的就是http://goo.gl/QuXj.qr。</a></p>
+<p>详细信息可从这查看：<a href="http://code.google.com/apis/urlshortener/overview.html" target="_blank" rel="noopener">http://code.google.com/apis/urlshortener/overview.html</a></p>
+<p>下面是<a href="http://www.biaodianfu.com/php-google-urlshortener-api.html弄的一个简单的PHP调用API生成短网址方法，分享给大家。" target="_blank" rel="noopener">http://www.biaodianfu.com/php-google-urlshortener-api.html弄的一个简单的PHP调用API生成短网址方法，分享给大家。</a><br>在使用前，请先到这里申请API Key：<a href="http://code.google.com/apis/console/" target="_blank" rel="noopener">http://code.google.com/apis/console/</a><br>短网址的生成需要使用POST提交数据，所以使用了curl，短网址的还原可以直接使用file_get_contents()函数。不过为了统一，也使用了curl来处理哈。<br>&lt;?php<br>// 生成<br>function shortenGoogleUrl($long_url){<br>$apiKey = ‘API-KEY’; //Get API key from : <a href="http://code.google.com/apis/console/" target="_blank" rel="noopener">http://code.google.com/apis/console/</a><br>$postData = array(‘longUrl’ =&gt; $long_url, ‘key’ =&gt; $apiKey);<br>$jsonData = json_encode($postData);<br>$curlObj = curl_init();<br>curl_setopt($curlObj, CURLOPT_URL, ‘<a href="https://www.googleapis.com/urlshortener/v1/url&#39;" target="_blank" rel="noopener">https://www.googleapis.com/urlshortener/v1/url&#39;</a>);<br>curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);<br>curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);<br>curl_setopt($curlObj, CURLOPT_HEADER, 0);<br>curl_setopt($curlObj, CURLOPT_HTTPHEADER, array(‘Content-type:application/json’));<br>curl_setopt($curlObj, CURLOPT_POST, 1);<br>curl_setopt($curlObj, CURLOPT_POSTFIELDS, $jsonData);<br>$response = curl_exec($curlObj);<br>curl_close($curlObj);<br>$json = json_decode($response);<br>return $json-&gt;id;<br>}</p>
+<p>//还原<br>function expandGoogleUrl($short_url){<br>$curlObj = curl_init();<br>curl_setopt($curlObj, CURLOPT_URL, ‘<a href="https://www.googleapis.com/urlshortener/v1/url?shortUrl=&#39;.$short_url" target="_blank" rel="noopener">https://www.googleapis.com/urlshortener/v1/url?shortUrl=&#39;.$short_url</a>);<br>curl_setopt($curlObj, CURLOPT_HEADER, 0);<br>curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);<br>curl_setopt($curlObj, CURLOPT_SSL_VERIFYPEER, 0);<br>$response = curl_exec($curlObj);<br>curl_close($curlObj);<br>$json = json_decode($response);<br>return $json-&gt;longUrl;<br>}<br>?&gt;</p>
+<p><strong> PHP SDK</strong></p>
+<ul>
+    <li>下载地址：http://code.google.com/p/libweibo/</li>
+</ul>
+（包含新版接口及OAuth2.0，由SAE提供维护，SAE平台已集成最新版PHPSDK）
+
+<p>&nbsp;</p>
+<ul>
+    <li>Demo使用教程</li>
+</ul>
+<ol>
+    <li>在open.weibo.com创建应用，得到AppKey，设置“授权设置”中的“应用回调页”地址为"http://host/callback.php"，其中host为网站域名。</li>
+    <li>下载Demo,然后解压,修改config.php中的WB_AKEY为App Key，WB_SKEY为App Secret，WB_CALLBACK_URL为刚才填入的回调页地址。</li>
+    <li>上传到PHP空间即可</li>
+</ol>
+
+      
+    </div>
+  </article>
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2012/12/18/php/php URL重写/" title="php URL重写"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2012/12/18/js/js_jump_page/" title="页面跳转"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  </div>
+</nav>
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/ningmo" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/sfhy20" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:ningmo.github.io ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+
+
+
+   
+
+
+
+
+
+
+
+
+</body>
+</html>
