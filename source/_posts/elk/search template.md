@@ -1,5 +1,5 @@
 ---
-title: search template
+title: elasticsearch search template
 tags: [elasticsearch]
 date: 2019-08-26 21:33:35
 ---

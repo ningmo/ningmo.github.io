@@ -1,5 +1,5 @@
 ---
-title: aggs
+title: elasticsearch aggs方式
 tags: [elasticsearch, aggs]
 date: 2019-08-27 22:18:00
 ---
