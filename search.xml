@@ -220,11 +220,11 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Algorithms </tag>
             
             <tag> select </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -249,9 +249,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Algorithms </tag>
+            
+            <tag> 算法 </tag>
             
             <tag> bubble </tag>
             
@@ -339,33 +339,6 @@
     
     
     <entry>
-      <title>linux-find-grep</title>
-      <link href="/2016/10/25/linux/linux-find-grep/"/>
-      <url>/2016/10/25/linux/linux-find-grep/</url>
-      
-        <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">在当前目录下所有文件中查找内容包含 string 的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep &quot;string&quot; &#123;&#125; \; </span><br><span class="line">注意:在最后不能加 print,否则会出错</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -l &quot;string&quot; &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">在当前目录下 *.c 中查找内容包含 string 的文件并列出字符所在的文件的所在行(不显示文件名):</span><br><span class="line">find ./ -name &quot;*.c&quot; -exec grep -n &quot;string&quot; &#123;&#125; \; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件,所在行及所在行的内容:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -n &quot;string&quot; ./ &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">使用 find 查找时希望忽略某个目录(-prune)：</span><br><span class="line">如果希望在 /app 目录下查找文件， 但不希望在 /app/bin 目录下查找：</span><br><span class="line">find /app -name &quot;/app/bin&quot; -prune -o -print </span><br><span class="line"></span><br><span class="line">使用type 选项:</span><br><span class="line">如果要在 /etc 目录下查找所有的目录：</span><br><span class="line">find /etc -type d -print</span><br><span class="line"></span><br><span class="line">如果要在 /etc 目录下查找 .svn 的目录：</span><br><span class="line">find /etc -name .svn -type d -print </span><br><span class="line"></span><br><span class="line">为了在当前目录下查找除目录以外的所有类型的文件：</span><br><span class="line">find . ! -type d -print</span><br><span class="line"> </span><br><span class="line">为了在当前目录下查找所有的符号链接文件， 可以用：</span><br><span class="line">find . -type l -print</span><br><span class="line">find .  -mtime -4（4天内）/4(4天前的那一天)/+4（5天前）</span><br><span class="line">find .</span><br><span class="line">         -name  *</span><br><span class="line">         -size   +50k</span><br><span class="line">         -type    f/b/c/d/l/sp...</span><br><span class="line">         -perm    -/+ /    755</span><br><span class="line">         -uid/user      201/yangsf</span><br><span class="line">         -gid/group    501/yangsf</span><br><span class="line">         -nouser/nogroup   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">为了用 ls -l 命令列出所匹配到的文件， 可以把 ls -l 命令放在find命令的 -exec 选项中：</span><br><span class="line">find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">注： f 表示普通文件  exec 选项后面跟随着所要执行的命令， 然后是一对 &#123;&#125;， 一个空格和一个 \，最后是一个分号。</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> find </tag>
-            
-            <tag> grep </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>php截图裁剪 缩放图片</title>
       <link href="/2016/10/25/php/php_image_cut/"/>
       <url>/2016/10/25/php/php_image_cut/</url>
@@ -385,6 +358,33 @@
             <tag> image </tag>
             
             <tag> php </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux-find-grep</title>
+      <link href="/2016/10/25/linux/linux-find-grep/"/>
+      <url>/2016/10/25/linux/linux-find-grep/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">在当前目录下所有文件中查找内容包含 string 的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep &quot;string&quot; &#123;&#125; \; </span><br><span class="line">注意:在最后不能加 print,否则会出错</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -l &quot;string&quot; &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">在当前目录下 *.c 中查找内容包含 string 的文件并列出字符所在的文件的所在行(不显示文件名):</span><br><span class="line">find ./ -name &quot;*.c&quot; -exec grep -n &quot;string&quot; &#123;&#125; \; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件,所在行及所在行的内容:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -n &quot;string&quot; ./ &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">使用 find 查找时希望忽略某个目录(-prune)：</span><br><span class="line">如果希望在 /app 目录下查找文件， 但不希望在 /app/bin 目录下查找：</span><br><span class="line">find /app -name &quot;/app/bin&quot; -prune -o -print </span><br><span class="line"></span><br><span class="line">使用type 选项:</span><br><span class="line">如果要在 /etc 目录下查找所有的目录：</span><br><span class="line">find /etc -type d -print</span><br><span class="line"></span><br><span class="line">如果要在 /etc 目录下查找 .svn 的目录：</span><br><span class="line">find /etc -name .svn -type d -print </span><br><span class="line"></span><br><span class="line">为了在当前目录下查找除目录以外的所有类型的文件：</span><br><span class="line">find . ! -type d -print</span><br><span class="line"> </span><br><span class="line">为了在当前目录下查找所有的符号链接文件， 可以用：</span><br><span class="line">find . -type l -print</span><br><span class="line">find .  -mtime -4（4天内）/4(4天前的那一天)/+4（5天前）</span><br><span class="line">find .</span><br><span class="line">         -name  *</span><br><span class="line">         -size   +50k</span><br><span class="line">         -type    f/b/c/d/l/sp...</span><br><span class="line">         -perm    -/+ /    755</span><br><span class="line">         -uid/user      201/yangsf</span><br><span class="line">         -gid/group    501/yangsf</span><br><span class="line">         -nouser/nogroup   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">为了用 ls -l 命令列出所匹配到的文件， 可以把 ls -l 命令放在find命令的 -exec 选项中：</span><br><span class="line">find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">注： f 表示普通文件  exec 选项后面跟随着所要执行的命令， 然后是一对 &#123;&#125;， 一个空格和一个 \，最后是一个分号。</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> find </tag>
+            
+            <tag> grep </tag>
             
         </tags>
       
@@ -743,6 +743,33 @@
           
       </categories>
       
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>supervisor tornado 多进程多端口配置</title>
+      <link href="/2015/11/24/python/supervisor%20tornado%20%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE/"/>
+      <url>/2015/11/24/python/supervisor%20tornado%20%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<p>base： nginx tornado<br>目标： tornado 实现多端口多进程运行</p><p>pip install supervisor<br>echo_supervisord_conf &gt; /etc/supervisord.conf   # 默认echo_supervisord_conf 在python/bin 目录下<br>配置/etc/supervisord.conf</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[program:app]</span><br><span class="line">command=python /data/www/app/app.py --port=600%(process_num)d</span><br><span class="line">process_name=%(program_name)s%(process_num)d</span><br><span class="line">numprocs=6         ; 开启6个子进程</span><br><span class="line">numprocs_start=1   ; 上面的process_num从1开始  </span><br><span class="line">directory=/data/www/app</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=false</span><br><span class="line">;startsecs=5                   ; number of secs prog must stay running (def. 1)</span><br><span class="line">startretries=3                ; max # of serial start failures (default 3)</span><br><span class="line">;stopsignal=QUIT               ; signal used to kill process (default TERM)</span><br><span class="line">;stopwaitsecs=10               ; max num secs to wait b4 SIGKILL (default 10)</span><br><span class="line">;stopasgroup=false             ; send stop signal to the UNIX process group (default false)</span><br><span class="line">;killasgroup=false             ; SIGKILL the UNIX process group (def false)</span><br><span class="line">user=root                   ; setuid to this UNIX account to run the program</span><br><span class="line">redirect_stderr=true          ; redirect proc stderr to stdout (default false)</span><br><span class="line">stdout_logfile=/data/logs/supervisor/order.log        ; stdout log path, NONE for none; default AUTO</span><br><span class="line">stderr_logfile=/data/logs/supervisor/order_error.log        ; stderr log path, NONE for none; default AUTO</span><br><span class="line">;serverurl=AUTO                ; override serverurl computation (childutils)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> supervisor </tag>
+            
+            <tag> tornado </tag>
+            
+        </tags>
       
     </entry>
     

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ningmo.github.io/2015/11/24/python/supervisor%20tornado%20%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2019-08-30T01:35:23.216Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ningmo.github.io/2019/08/26/git-changelog/</loc>
     
     <lastmod>2019-08-30T01:34:12.808Z</lastmod>
@@ -625,13 +632,6 @@
   </url>
   
   <url>
-    <loc>http://ningmo.github.io/2015/12/02/linux/linux%20%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91/</loc>
-    
-    <lastmod>2019-08-26T06:09:54.314Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://ningmo.github.io/2015/12/15/linux/linux%E7%9A%84nohup%20disown%20setsid%20screen/</loc>
     
     <lastmod>2019-08-26T06:09:54.314Z</lastmod>
@@ -639,14 +639,21 @@
   </url>
   
   <url>
-    <loc>http://ningmo.github.io/2015/10/31/linux/linux%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://ningmo.github.io/2015/09/17/linux/linux%E5%91%BD%E4%BB%A4%20%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
     
     <lastmod>2019-08-26T06:09:54.314Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://ningmo.github.io/2015/09/17/linux/linux%E5%91%BD%E4%BB%A4%20%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <loc>http://ningmo.github.io/2015/12/02/linux/linux%20%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91/</loc>
+    
+    <lastmod>2019-08-26T06:09:54.314Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ningmo.github.io/2015/10/31/linux/linux%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
     
     <lastmod>2019-08-26T06:09:54.314Z</lastmod>
     

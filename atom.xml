@@ -249,11 +249,11 @@
       <category term="Algorithms" scheme="http://ningmo.github.io/categories/Algorithms/"/>
     
     
-      <category term="算法" scheme="http://ningmo.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="Algorithms" scheme="http://ningmo.github.io/tags/Algorithms/"/>
     
       <category term="select" scheme="http://ningmo.github.io/tags/select/"/>
+    
+      <category term="算法" scheme="http://ningmo.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -278,9 +278,9 @@
       <category term="Algorithms" scheme="http://ningmo.github.io/categories/Algorithms/"/>
     
     
-      <category term="算法" scheme="http://ningmo.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="Algorithms" scheme="http://ningmo.github.io/tags/Algorithms/"/>
+    
+      <category term="算法" scheme="http://ningmo.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="bubble" scheme="http://ningmo.github.io/tags/bubble/"/>
     
@@ -365,33 +365,6 @@
   </entry>
   
   <entry>
-    <title>linux-find-grep</title>
-    <link href="http://ningmo.github.io/2016/10/25/linux/linux-find-grep/"/>
-    <id>http://ningmo.github.io/2016/10/25/linux/linux-find-grep/</id>
-    <published>2016-10-25T12:49:04.000Z</published>
-    <updated>2019-08-30T01:16:37.959Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">在当前目录下所有文件中查找内容包含 string 的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep &quot;string&quot; &#123;&#125; \; </span><br><span class="line">注意:在最后不能加 print,否则会出错</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -l &quot;string&quot; &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">在当前目录下 *.c 中查找内容包含 string 的文件并列出字符所在的文件的所在行(不显示文件名):</span><br><span class="line">find ./ -name &quot;*.c&quot; -exec grep -n &quot;string&quot; &#123;&#125; \; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件,所在行及所在行的内容:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -n &quot;string&quot; ./ &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">使用 find 查找时希望忽略某个目录(-prune)：</span><br><span class="line">如果希望在 /app 目录下查找文件， 但不希望在 /app/bin 目录下查找：</span><br><span class="line">find /app -name &quot;/app/bin&quot; -prune -o -print </span><br><span class="line"></span><br><span class="line">使用type 选项:</span><br><span class="line">如果要在 /etc 目录下查找所有的目录：</span><br><span class="line">find /etc -type d -print</span><br><span class="line"></span><br><span class="line">如果要在 /etc 目录下查找 .svn 的目录：</span><br><span class="line">find /etc -name .svn -type d -print </span><br><span class="line"></span><br><span class="line">为了在当前目录下查找除目录以外的所有类型的文件：</span><br><span class="line">find . ! -type d -print</span><br><span class="line"> </span><br><span class="line">为了在当前目录下查找所有的符号链接文件， 可以用：</span><br><span class="line">find . -type l -print</span><br><span class="line">find .  -mtime -4（4天内）/4(4天前的那一天)/+4（5天前）</span><br><span class="line">find .</span><br><span class="line">         -name  *</span><br><span class="line">         -size   +50k</span><br><span class="line">         -type    f/b/c/d/l/sp...</span><br><span class="line">         -perm    -/+ /    755</span><br><span class="line">         -uid/user      201/yangsf</span><br><span class="line">         -gid/group    501/yangsf</span><br><span class="line">         -nouser/nogroup   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">为了用 ls -l 命令列出所匹配到的文件， 可以把 ls -l 命令放在find命令的 -exec 选项中：</span><br><span class="line">find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">注： f 表示普通文件  exec 选项后面跟随着所要执行的命令， 然后是一对 &#123;&#125;， 一个空格和一个 \，最后是一个分号。</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
-      
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://ningmo.github.io/categories/Linux/"/>
-    
-    
-      <category term="find" scheme="http://ningmo.github.io/tags/find/"/>
-    
-      <category term="grep" scheme="http://ningmo.github.io/tags/grep/"/>
-    
-  </entry>
-  
-  <entry>
     <title>php截图裁剪 缩放图片</title>
     <link href="http://ningmo.github.io/2016/10/25/php/php_image_cut/"/>
     <id>http://ningmo.github.io/2016/10/25/php/php_image_cut/</id>
@@ -415,6 +388,33 @@
       <category term="image" scheme="http://ningmo.github.io/tags/image/"/>
     
       <category term="php" scheme="http://ningmo.github.io/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux-find-grep</title>
+    <link href="http://ningmo.github.io/2016/10/25/linux/linux-find-grep/"/>
+    <id>http://ningmo.github.io/2016/10/25/linux/linux-find-grep/</id>
+    <published>2016-10-25T12:49:04.000Z</published>
+    <updated>2019-08-30T01:16:37.959Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">在当前目录下所有文件中查找内容包含 string 的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep &quot;string&quot; &#123;&#125; \; </span><br><span class="line">注意:在最后不能加 print,否则会出错</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -l &quot;string&quot; &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">在当前目录下 *.c 中查找内容包含 string 的文件并列出字符所在的文件的所在行(不显示文件名):</span><br><span class="line">find ./ -name &quot;*.c&quot; -exec grep -n &quot;string&quot; &#123;&#125; \; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件,所在行及所在行的内容:</span><br><span class="line">find ./ -name &quot;*&quot; -exec grep -n &quot;string&quot; ./ &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">使用 find 查找时希望忽略某个目录(-prune)：</span><br><span class="line">如果希望在 /app 目录下查找文件， 但不希望在 /app/bin 目录下查找：</span><br><span class="line">find /app -name &quot;/app/bin&quot; -prune -o -print </span><br><span class="line"></span><br><span class="line">使用type 选项:</span><br><span class="line">如果要在 /etc 目录下查找所有的目录：</span><br><span class="line">find /etc -type d -print</span><br><span class="line"></span><br><span class="line">如果要在 /etc 目录下查找 .svn 的目录：</span><br><span class="line">find /etc -name .svn -type d -print </span><br><span class="line"></span><br><span class="line">为了在当前目录下查找除目录以外的所有类型的文件：</span><br><span class="line">find . ! -type d -print</span><br><span class="line"> </span><br><span class="line">为了在当前目录下查找所有的符号链接文件， 可以用：</span><br><span class="line">find . -type l -print</span><br><span class="line">find .  -mtime -4（4天内）/4(4天前的那一天)/+4（5天前）</span><br><span class="line">find .</span><br><span class="line">         -name  *</span><br><span class="line">         -size   +50k</span><br><span class="line">         -type    f/b/c/d/l/sp...</span><br><span class="line">         -perm    -/+ /    755</span><br><span class="line">         -uid/user      201/yangsf</span><br><span class="line">         -gid/group    501/yangsf</span><br><span class="line">         -nouser/nogroup   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">为了用 ls -l 命令列出所匹配到的文件， 可以把 ls -l 命令放在find命令的 -exec 选项中：</span><br><span class="line">find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">注： f 表示普通文件  exec 选项后面跟随着所要执行的命令， 然后是一对 &#123;&#125;， 一个空格和一个 \，最后是一个分号。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://ningmo.github.io/categories/Linux/"/>
+    
+    
+      <category term="find" scheme="http://ningmo.github.io/tags/find/"/>
+    
+      <category term="grep" scheme="http://ningmo.github.io/tags/grep/"/>
     
   </entry>
   
