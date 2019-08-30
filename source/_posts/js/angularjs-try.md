@@ -2,7 +2,7 @@
 title: angularjs几种生成工具的尝试
 date: 2016-11-05 21:25:25
 tags: [angularjs,generator]
-categories: Js
+categories: js
 ---
 
 
