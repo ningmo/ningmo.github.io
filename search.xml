@@ -4,7 +4,60 @@
   
     
     <entry>
-      <title>aggs</title>
+      <title>elasticsearch reindex</title>
+      <link href="/2019/08/29/elk/reindex/"/>
+      <url>/2019/08/29/elk/reindex/</url>
+      
+        <content type="html"><![CDATA[<h2 id="适用reindex的情景"><a href="#适用reindex的情景" class="headerlink" title="适用reindex的情景"></a>适用reindex的情景</h2><h3 id="1-mapping发生变更-字段类型变更-分词器及字典更新"><a href="#1-mapping发生变更-字段类型变更-分词器及字典更新" class="headerlink" title="1. mapping发生变更 字段类型变更 分词器及字典更新"></a>1. mapping发生变更 字段类型变更 分词器及字典更新</h3><h3 id="2-setting发生变更-主分片数量发生变更"><a href="#2-setting发生变更-主分片数量发生变更" class="headerlink" title="2. setting发生变更 主分片数量发生变更"></a>2. setting发生变更 主分片数量发生变更</h3><h3 id="3-数据迁移"><a href="#3-数据迁移" class="headerlink" title="3. 数据迁移"></a>3. 数据迁移</h3><h2 id="1-update-by-query-在现有索引上重建"><a href="#1-update-by-query-在现有索引上重建" class="headerlink" title="1. update by query 在现有索引上重建"></a>1. update by query 在现有索引上重建</h2><ul><li>对已有增加增加子字段/增加分词器<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"properties"</span>: &#123;</span><br><span class="line">    <span class="attr">"date"</span>:&#123;</span><br><span class="line">      <span class="attr">"type"</span>:<span class="string">"keyword"</span>,  </span><br><span class="line">      <span class="attr">"fields"</span>: &#123;</span><br><span class="line">        <span class="attr">"indate"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>:<span class="string">"text"</span>,</span><br><span class="line">          <span class="attr">"analyzer"</span>:<span class="string">"english"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><p>然后执行</p><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /my_blogs/_update_by_query</span><br></pre></td></tr></table></figure><h2 id="2-reindex-在其他索引上重建"><a href="#2-reindex-在其他索引上重建" class="headerlink" title="2. reindex 在其他索引上重建"></a>2. reindex 在其他索引上重建</h2><p>需要开启白名单并重启节点</p><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST _reindex</span><br><span class="line">&#123;</span><br><span class="line">  "source": &#123;</span><br><span class="line">    "index": "my_blogs"</span><br><span class="line">  &#125;,</span><br><span class="line">  "dest": &#123;</span><br><span class="line">    "index": "new_blogs"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>同时还支持 筛选数据重建/跨集群重建</p><p>如果重建耗时较长 还支持通过任务id查看进度<br>更多参数详见官方文档</p><p><em>以上要求mapping的_source为enabled</em></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> elasticsearch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>elasticsearch 父子文档</title>
+      <link href="/2019/08/28/elk/%E7%88%B6%E5%AD%90%E6%96%87%E6%A1%A3/"/>
+      <url>/2019/08/28/elk/%E7%88%B6%E5%AD%90%E6%96%87%E6%A1%A3/</url>
+      
+        <content type="html"><![CDATA[<p>父子文档 适用于大量更新的操作</p><ol><li><p>定义mappings 设置文档父子关系</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"mappings"</span>: &#123;</span><br><span class="line">    <span class="attr">"properties"</span>: &#123;</span><br><span class="line">        <span class="attr">"blog_comments_relation"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>:<span class="string">"join"</span>,</span><br><span class="line">          <span class="attr">"relations"</span>:&#123;</span><br><span class="line">            <span class="attr">"blog"</span>:<span class="string">"comments"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"title"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"content"</span>:&#123;</span><br><span class="line">          <span class="attr">"type"</span>:<span class="string">"keyword"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>索引数据</p></li></ol><ul><li><p>索引父文档 明确文档id</p><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PUT /my_blogs/_doc/blog_id_1</span><br><span class="line">&#123;</span><br><span class="line">  "title":"super book",</span><br><span class="line">  "content":"dfslkfjdsafdskla;klf",</span><br><span class="line">  "blog_contents_relation":&#123;</span><br><span class="line">    "name":"blog"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>索引子文当 需指定其父文档id</p><figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PUT /my_blogs/_doc/comments_id_1?routing=blog_id_1</span><br><span class="line">&#123;</span><br><span class="line">  "comments":"22222222222",</span><br><span class="line">  "username":"user2",</span><br><span class="line">  "blog_contents_relation":&#123;</span><br><span class="line">    "name":"comments",</span><br><span class="line">    "parent":"blog_id_1"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><p>根据父id查询子文档</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>:&#123;</span><br><span class="line">    <span class="attr">"parent_id"</span>:&#123;</span><br><span class="line">      <span class="attr">"type"</span>:<span class="string">"comments"</span>,</span><br><span class="line">      <span class="attr">"id"</span>:<span class="string">"blog_id_1"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>根据子文档 查询父文档</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>:&#123;</span><br><span class="line">    <span class="attr">"has_child"</span>:&#123;</span><br><span class="line">      <span class="attr">"type"</span>:<span class="string">"comments"</span>,</span><br><span class="line">      <span class="attr">"query"</span>: &#123;</span><br><span class="line">        <span class="attr">"match"</span>: &#123;</span><br><span class="line">          <span class="attr">"username"</span>: <span class="string">"user1"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>elasticsearch aggs 范围</title>
+      <link href="/2019/08/28/elk/aggs%20%E8%8C%83%E5%9B%B4/"/>
+      <url>/2019/08/28/elk/aggs%20%E8%8C%83%E5%9B%B4/</url>
+      
+        <content type="html"><![CDATA[<h2 id="filter-多范围aggs"><a href="#filter-多范围aggs" class="headerlink" title="filter 多范围aggs"></a>filter 多范围aggs</h2><p>可以在一个查询内对多个范围的数据同时进行aggs<br>如下 对全局数据 以及满足filter条件的数据进行了aggs</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"aggs"</span>:&#123;</span><br><span class="line">      <span class="attr">"myFilter"</span>:&#123;</span><br><span class="line">        <span class="attr">"filter"</span>:&#123;</span><br><span class="line">            <span class="attr">"match"</span>: &#123;</span><br><span class="line">              <span class="attr">"a"</span>: <span class="string">"abc"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"aggs"</span>: &#123;</span><br><span class="line">          <span class="attr">"by_myfilter"</span>: &#123;</span><br><span class="line">            <span class="attr">"terms"</span>: &#123;</span><br><span class="line">              <span class="attr">"field"</span>: <span class="string">"d"</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"to_all_aggs"</span>:&#123;</span><br><span class="line">      <span class="attr">"terms"</span>: &#123;</span><br><span class="line">        <span class="attr">"field"</span>: <span class="string">"d"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="post-filter-对aggs的结果进行filter-返回命中的文档"><a href="#post-filter-对aggs的结果进行filter-返回命中的文档" class="headerlink" title="post filter 对aggs的结果进行filter 返回命中的文档"></a>post filter 对aggs的结果进行filter 返回命中的文档</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"aggs"</span>:&#123;</span><br><span class="line">      <span class="attr">"by_d"</span>: &#123;</span><br><span class="line">        <span class="attr">"terms"</span>: &#123;</span><br><span class="line">          <span class="attr">"field"</span>: <span class="string">"d"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"post_filter"</span>:&#123;</span><br><span class="line">      <span class="attr">"match"</span>: &#123;</span><br><span class="line">        <span class="attr">"a"</span>: <span class="string">"abc"</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="global-忽略query条件"><a href="#global-忽略query条件" class="headerlink" title="global 忽略query条件"></a>global 忽略query条件</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: &#123;</span><br><span class="line">   <span class="attr">"match"</span>: &#123;</span><br><span class="line">     <span class="attr">"FIELD"</span>: <span class="string">"TEXT"</span></span><br><span class="line">   &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"aggs"</span>:&#123;</span><br><span class="line">    <span class="attr">"by_field"</span>:&#123;</span><br><span class="line">      <span class="attr">"terms"</span>: &#123;</span><br><span class="line">        <span class="attr">"field"</span>: <span class="string">"d"</span>,</span><br><span class="line">        <span class="attr">"size"</span>: <span class="number">10</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"all"</span>:&#123;</span><br><span class="line">      <span class="attr">"global"</span>: &#123;&#125;,</span><br><span class="line">      <span class="attr">"aggs"</span>:&#123;</span><br><span class="line">          <span class="attr">"by_d"</span>:&#123;</span><br><span class="line">            <span class="attr">"terms"</span>: &#123;</span><br><span class="line">              <span class="attr">"field"</span>: <span class="string">""</span>,</span><br><span class="line">              <span class="attr">"size"</span>: <span class="number">10</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> elasticsearch </tag>
+            
+            <tag> aggs </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>elasticsearch aggs方式</title>
       <link href="/2019/08/27/elk/aggs/"/>
       <url>/2019/08/27/elk/aggs/</url>
       
@@ -25,7 +78,7 @@
     
     
     <entry>
-      <title>search suggest</title>
+      <title>elasticsearch search suggest</title>
       <link href="/2019/08/26/elk/search%20suggest/"/>
       <url>/2019/08/26/elk/search%20suggest/</url>
       
@@ -44,7 +97,7 @@
     
     
     <entry>
-      <title>search template</title>
+      <title>elasticsearch search template</title>
       <link href="/2019/08/26/elk/search%20template/"/>
       <url>/2019/08/26/elk/search%20template/</url>
       
@@ -234,33 +287,6 @@
             <tag> docker </tag>
             
             <tag> run </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>mac-install-docker</title>
-      <link href="/2016/11/01/mac-install-docker/"/>
-      <url>/2016/11/01/mac-install-docker/</url>
-      
-        <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install wget</span><br><span class="line">wget https://download.docker.com/mac/stable/Docker.dmg # 下载并安装此文件</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Linux </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> mac </tag>
-            
-            <tag> docker </tag>
             
         </tags>
       
