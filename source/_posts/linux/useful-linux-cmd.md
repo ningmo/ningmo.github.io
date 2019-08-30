@@ -2,7 +2,7 @@
 title: useful-linux-cmd
 date: 2016-10-19 23:05:27
 tags: [find,ssh,grep]
-categories: Linux
+categories: linux
 ---
 
 ###### 寻找

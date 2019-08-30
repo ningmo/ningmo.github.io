@@ -2,7 +2,7 @@
 title: linux-find-grep
 date: 2016-10-25 20:49:04
 tags: [find,grep]
-categories: Linux
+categories: linux
 ---
 
 ```
