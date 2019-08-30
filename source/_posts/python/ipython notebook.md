@@ -1,6 +1,6 @@
 ---
 title: ipython notebook
-categories: [ipython,python]
+categories: [python]
 date: 2015-10-28 20:59:09
 ---
 

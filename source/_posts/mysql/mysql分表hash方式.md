@@ -1,6 +1,6 @@
 ---
 title: mysql分表hash方式
-categories: []
+categories: [mysql]
 date: 2013-01-31 10:37:51
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Mysql中，int(10)和int(11)有什么区别
-categories: []
+categories: [mysql]
 date: 2015-11-05 11:34:34
 ---
 

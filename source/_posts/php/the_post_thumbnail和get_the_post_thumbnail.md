@@ -1,6 +1,6 @@
 ---
 title: the_post_thumbnail和get_the_post_thumbnail
-categories: []
+categories: [php]
 date: 2012-12-18 23:01:30
 ---
 

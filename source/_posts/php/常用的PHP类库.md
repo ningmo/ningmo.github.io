@@ -4,7 +4,7 @@ tags:
   - phppdf
   - phpexcel
   - phpemail
-categories: []
+categories: [php]
 date: 2013-07-25 13:51:30
 ---
 

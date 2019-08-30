@@ -1,6 +1,6 @@
 ---
 title: JS打开新窗口
-categories: []
+categories: [js]
 date: 2012-12-15 15:54:20
 ---
 

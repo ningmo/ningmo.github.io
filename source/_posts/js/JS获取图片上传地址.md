@@ -1,6 +1,6 @@
 ---
 title: JS获取图片上传地址
-categories: []
+categories: [js]
 date: 2015-11-26 21:24:20
 ---
 

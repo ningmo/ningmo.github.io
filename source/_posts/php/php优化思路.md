@@ -1,6 +1,6 @@
 ---
 title: php优化思路
-categories: []
+categories: [php]
 date: 2015-08-10 17:36:29
 ---
 

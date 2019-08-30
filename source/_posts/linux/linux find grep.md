@@ -2,6 +2,7 @@
 title: linux find grep
 categories:
   - linux
+tags: [find,grep]
 date: 2015-10-31 10:51:01
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Js中 关于top、clientTop、scrollTop、offsetTop的用法
-categories: []
+categories: [js]
 date: 2015-11-05 11:37:01
 ---
 

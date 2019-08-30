@@ -1,6 +1,6 @@
 ---
 title: php URL重写
-categories: []
+categories: [php]
 date: 2012-12-18 23:19:30
 ---
 

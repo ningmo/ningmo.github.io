@@ -1,6 +1,6 @@
 ---
 title: sql快速生成大量数据
-categories: []
+categories: [mysql]
 date: 2013-01-31 10:50:28
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: mysql explain详解
-categories: []
+categories: [mysql]
 date: 2013-07-02 18:12:40
 ---
 

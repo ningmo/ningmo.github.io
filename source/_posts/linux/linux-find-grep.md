@@ -1,7 +1,7 @@
 ---
 title: linux-find-grep
 date: 2016-10-25 20:49:04
-tags: [linux,find,grep,shell]
+tags: [find,grep]
 categories: Linux
 ---
 

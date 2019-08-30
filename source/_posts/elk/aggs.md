@@ -2,6 +2,7 @@
 title: elasticsearch aggs方式
 tags: [elasticsearch, aggs]
 date: 2019-08-27 22:18:00
+categories: [elasticsearch]
 ---
 
 以下内容基于ES7

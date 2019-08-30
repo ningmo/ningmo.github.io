@@ -1,6 +1,6 @@
 ---
 title: php多线程
-categories: []
+categories: [php]
 date: 2013-01-31 10:33:10
 ---
 

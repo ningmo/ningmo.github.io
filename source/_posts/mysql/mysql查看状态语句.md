@@ -1,6 +1,6 @@
 ---
 title: mysql查看状态语句
-categories: []
+categories: [mysql]
 date: 2015-11-26 21:22:04
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: git changelog
 date: 2019-08-26 14:15:44
-categories: index 
+categories: git 
 tags: [git,changelog]
 ---
 

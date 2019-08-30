@@ -1,6 +1,6 @@
 ---
 title: mysql_trigger_and_procedure
-categories: []
+categories: [mysql]
 date: 2013-07-31 14:22:00
 ---
 

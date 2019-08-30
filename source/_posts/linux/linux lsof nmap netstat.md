@@ -2,6 +2,7 @@
 title: lsof/nmap/netstat
 categories:
   - linux
+tags: [netstat,lsof]
 date: 2015-12-02 21:52:07
 ---
 

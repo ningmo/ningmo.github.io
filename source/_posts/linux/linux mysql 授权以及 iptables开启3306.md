@@ -1,6 +1,7 @@
 ---
 title: linux mysql 授权以及 iptables开启3306
 categories:
+  - mysql
   - linux
 date: 2015-11-25 09:08:09
 ---

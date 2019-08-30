@@ -2,7 +2,7 @@
 title: linux tar
 categories:
   - linux
-  - tar
+tags: [tar]
 date: 2015-10-31 10:49:30
 ---
 

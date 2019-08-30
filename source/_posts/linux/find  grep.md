@@ -1,6 +1,7 @@
 ---
 title: find  grep
-categories: []
+categories: [linux]
+tags: [find,grep]
 date: 2015-08-10 17:35:23
 ---
 

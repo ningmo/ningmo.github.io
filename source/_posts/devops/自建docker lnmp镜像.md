@@ -1,6 +1,7 @@
 ---
 title: 自建docker lnmp镜像
 tags: [linux,docker,centos,lnmp]
+categories: [linux,docker]
 date: 2016-06-05 11:59:28
 ---
 ```linux

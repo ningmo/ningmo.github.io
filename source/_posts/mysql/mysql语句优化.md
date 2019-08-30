@@ -1,6 +1,6 @@
 ---
 title: mysql语句优化
-categories: []
+categories: [mysql]
 date: 2015-08-10 17:56:06
 ---
 

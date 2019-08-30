@@ -1,6 +1,6 @@
 ---
 title: saltstack入门
-categories: []
+categories: [saltstack]
 date: 2015-08-10 17:25:59
 ---
 

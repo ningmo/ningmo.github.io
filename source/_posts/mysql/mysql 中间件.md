@@ -1,6 +1,6 @@
 ---
 title: mysql 中间件
-categories: []
+categories: [mysql]
 date: 2015-10-30 09:36:17
 ---
 

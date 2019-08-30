@@ -2,6 +2,7 @@
 title: elasticsearch reindex
 date: 2019-08-29 21:57:14
 tags: [elasticsearch]
+categories: [elasticsearch]
 ---
 
 ## 适用reindex的情景

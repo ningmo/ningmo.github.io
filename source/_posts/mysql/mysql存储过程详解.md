@@ -1,6 +1,6 @@
 ---
 title: mysql存储过程详解
-categories: []
+categories: [mysql]
 date: 2013-08-01 11:24:29
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: python常用
-categories: []
+categories: [python]
 date: 2015-08-10 21:45:03
 ---
 

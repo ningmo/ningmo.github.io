@@ -1,6 +1,6 @@
 ---
 title: mysql字符串操作
-categories: []
+categories: [mysql]
 date: 2013-07-05 12:40:12
 ---
 

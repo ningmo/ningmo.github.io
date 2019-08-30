@@ -2,7 +2,7 @@
 title: 修改docker源地址
 date: 2016-11-10 21:20:08
 tags: docker
-categories: Linux
+categories: docker
 ---
 
 

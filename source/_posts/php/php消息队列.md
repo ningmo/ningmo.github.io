@@ -1,6 +1,6 @@
 ---
 title: php消息队列
-categories: []
+categories: [php]
 date: 2013-01-23 14:31:09
 ---
 

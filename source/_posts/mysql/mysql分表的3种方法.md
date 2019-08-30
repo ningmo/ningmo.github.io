@@ -1,6 +1,6 @@
 ---
 title: mysql分表的3种方法
-categories: []
+categories: [mysql]
 date: 2013-01-04 17:26:16
 ---
 

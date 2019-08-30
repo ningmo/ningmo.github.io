@@ -1,6 +1,7 @@
 ---
 title: apt-get 命令详解
-categories: []
+categories: [linux]
+tags: [apt-get]
 date: 2013-03-25 22:35:11
 ---
 

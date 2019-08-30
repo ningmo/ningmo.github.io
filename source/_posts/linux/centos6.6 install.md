@@ -1,6 +1,7 @@
 ---
 title: centos6.6 install
-categories: []
+categories: [linux]
+tags: [linux,centos]
 date: 2015-08-10 17:31:15
 ---
 

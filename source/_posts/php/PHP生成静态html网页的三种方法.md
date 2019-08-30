@@ -1,6 +1,6 @@
 ---
 title: PHP生成静态html网页的三种方法
-categories: []
+categories: [php]
 date: 2013-07-18 16:32:30
 ---
 

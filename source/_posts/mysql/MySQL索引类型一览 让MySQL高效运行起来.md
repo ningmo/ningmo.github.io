@@ -1,6 +1,6 @@
 ---
 title: MySQL索引类型一览 让MySQL高效运行起来
-categories: []
+categories: [mysql]
 date: 2013-01-06 09:58:40
 ---
 

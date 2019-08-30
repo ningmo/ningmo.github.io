@@ -1,6 +1,6 @@
 ---
 title: openwrt chinadns
-categories: []
+categories: [openwrt]
 date: 2015-11-22 00:05:09
 ---
 

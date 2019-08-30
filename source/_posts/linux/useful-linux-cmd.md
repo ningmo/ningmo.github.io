@@ -1,7 +1,7 @@
 ---
 title: useful-linux-cmd
 date: 2016-10-19 23:05:27
-tags: [linux,find,ssh,grep]
+tags: [find,ssh,grep]
 categories: Linux
 ---
 

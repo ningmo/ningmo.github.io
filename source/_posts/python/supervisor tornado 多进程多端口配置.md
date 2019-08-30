@@ -1,6 +1,7 @@
 ---
 title: supervisor tornado 多进程多端口配置
-categories: [python,supervisor,tornado]
+categories: [python]
+tags [supervisor,tornado]
 date: 2015-11-24 16:42:09
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: php中对共享内存，消息队列的操作
-categories: []
+categories: [php]
 date: 2013-01-16 23:22:54
 ---
 

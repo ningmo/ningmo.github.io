@@ -1,6 +1,6 @@
 ---
 title: php定时执行任务的几个方法
-categories: []
+categories: [php]
 date: 2013-01-23 14:45:16
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: docker常用命令操作
 date: 2016-11-02 21:31:10
-tags: [docker,run]
-categories: Linux
+tags: [docker]
+categories: docker
 ---
 
 ##### docker 常用命令

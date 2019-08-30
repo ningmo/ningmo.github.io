@@ -1,6 +1,7 @@
 ---
 title: elasticsearch search suggest
 tags: [elasticsearch]
+categories: [elasticsearch]
 date: 2019-08-26 21:33:35
 ---
 

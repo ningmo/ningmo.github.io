@@ -1,6 +1,6 @@
 ---
 title: js模拟点击事件
-categories: []
+categories: [js]
 date: 2012-12-16 00:34:31
 ---
 

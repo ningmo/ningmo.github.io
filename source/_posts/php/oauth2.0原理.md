@@ -1,6 +1,6 @@
 ---
 title: oauth2.0原理
-categories: []
+categories: [php]
 date: 2015-09-29 23:08:25
 ---
 

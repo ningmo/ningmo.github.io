@@ -1,6 +1,6 @@
 ---
 title: centos 安装mysqldb 记录
-categories: []
+categories: [mysql]
 date: 2015-10-13 15:41:18
 ---
 

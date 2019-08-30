@@ -1,6 +1,6 @@
 ---
 title: 关于PHP定时执行任务的实现
-categories: []
+categories: [php]
 date: 2013-07-25 12:34:41
 ---
 

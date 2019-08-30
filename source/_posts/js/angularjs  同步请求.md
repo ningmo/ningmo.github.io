@@ -2,7 +2,7 @@
 title: angularjs同步请求
 categories:
   - js
-tags: [angularjs,js]
+tags: [angularjs]
 date: 2015-12-15 14:15:32
 ---
 

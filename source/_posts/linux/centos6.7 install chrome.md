@@ -1,6 +1,7 @@
 ---
 title: centos6.7 install chrome
-categories: []
+categories: [linux]
+tags: [linux,centos]
 date: 2015-09-14 14:49:04
 ---
 

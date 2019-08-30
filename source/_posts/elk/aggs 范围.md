@@ -1,6 +1,7 @@
 ---
 title: elasticsearch aggs 范围
 tags: [elasticsearch, aggs]
+categories: [elasticsearch]
 date: 2019-08-28 21:24:22
 ---
 ## filter 多范围aggs

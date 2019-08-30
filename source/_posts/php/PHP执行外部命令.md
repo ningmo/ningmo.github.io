@@ -1,6 +1,6 @@
 ---
 title: PHP执行外部命令
-categories: []
+categories: [php]
 date: 2013-07-25 10:48:10
 ---
 

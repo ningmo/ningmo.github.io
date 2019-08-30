@@ -1,6 +1,7 @@
 ---
 title: awk
-categories: []
+categories: [linux]
+tags: awk
 date: 2015-08-10 17:34:43
 ---
 

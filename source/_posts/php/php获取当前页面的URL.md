@@ -1,6 +1,6 @@
 ---
 title: php获取当前页面的URL
-categories: []
+categories: [php]
 date: 2012-12-16 17:55:32
 ---
 

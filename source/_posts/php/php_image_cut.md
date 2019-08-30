@@ -2,7 +2,7 @@
 title: php截图裁剪 缩放图片
 date: 2016-10-25 20:49:04
 tags: [image,php]
-categories: Php
+categories: php
 ---
 
 ```

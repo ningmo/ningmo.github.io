@@ -2,6 +2,7 @@
 date: 2016-05-16T23:01:35
 title: 终端使用proxy
 categories: linux
+tags: [proxy]
 ---
 
 最简单的方法是 执行

@@ -1,6 +1,6 @@
 ---
 title: MYSQL的FULLTEXT索引功能
-categories: []
+categories: [mysql]
 date: 2013-01-06 11:12:16
 ---
 
