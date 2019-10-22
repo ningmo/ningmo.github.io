@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ningmo.github.io/"/>
-  <updated>2019-08-30T01:06:55.856Z</updated>
+  <updated>2019-10-21T07:30:16.097Z</updated>
   <id>http://ningmo.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql从ibd恢复数据</title>
+    <link href="http://ningmo.github.io/2019/10/21/mysql/mysql%E4%BB%8Eibd%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE/"/>
+    <id>http://ningmo.github.io/2019/10/21/mysql/mysql从ibd文件恢复数据/</id>
+    <published>2019-10-21T07:21:34.000Z</published>
+    <updated>2019-10-21T07:30:16.097Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><p>创建表结构</p></li><li><p>删除表空间</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_a discard <span class="keyword">tablespace</span>;</span><br></pre></td></tr></table></figure></li><li><p>复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写</p></li><li><p>导入表空间</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_a <span class="keyword">import</span> <span class="keyword">tablespace</span>;</span><br></pre></td></tr></table></figure></li></ol><p>如出现报错<figure class="highlight plain"><figcaption><span>mismatch (Table has ROW_TYPE_DYNAMIC row format, .ibd file has ROW_TYPE_COMPACT row format.)```,</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">则说明新建表与ibd表的row format不一致</span><br><span class="line"></span><br><span class="line">删除新表 ,同时删除刚才拷贝过来的ibd文件 </span><br><span class="line">重新建表时指定row format使一致,如```ROW_FORMAT=COMPACT</span><br></pre></td></tr></table></figure></p><p>然后再次从步骤[3]开始进行</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;创建表结构&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;删除表空间&lt;/p&gt;
+&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;
+      
+    
+    </summary>
+    
+      <category term="mysql" scheme="http://ningmo.github.io/categories/mysql/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>elasticsearch reindex</title>
@@ -396,7 +423,7 @@
     <link href="http://ningmo.github.io/2016/10/25/linux/linux-find-grep/"/>
     <id>http://ningmo.github.io/2016/10/25/linux/linux-find-grep/</id>
     <published>2016-10-25T12:49:04.000Z</published>
-    <updated>2019-08-30T01:16:37.959Z</updated>
+    <updated>2019-08-30T01:48:41.049Z</updated>
     
     <content type="html"><![CDATA[<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">在当前目录下所有文件中查找内容包含 string 的文件:</span><br><span class="line"><span class="builtin-name">find</span> ./ -name <span class="string">"*"</span> -exec grep <span class="string">"string"</span> &#123;&#125; \; </span><br><span class="line">注意:在最后不能加 print,否则会出错</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件:</span><br><span class="line"><span class="builtin-name">find</span> ./ -name <span class="string">"*"</span> -exec grep -l <span class="string">"string"</span> &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">在当前目录下 *.c 中查找内容包含 string 的文件并列出字符所在的文件的所在行(不显示文件名):</span><br><span class="line"><span class="builtin-name">find</span> ./ -name <span class="string">"*.c"</span> -exec grep -n <span class="string">"string"</span> &#123;&#125; \; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">在当前目录下所有文件中查找内容包含 string 的文件并列出字符所在的文件,所在行及所在行的内容:</span><br><span class="line"><span class="builtin-name">find</span> ./ -name <span class="string">"*"</span> -exec grep -n <span class="string">"string"</span> ./ &#123;&#125; \; </span><br><span class="line"> </span><br><span class="line">使用 <span class="builtin-name">find</span> 查找时希望忽略某个目录(-prune)：</span><br><span class="line">如果希望在 /app 目录下查找文件， 但不希望在 /app/bin 目录下查找：</span><br><span class="line"><span class="builtin-name">find</span> /app -name <span class="string">"/app/bin"</span> -prune -o -<span class="builtin-name">print</span> </span><br><span class="line"></span><br><span class="line">使用type 选项:</span><br><span class="line">如果要在 /etc 目录下查找所有的目录：</span><br><span class="line"><span class="builtin-name">find</span> /etc -type d -print</span><br><span class="line"></span><br><span class="line">如果要在 /etc 目录下查找 .svn 的目录：</span><br><span class="line"><span class="builtin-name">find</span> /etc -name .svn -type d -<span class="builtin-name">print</span> </span><br><span class="line"></span><br><span class="line">为了在当前目录下查找除目录以外的所有类型的文件：</span><br><span class="line"><span class="builtin-name">find</span> . ! -type d -print</span><br><span class="line"> </span><br><span class="line">为了在当前目录下查找所有的符号链接文件， 可以用：</span><br><span class="line"><span class="builtin-name">find</span> . -type l -print</span><br><span class="line"><span class="builtin-name">find</span> .  -mtime -4（4天内）/4(4天前的那一天)/+4（5天前）</span><br><span class="line"><span class="builtin-name">find</span> .</span><br><span class="line">         -name  *</span><br><span class="line">         -size   +50k</span><br><span class="line">         -type    f/b/c/d/l/sp<span class="built_in">..</span>.</span><br><span class="line">         -perm    -/+ /    755</span><br><span class="line">         -uid<span class="built_in">/user </span>     201/yangsf</span><br><span class="line">         -gid<span class="built_in">/group </span>   501/yangsf</span><br><span class="line">         -nouser/nogroup   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">为了用 ls -l 命令列出所匹配到的文件， 可以把 ls -l 命令放在find命令的 -exec 选项中：</span><br><span class="line"><span class="builtin-name">find</span> . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">注： f 表示普通文件  exec 选项后面跟随着所要执行的命令， 然后是一对 &#123;&#125;， 一个空格和一个 \，最后是一个分号。</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -409,7 +436,7 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://ningmo.github.io/categories/Linux/"/>
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
     
     
       <category term="find" scheme="http://ningmo.github.io/tags/find/"/>
@@ -423,7 +450,7 @@
     <link href="http://ningmo.github.io/2016/10/19/linux/useful-linux-cmd/"/>
     <id>http://ningmo.github.io/2016/10/19/linux/useful-linux-cmd/</id>
     <published>2016-10-19T15:05:27.000Z</published>
-    <updated>2019-08-30T01:17:31.988Z</updated>
+    <updated>2019-08-30T01:48:38.756Z</updated>
     
     <content type="html"><![CDATA[<h6 id="寻找"><a href="#寻找" class="headerlink" title="寻找"></a>寻找</h6><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">find .  -mtime <span class="number">-4</span>（<span class="number">4</span>天内）/<span class="number">4</span>(<span class="number">4</span>天前的那一天)/+<span class="number">4</span>（<span class="number">5</span>天前）</span><br><span class="line">locate fielname* (updatedb)</span><br></pre></td></tr></table></figure><h6 id="寻找定位"><a href="#寻找定位" class="headerlink" title="寻找定位"></a>寻找定位</h6><figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span> ./ -<span class="built_in">name</span> <span class="string">"*.c"</span> -<span class="built_in">exec</span> grep -n <span class="string">"string"</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure><h6 id="寻找与替换"><a href="#寻找与替换" class="headerlink" title="寻找与替换"></a>寻找与替换</h6><figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span> -<span class="built_in">name</span> <span class="string">"*"</span> -<span class="built_in">exec</span> sed -i <span class="string">'s/str1/str2/g'</span> &#123;&#125;\;-print</span><br></pre></td></tr></table></figure><h6 id="ssh请求"><a href="#ssh请求" class="headerlink" title="ssh请求"></a>ssh请求</h6><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -nNTf  -D <span class="number">7000</span> root<span class="variable">@IP</span></span><br><span class="line">ssh -qTfnN -D <span class="number">7070</span> root<span class="variable">@IP</span></span><br></pre></td></tr></table></figure>]]></content>
     
@@ -436,7 +463,7 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://ningmo.github.io/categories/Linux/"/>
+      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
     
     
       <category term="find" scheme="http://ningmo.github.io/tags/find/"/>
@@ -528,29 +555,6 @@
     
     
       <category term="angularjs" scheme="http://ningmo.github.io/tags/angularjs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nohup/disown/setsid/screen</title>
-    <link href="http://ningmo.github.io/2015/12/15/linux/linux%E7%9A%84nohup%20disown%20setsid%20screen/"/>
-    <id>http://ningmo.github.io/2015/12/15/linux/linux的nohup disown setsid screen/</id>
-    <published>2015-12-15T15:46:43.000Z</published>
-    <updated>2019-08-26T06:09:54.314Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">nohup 可以将进程挂起 帐号退出时不受影响</span><br><span class="line">    nohup cp -r a b/ [&gt;/~/cp.log] &amp;  </span><br><span class="line">setsid 作用类似于nohup</span><br><span class="line">    swtsid cp -r a b/</span><br><span class="line">disown 使已经在运行的用户进程 不受用户退出限制</span><br><span class="line">    disown -h %1  # 1 为jobsID </span><br><span class="line">    如果已经在当前终端运行 </span><br><span class="line">        可以ctrl+z 挂起 </span><br><span class="line">        bg jobsID 放入后台</span><br><span class="line">        disown -h jobsID </span><br><span class="line"></span><br><span class="line">screen 适用于多条命令</span><br><span class="line"></span><br><span class="line">jobsID 可以通过jobs命令显示</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;figure class=&quot;highlight routeros&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;nohup 可以将进程挂起 帐号退出时不受影响&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://ningmo.github.io/categories/linux/"/>
-    
     
   </entry>
   
