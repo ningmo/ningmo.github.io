@@ -17,17 +17,17 @@
   
   
   <title>Mysql从ibd恢复数据 | 追寻一颗宁静的新</title>
-  <meta name="description" content="创建表结构  删除表空间 alter table table_a discard tablespace;  复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写  导入表空间 alter table table_a import tablespace;    如出现报错  mismatch (Table has ROW_TYPE_DYNAMIC row">
+  <meta name="description" content="创建表结构  删除表空间 alter table table_a discard tablespace;  复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写  导入表空间 alter table table_a import tablespace;    如出现报错  Schema mismatch (Table has ROW_TYPE_DYNAM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql从ibd恢复数据">
 <meta property="og:url" content="http://ningmo.github.io/2019/10/21/mysql/mysql从ibd文件恢复数据/index.html">
 <meta property="og:site_name" content="追寻一颗宁静的心">
-<meta property="og:description" content="创建表结构  删除表空间 alter table table_a discard tablespace;  复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写  导入表空间 alter table table_a import tablespace;    如出现报错  mismatch (Table has ROW_TYPE_DYNAMIC row">
+<meta property="og:description" content="创建表结构  删除表空间 alter table table_a discard tablespace;  复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写  导入表空间 alter table table_a import tablespace;    如出现报错  Schema mismatch (Table has ROW_TYPE_DYNAM">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-22T06:50:52.144Z">
+<meta property="og:updated_time" content="2019-10-22T06:54:11.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql从ibd恢复数据">
-<meta name="twitter:description" content="创建表结构  删除表空间 alter table table_a discard tablespace;  复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写  导入表空间 alter table table_a import tablespace;    如出现报错  mismatch (Table has ROW_TYPE_DYNAMIC row">
+<meta name="twitter:description" content="创建表结构  删除表空间 alter table table_a discard tablespace;  复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写  导入表空间 alter table table_a import tablespace;    如出现报错  Schema mismatch (Table has ROW_TYPE_DYNAM">
   <!-- Canonical links -->
   <link rel="canonical" href="http://ningmo.github.io/2019/10/21/mysql/mysql从ibd文件恢复数据/index.html">
   
@@ -198,7 +198,11 @@
 </li>
 </ol>
 <p>如出现报错 </p>
-<figure class="highlight plain"><figcaption><span>mismatch (Table has ROW_TYPE_DYNAMIC row format, .ibd file has ROW_TYPE_COMPACT row format.)```</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">则说明新建表与ibd表的row format不一致</span><br><span class="line"></span><br><span class="line">删除新表 ,同时删除刚才拷贝过来的ibd文件 </span><br><span class="line">重新建表时指定row format使一致,如</span><br><span class="line">```ROW_FORMAT=COMPACT</span><br></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">Schema mismatch (<span class="keyword">Table</span> has ROW_TYPE_DYNAMIC row <span class="keyword">format</span>, .ibd <span class="keyword">file</span> has ROW_TYPE_COMPACT row <span class="keyword">format</span>.</span><br></pre></td></tr></table></figure>
+
+<p>则说明新建表与ibd表的row format不一致</p>
+<p>删除新表 ,同时删除刚才拷贝过来的ibd文件<br>重新建表时指定row format使一致,如</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">ROW_FORMAT</span>=COMPACT</span><br></pre></td></tr></table></figure>
 
 <p>然后再次从步骤[3]开始进行</p>
 

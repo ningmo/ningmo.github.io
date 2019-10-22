@@ -8,7 +8,7 @@
       <link href="/2019/10/21/mysql/mysql%E4%BB%8Eibd%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE/"/>
       <url>/2019/10/21/mysql/mysql%E4%BB%8Eibd%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE/</url>
       
-        <content type="html"><![CDATA[<ol><li><p>创建表结构</p></li><li><p>删除表空间</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_a discard <span class="keyword">tablespace</span>;</span><br></pre></td></tr></table></figure></li><li><p>复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写</p></li><li><p>导入表空间</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_a <span class="keyword">import</span> <span class="keyword">tablespace</span>;</span><br></pre></td></tr></table></figure></li></ol><p>如出现报错 </p><figure class="highlight plain"><figcaption><span>mismatch (Table has ROW_TYPE_DYNAMIC row format, .ibd file has ROW_TYPE_COMPACT row format.)```</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">则说明新建表与ibd表的row format不一致</span><br><span class="line"></span><br><span class="line">删除新表 ,同时删除刚才拷贝过来的ibd文件 </span><br><span class="line">重新建表时指定row format使一致,如</span><br><span class="line">```ROW_FORMAT=COMPACT</span><br></pre></td></tr></table></figure><p>然后再次从步骤[3]开始进行</p>]]></content>
+        <content type="html"><![CDATA[<ol><li><p>创建表结构</p></li><li><p>删除表空间</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_a discard <span class="keyword">tablespace</span>;</span><br></pre></td></tr></table></figure></li><li><p>复制ibd文件到新库文件夹下 命名 table_a.ibd 修改文件权限 使mysql可以读写</p></li><li><p>导入表空间</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_a <span class="keyword">import</span> <span class="keyword">tablespace</span>;</span><br></pre></td></tr></table></figure></li></ol><p>如出现报错 </p><figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">Schema mismatch (<span class="keyword">Table</span> has ROW_TYPE_DYNAMIC row <span class="keyword">format</span>, .ibd <span class="keyword">file</span> has ROW_TYPE_COMPACT row <span class="keyword">format</span>.</span><br></pre></td></tr></table></figure><p>则说明新建表与ibd表的row format不一致</p><p>删除新表 ,同时删除刚才拷贝过来的ibd文件<br>重新建表时指定row format使一致,如</p><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">ROW_FORMAT</span>=COMPACT</span><br></pre></td></tr></table></figure><p>然后再次从步骤[3]开始进行</p>]]></content>
       
       
       <categories>
@@ -358,33 +358,6 @@
     
     
     <entry>
-      <title>php截图裁剪 缩放图片</title>
-      <link href="/2016/10/25/php/php_image_cut/"/>
-      <url>/2016/10/25/php/php_image_cut/</url>
-      
-        <content type="html"><![CDATA[<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">image_resize</span><span class="params">($from, $tw,$th)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 按指定大小生成缩略图，而且不变形，缩略图函数</span></span><br><span class="line">        $temp = <span class="keyword">array</span>(<span class="number">1</span>=&gt;<span class="string">'gif'</span>, <span class="number">2</span>=&gt;<span class="string">'jpeg'</span>, <span class="number">3</span>=&gt;<span class="string">'png'</span>);</span><br><span class="line">        <span class="keyword">list</span>($fw, $fh, $tmp) = getimagesize($from);</span><br><span class="line">        <span class="keyword">if</span>(!$temp[$tmp])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $tmp = $temp[$tmp];</span><br><span class="line">        $infunc = <span class="string">"imagecreatefrom$tmp"</span>;</span><br><span class="line">        $outfunc = <span class="string">"image$tmp"</span>;</span><br><span class="line">        $fimg = $infunc($from);</span><br><span class="line">        <span class="comment">// 使缩略后的图片不变形，并且限制在 缩略图宽高范围内</span></span><br><span class="line">        <span class="keyword">if</span>($fw/$tw &gt; $fh/$th)&#123;</span><br><span class="line">            $th = $tw*($fh/$fw);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $tw = $th*($fw/$fh);</span><br><span class="line">        &#125;</span><br><span class="line">        $timg = imagecreatetruecolor($tw, $th);</span><br><span class="line">        imagecopyresampled($timg, $fimg, <span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>, $tw,$th, $fw,$fh);</span><br><span class="line">        $to = C(<span class="string">'UPLOAD_PATH'</span>).C(<span class="string">'UPLOAD_SAVE_DIR_RULE'</span>).<span class="string">'a_'</span>.time().<span class="string">'_'</span>.mt_rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">'.'</span>.end(explode(<span class="string">'.'</span>,$from));</span><br><span class="line">        $r = $outfunc($timg, $to);</span><br><span class="line">        <span class="keyword">if</span>($r)&#123;</span><br><span class="line">            unlink($from);</span><br><span class="line">            <span class="keyword">return</span> $to;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">cut_img</span><span class="params">($from,$zero=[<span class="number">0</span>,<span class="number">0</span>],$cutSize=[<span class="number">300</span>,<span class="number">300</span>])</span></span>&#123;</span><br><span class="line">        $temp = <span class="keyword">array</span>(<span class="number">1</span>=&gt;<span class="string">'gif'</span>, <span class="number">2</span>=&gt;<span class="string">'jpeg'</span>, <span class="number">3</span>=&gt;<span class="string">'png'</span>);</span><br><span class="line">        <span class="keyword">list</span>($fw, $fh, $tmp) = getimagesize($from);</span><br><span class="line">        <span class="keyword">if</span>(!$temp[$tmp])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $tmp = $temp[$tmp];</span><br><span class="line">        $infunc = <span class="string">"imagecreatefrom$tmp"</span>;</span><br><span class="line">        $outfunc = <span class="string">"image$tmp"</span>;</span><br><span class="line">        $timg = $infunc($from);</span><br><span class="line">        $cutImg=imagecreatetruecolor($cutSize[<span class="number">0</span>], $cutSize[<span class="number">1</span>]);</span><br><span class="line">        <span class="comment"># 将 $timg 图像中坐标从 src_x，src_y  开始，宽度为 src_w，高度为 src_h 的一部分拷贝到 dst_im 图像中坐标为 dst_x 和 dst_y 的位置上。</span></span><br><span class="line">        imagecopy($cutImg,$timg,<span class="number">0</span>,<span class="number">0</span>,$zero[<span class="number">0</span>], $zero[<span class="number">1</span>],$cutSize[<span class="number">0</span>], $cutSize[<span class="number">1</span>]);</span><br><span class="line">        $to = C(<span class="string">'UPLOAD_PATH'</span>).C(<span class="string">'UPLOAD_SAVE_DIR_RULE'</span>).<span class="string">'a_'</span>.time().<span class="string">'_'</span>.mt_rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">'.'</span>.end(explode(<span class="string">'.'</span>,$from));</span><br><span class="line">        $r = $outfunc($cutImg, $to);</span><br><span class="line">        <span class="keyword">if</span>($r)&#123;</span><br><span class="line">            unlink($from);</span><br><span class="line">            <span class="keyword">return</span> str_replace(<span class="string">'../'</span>,<span class="string">'/'</span>,$to);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> php </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> image </tag>
-            
-            <tag> php </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>linux-find-grep</title>
       <link href="/2016/10/25/linux/linux-find-grep/"/>
       <url>/2016/10/25/linux/linux-find-grep/</url>
@@ -404,6 +377,33 @@
             <tag> find </tag>
             
             <tag> grep </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>php截图裁剪 缩放图片</title>
+      <link href="/2016/10/25/php/php_image_cut/"/>
+      <url>/2016/10/25/php/php_image_cut/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">image_resize</span><span class="params">($from, $tw,$th)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 按指定大小生成缩略图，而且不变形，缩略图函数</span></span><br><span class="line">        $temp = <span class="keyword">array</span>(<span class="number">1</span>=&gt;<span class="string">'gif'</span>, <span class="number">2</span>=&gt;<span class="string">'jpeg'</span>, <span class="number">3</span>=&gt;<span class="string">'png'</span>);</span><br><span class="line">        <span class="keyword">list</span>($fw, $fh, $tmp) = getimagesize($from);</span><br><span class="line">        <span class="keyword">if</span>(!$temp[$tmp])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $tmp = $temp[$tmp];</span><br><span class="line">        $infunc = <span class="string">"imagecreatefrom$tmp"</span>;</span><br><span class="line">        $outfunc = <span class="string">"image$tmp"</span>;</span><br><span class="line">        $fimg = $infunc($from);</span><br><span class="line">        <span class="comment">// 使缩略后的图片不变形，并且限制在 缩略图宽高范围内</span></span><br><span class="line">        <span class="keyword">if</span>($fw/$tw &gt; $fh/$th)&#123;</span><br><span class="line">            $th = $tw*($fh/$fw);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $tw = $th*($fw/$fh);</span><br><span class="line">        &#125;</span><br><span class="line">        $timg = imagecreatetruecolor($tw, $th);</span><br><span class="line">        imagecopyresampled($timg, $fimg, <span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>, $tw,$th, $fw,$fh);</span><br><span class="line">        $to = C(<span class="string">'UPLOAD_PATH'</span>).C(<span class="string">'UPLOAD_SAVE_DIR_RULE'</span>).<span class="string">'a_'</span>.time().<span class="string">'_'</span>.mt_rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">'.'</span>.end(explode(<span class="string">'.'</span>,$from));</span><br><span class="line">        $r = $outfunc($timg, $to);</span><br><span class="line">        <span class="keyword">if</span>($r)&#123;</span><br><span class="line">            unlink($from);</span><br><span class="line">            <span class="keyword">return</span> $to;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">cut_img</span><span class="params">($from,$zero=[<span class="number">0</span>,<span class="number">0</span>],$cutSize=[<span class="number">300</span>,<span class="number">300</span>])</span></span>&#123;</span><br><span class="line">        $temp = <span class="keyword">array</span>(<span class="number">1</span>=&gt;<span class="string">'gif'</span>, <span class="number">2</span>=&gt;<span class="string">'jpeg'</span>, <span class="number">3</span>=&gt;<span class="string">'png'</span>);</span><br><span class="line">        <span class="keyword">list</span>($fw, $fh, $tmp) = getimagesize($from);</span><br><span class="line">        <span class="keyword">if</span>(!$temp[$tmp])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $tmp = $temp[$tmp];</span><br><span class="line">        $infunc = <span class="string">"imagecreatefrom$tmp"</span>;</span><br><span class="line">        $outfunc = <span class="string">"image$tmp"</span>;</span><br><span class="line">        $timg = $infunc($from);</span><br><span class="line">        $cutImg=imagecreatetruecolor($cutSize[<span class="number">0</span>], $cutSize[<span class="number">1</span>]);</span><br><span class="line">        <span class="comment"># 将 $timg 图像中坐标从 src_x，src_y  开始，宽度为 src_w，高度为 src_h 的一部分拷贝到 dst_im 图像中坐标为 dst_x 和 dst_y 的位置上。</span></span><br><span class="line">        imagecopy($cutImg,$timg,<span class="number">0</span>,<span class="number">0</span>,$zero[<span class="number">0</span>], $zero[<span class="number">1</span>],$cutSize[<span class="number">0</span>], $cutSize[<span class="number">1</span>]);</span><br><span class="line">        $to = C(<span class="string">'UPLOAD_PATH'</span>).C(<span class="string">'UPLOAD_SAVE_DIR_RULE'</span>).<span class="string">'a_'</span>.time().<span class="string">'_'</span>.mt_rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">'.'</span>.end(explode(<span class="string">'.'</span>,$from));</span><br><span class="line">        $r = $outfunc($cutImg, $to);</span><br><span class="line">        <span class="keyword">if</span>($r)&#123;</span><br><span class="line">            unlink($from);</span><br><span class="line">            <span class="keyword">return</span> str_replace(<span class="string">'../'</span>,<span class="string">'/'</span>,$to);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> php </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> image </tag>
+            
+            <tag> php </tag>
             
         </tags>
       
@@ -1462,25 +1462,6 @@
     
     
     <entry>
-      <title>mysql_trigger_and_procedure</title>
-      <link href="/2013/07/31/mysql/mysql_trigger_and_procedure/"/>
-      <url>/2013/07/31/mysql/mysql_trigger_and_procedure/</url>
-      
-        <content type="html"><![CDATA[<h5 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h5><p>catabig为表名<br>所操作的数据： 添加的数据或修改后的数据为new  删除或修改前的数据为old<br>触发器需要避免死循环<br>如 insert操作触发触发器的insert操作 依次无限循环下去导致死循环</p><p>···<br>mysql&gt; delimiter //<br>mysql&gt; create trigger mytrigger before update<br>    -&gt;  on catabig for each row<br>    -&gt; begin<br>    -&gt;  set new.t=concat(new.t,old.t);<br>    -&gt; end//<br>Query OK, 0 rows affected (0.04 sec)</p><p>mysql&gt; delimiter ;<br>mysql&gt; select * from catabig;<br>+—-+——+<br>| id | t    |<br>+—-+——+<br>|  3 | PHP  |<br>+—-+——+<br>3 rows in set (0.00 sec)<br>mysql&gt; update catabig set t=’_upd’ where id=3;<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; select * from catabig;<br>+—-+———+<br>| id | t       |<br>+—-+———+<br>|  3 | _updPHP |<br>+—-+———+<br>3 rows in set (0.00 sec)<br>···</p><h5 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h5><p>···<br>delimiter //<br>create procedure mypro(ed int)<br>begin<br>    declare i int;  – 定义声明必须在最前面<br>    declare rs  int;<br>    set rs=0 ;<br>    set i=1 ;<br>    label1:loop<br>        if i&lt;=ed    then<br>            set rs=i+rs;<br>            set i=i+1;<br>            ITERATE label1;  – 继续循环<br>        else leave label1;   – 结束循环<br>        end if;<br>    end loop label1;             – 结束循环<br>    select rs;      – 不允许存在return（只有function可以有return）<br>end  //<br>delimiter ;<br> – 调用<br>mysql&gt; call mypro(100);<br>+——+<br>| rs   |<br>+——+<br>| 5050 |<br>+——+<br>1 row in set (0.00 sec)</p><p>Query OK, 0 rows affected (0.00 sec)<br>···</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> mysql </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>mysql触发器以及存储过程</title>
       <link href="/2013/07/31/mysql/%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/"/>
       <url>/2013/07/31/mysql/%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</url>
@@ -1500,6 +1481,25 @@
             <tag> mysql trigger </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql_trigger_and_procedure</title>
+      <link href="/2013/07/31/mysql/mysql_trigger_and_procedure/"/>
+      <url>/2013/07/31/mysql/mysql_trigger_and_procedure/</url>
+      
+        <content type="html"><![CDATA[<h5 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h5><p>catabig为表名<br>所操作的数据： 添加的数据或修改后的数据为new  删除或修改前的数据为old<br>触发器需要避免死循环<br>如 insert操作触发触发器的insert操作 依次无限循环下去导致死循环</p><p>···<br>mysql&gt; delimiter //<br>mysql&gt; create trigger mytrigger before update<br>    -&gt;  on catabig for each row<br>    -&gt; begin<br>    -&gt;  set new.t=concat(new.t,old.t);<br>    -&gt; end//<br>Query OK, 0 rows affected (0.04 sec)</p><p>mysql&gt; delimiter ;<br>mysql&gt; select * from catabig;<br>+—-+——+<br>| id | t    |<br>+—-+——+<br>|  3 | PHP  |<br>+—-+——+<br>3 rows in set (0.00 sec)<br>mysql&gt; update catabig set t=’_upd’ where id=3;<br>Query OK, 1 row affected (0.00 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql&gt; select * from catabig;<br>+—-+———+<br>| id | t       |<br>+—-+———+<br>|  3 | _updPHP |<br>+—-+———+<br>3 rows in set (0.00 sec)<br>···</p><h5 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h5><p>···<br>delimiter //<br>create procedure mypro(ed int)<br>begin<br>    declare i int;  – 定义声明必须在最前面<br>    declare rs  int;<br>    set rs=0 ;<br>    set i=1 ;<br>    label1:loop<br>        if i&lt;=ed    then<br>            set rs=i+rs;<br>            set i=i+1;<br>            ITERATE label1;  – 继续循环<br>        else leave label1;   – 结束循环<br>        end if;<br>    end loop label1;             – 结束循环<br>    select rs;      – 不允许存在return（只有function可以有return）<br>end  //<br>delimiter ;<br> – 调用<br>mysql&gt; call mypro(100);<br>+——+<br>| rs   |<br>+——+<br>| 5050 |<br>+——+<br>1 row in set (0.00 sec)</p><p>Query OK, 0 rows affected (0.00 sec)<br>···</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
       
     </entry>
     
