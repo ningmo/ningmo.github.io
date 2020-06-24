@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ningmo.github.io/2019/08/27/elk/%E6%90%9C%E7%B4%A2%E6%97%B6%E8%AE%BE%E5%AE%9Ascore%E6%9D%83%E9%87%8D/</loc>
+    
+    <lastmod>2020-06-24T06:29:25.607Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ningmo.github.io/2020/06/24/elk/rancher%E6%90%AD%E5%BB%BAes%E9%9B%86%E7%BE%A4/</loc>
+    
+    <lastmod>2020-06-24T06:24:06.058Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ningmo.github.io/2019/10/21/mysql/mysql%E4%BB%8Eibd%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE/</loc>
     
     <lastmod>2019-10-22T06:54:11.694Z</lastmod>
@@ -653,14 +667,14 @@
   </url>
   
   <url>
-    <loc>http://ningmo.github.io/2015/09/17/linux/linux%E5%91%BD%E4%BB%A4%20%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <loc>http://ningmo.github.io/2015/12/15/linux/linux%E7%9A%84nohup%20disown%20setsid%20screen/</loc>
     
     <lastmod>2019-08-26T06:09:54.314Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://ningmo.github.io/2015/12/15/linux/linux%E7%9A%84nohup%20disown%20setsid%20screen/</loc>
+    <loc>http://ningmo.github.io/2015/09/17/linux/linux%E5%91%BD%E4%BB%A4%20%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
     
     <lastmod>2019-08-26T06:09:54.314Z</lastmod>
     
