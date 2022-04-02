@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>mac下vpn转发指定流量(L2TP)</title>
+      <link href="2022/03/31/linux/mac_vpn_setting/"/>
+      <url>2022/03/31/linux/mac_vpn_setting/</url>
+      
+        <content type="html"><![CDATA[<p>在/etc/ppp/ip-up(没有则创建文件)脚本中写入转发规则</p><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单个指定</span></span><br><span class="line">/sbin<span class="built_in">/route </span><span class="builtin-name">add</span> -net 192.168.70.11 -interface <span class="variable">$1</span>   </span><br><span class="line"><span class="comment"># 范围指定</span></span><br><span class="line">/sbin<span class="built_in">/route </span><span class="builtin-name">add</span> -net 192.168.80.0、24 -interface <span class="variable">$1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除默认路由</span></span><br><span class="line">/sbin<span class="built_in">/route </span>delete default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加默认路由为指定的地址</span></span><br><span class="line">/sbin<span class="built_in">/route </span><span class="builtin-name">add</span><span class="built_in"> default </span>192.168.1.1</span><br></pre></td></tr></table></figure><p>增加执行权限</p><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">sudo chmod u+x /etc/ppp/<span class="built_in">ip</span>-<span class="meta">up</span></span><br></pre></td></tr></table></figure><p>将vpn的网络顺序设置后最后一个 降低优先级<br>辅助命令</p><figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># 查看路由表</span></span><br><span class="line">netstat -nr</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看dns</span></span><br><span class="line">nslookup store.chanjet.com</span><br></pre></td></tr></table></figure><p>以上内容引用自 <a href="https://pocketcloud.vip/2020/03/19/macOS%E8%AE%BE%E7%BD%AEL2TP%E7%B1%BB%E5%9E%8B%E7%9A%84VPN%E8%BD%AC%E5%8F%91%E6%8C%87%E5%AE%9A%E7%9A%84%E6%B5%81%E9%87%8F/" target="_blank" rel="noopener">macOS设置L2TP类型的VPN转发指定的流量</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> nginx </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> centos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>docker-compose build报错</title>
       <link href="2021/08/17/devops/docker-error/"/>
       <url>2021/08/17/devops/docker-error/</url>

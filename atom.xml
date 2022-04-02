@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ningmo.github.io/"/>
-  <updated>2021-08-17T07:57:07.681Z</updated>
+  <updated>2022-04-02T01:18:22.821Z</updated>
   <id>http://ningmo.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mac下vpn转发指定流量(L2TP)</title>
+    <link href="http://ningmo.github.io/2022/03/31/linux/mac_vpn_setting/"/>
+    <id>http://ningmo.github.io/2022/03/31/linux/mac_vpn_setting/</id>
+    <published>2022-03-31T14:01:25.000Z</published>
+    <updated>2022-04-02T01:18:22.821Z</updated>
+    
+    <content type="html"><![CDATA[<p>在/etc/ppp/ip-up(没有则创建文件)脚本中写入转发规则</p><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单个指定</span></span><br><span class="line">/sbin<span class="built_in">/route </span><span class="builtin-name">add</span> -net 192.168.70.11 -interface <span class="variable">$1</span>   </span><br><span class="line"><span class="comment"># 范围指定</span></span><br><span class="line">/sbin<span class="built_in">/route </span><span class="builtin-name">add</span> -net 192.168.80.0、24 -interface <span class="variable">$1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除默认路由</span></span><br><span class="line">/sbin<span class="built_in">/route </span>delete default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加默认路由为指定的地址</span></span><br><span class="line">/sbin<span class="built_in">/route </span><span class="builtin-name">add</span><span class="built_in"> default </span>192.168.1.1</span><br></pre></td></tr></table></figure><p>增加执行权限</p><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line">sudo chmod u+x /etc/ppp/<span class="built_in">ip</span>-<span class="meta">up</span></span><br></pre></td></tr></table></figure><p>将vpn的网络顺序设置后最后一个 降低优先级<br>辅助命令</p><figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># 查看路由表</span></span><br><span class="line">netstat -nr</span><br><span class="line"></span><br><span class="line"><span class="meta"># 查看dns</span></span><br><span class="line">nslookup store.chanjet.com</span><br></pre></td></tr></table></figure><p>以上内容引用自 <a href="https://pocketcloud.vip/2020/03/19/macOS%E8%AE%BE%E7%BD%AEL2TP%E7%B1%BB%E5%9E%8B%E7%9A%84VPN%E8%BD%AC%E5%8F%91%E6%8C%87%E5%AE%9A%E7%9A%84%E6%B5%81%E9%87%8F/" target="_blank" rel="noopener">macOS设置L2TP类型的VPN转发指定的流量</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在/etc/ppp/ip-up(没有则创建文件)脚本中写入转发规则&lt;/p&gt;
+&lt;figure class=&quot;highlight routeros&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=
+      
+    
+    </summary>
+    
+      <category term="nginx" scheme="http://ningmo.github.io/categories/nginx/"/>
+    
+    
+      <category term="linux" scheme="http://ningmo.github.io/tags/linux/"/>
+    
+      <category term="centos" scheme="http://ningmo.github.io/tags/centos/"/>
+    
+  </entry>
   
   <entry>
     <title>docker-compose build报错</title>
@@ -531,33 +559,6 @@
       <category term="find" scheme="http://ningmo.github.io/tags/find/"/>
     
       <category term="grep" scheme="http://ningmo.github.io/tags/grep/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>php截图裁剪 缩放图片</title>
-    <link href="http://ningmo.github.io/2016/10/25/php/php_image_cut/"/>
-    <id>http://ningmo.github.io/2016/10/25/php/php_image_cut/</id>
-    <published>2016-10-25T12:49:04.000Z</published>
-    <updated>2021-05-08T01:16:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">image_resize</span><span class="params">($from, $tw,$th)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 按指定大小生成缩略图，而且不变形，缩略图函数</span></span><br><span class="line">        $temp = <span class="keyword">array</span>(<span class="number">1</span>=&gt;<span class="string">'gif'</span>, <span class="number">2</span>=&gt;<span class="string">'jpeg'</span>, <span class="number">3</span>=&gt;<span class="string">'png'</span>);</span><br><span class="line">        <span class="keyword">list</span>($fw, $fh, $tmp) = getimagesize($from);</span><br><span class="line">        <span class="keyword">if</span>(!$temp[$tmp])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $tmp = $temp[$tmp];</span><br><span class="line">        $infunc = <span class="string">"imagecreatefrom$tmp"</span>;</span><br><span class="line">        $outfunc = <span class="string">"image$tmp"</span>;</span><br><span class="line">        $fimg = $infunc($from);</span><br><span class="line">        <span class="comment">// 使缩略后的图片不变形，并且限制在 缩略图宽高范围内</span></span><br><span class="line">        <span class="keyword">if</span>($fw/$tw &gt; $fh/$th)&#123;</span><br><span class="line">            $th = $tw*($fh/$fw);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            $tw = $th*($fw/$fh);</span><br><span class="line">        &#125;</span><br><span class="line">        $timg = imagecreatetruecolor($tw, $th);</span><br><span class="line">        imagecopyresampled($timg, $fimg, <span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>, $tw,$th, $fw,$fh);</span><br><span class="line">        $to = C(<span class="string">'UPLOAD_PATH'</span>).C(<span class="string">'UPLOAD_SAVE_DIR_RULE'</span>).<span class="string">'a_'</span>.time().<span class="string">'_'</span>.mt_rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">'.'</span>.end(explode(<span class="string">'.'</span>,$from));</span><br><span class="line">        $r = $outfunc($timg, $to);</span><br><span class="line">        <span class="keyword">if</span>($r)&#123;</span><br><span class="line">            unlink($from);</span><br><span class="line">            <span class="keyword">return</span> $to;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">cut_img</span><span class="params">($from,$zero=[<span class="number">0</span>,<span class="number">0</span>],$cutSize=[<span class="number">300</span>,<span class="number">300</span>])</span></span>&#123;</span><br><span class="line">        $temp = <span class="keyword">array</span>(<span class="number">1</span>=&gt;<span class="string">'gif'</span>, <span class="number">2</span>=&gt;<span class="string">'jpeg'</span>, <span class="number">3</span>=&gt;<span class="string">'png'</span>);</span><br><span class="line">        <span class="keyword">list</span>($fw, $fh, $tmp) = getimagesize($from);</span><br><span class="line">        <span class="keyword">if</span>(!$temp[$tmp])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $tmp = $temp[$tmp];</span><br><span class="line">        $infunc = <span class="string">"imagecreatefrom$tmp"</span>;</span><br><span class="line">        $outfunc = <span class="string">"image$tmp"</span>;</span><br><span class="line">        $timg = $infunc($from);</span><br><span class="line">        $cutImg=imagecreatetruecolor($cutSize[<span class="number">0</span>], $cutSize[<span class="number">1</span>]);</span><br><span class="line">        <span class="comment"># 将 $timg 图像中坐标从 src_x，src_y  开始，宽度为 src_w，高度为 src_h 的一部分拷贝到 dst_im 图像中坐标为 dst_x 和 dst_y 的位置上。</span></span><br><span class="line">        imagecopy($cutImg,$timg,<span class="number">0</span>,<span class="number">0</span>,$zero[<span class="number">0</span>], $zero[<span class="number">1</span>],$cutSize[<span class="number">0</span>], $cutSize[<span class="number">1</span>]);</span><br><span class="line">        $to = C(<span class="string">'UPLOAD_PATH'</span>).C(<span class="string">'UPLOAD_SAVE_DIR_RULE'</span>).<span class="string">'a_'</span>.time().<span class="string">'_'</span>.mt_rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">'.'</span>.end(explode(<span class="string">'.'</span>,$from));</span><br><span class="line">        $r = $outfunc($cutImg, $to);</span><br><span class="line">        <span class="keyword">if</span>($r)&#123;</span><br><span class="line">            unlink($from);</span><br><span class="line">            <span class="keyword">return</span> str_replace(<span class="string">'../'</span>,<span class="string">'/'</span>,$to);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/spa
-      
-    
-    </summary>
-    
-      <category term="php" scheme="http://ningmo.github.io/categories/php/"/>
-    
-    
-      <category term="image" scheme="http://ningmo.github.io/tags/image/"/>
-    
-      <category term="php" scheme="http://ningmo.github.io/tags/php/"/>
     
   </entry>
   
