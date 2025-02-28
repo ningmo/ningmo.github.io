@@ -59,3 +59,26 @@ chown elasticsearch config/elastic-* #### 非常重要 不然后面服务起不�
 ！！！！！！！！一定要设置两个文件的权限！！！！！！！！
 
 4. 【所有节点】将前面的两个文件同步到其他节点的所有config下，并设置权限，然后重启所有节点的服务
+
+5. 【可选】【主节点】创建一个普普通通的管理用户 日常管理集群
+```
+#  创建管理角色
+curl -XPUT -H "Content-Type:application/json" -u elastic 127.0.0.1:9200/_security/role/management_role -d '
+{
+  "cluster": ["manage", "monitor"],
+  "indices": [
+    {
+      "names": ["*"],
+      "privileges": ["read", "write", "create_index", "delete_index", "manage"]
+    }
+  ]
+}'
+
+#  创建管理用户admin
+curl -XPOST -H "Content-Type:application/json" -u elastic 127.0.0.1:9200/_security/user/admin -d '
+{
+  "password": "admin111222",
+  "roles": ["management_role"]
+}'
+```
+
