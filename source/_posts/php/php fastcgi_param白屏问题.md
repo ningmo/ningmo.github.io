@@ -1,7 +1,6 @@
 ---
 title: php fastcgi_param白屏问题
 categories:
-  - linux
   - php
 date: 2015-10-31 11:08:54
 ---

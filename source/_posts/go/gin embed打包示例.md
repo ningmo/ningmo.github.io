@@ -2,7 +2,7 @@
 title: gin embed打包示例
 categories:
   - go
-tags: [gin,go,golang,embed]
+tags: [gin,golang,embed]
 date: 2021-05-21 15:35:00
 ---
 

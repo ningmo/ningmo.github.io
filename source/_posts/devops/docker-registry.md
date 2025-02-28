@@ -6,7 +6,7 @@ categories: docker
 ---
 
 
-maxos 直接找到配置 在registry加入地址即可
+mac 直接找到配置 在registry加入地址即可
 http://b72d1176.m.daocloud.io
 
 其他系统 修改docker配置文件/etc/default/docker如

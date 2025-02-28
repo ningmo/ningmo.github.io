@@ -1,7 +1,7 @@
 ---
 title: Algorithms_select
 date: 2016-11-16 20:51:18
-tags: [Algorithms,select,算法]
+tags: [Algorithms,算法]
 categories: Algorithms
 ---
 

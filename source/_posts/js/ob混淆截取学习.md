@@ -1,7 +1,7 @@
 ---
 title: ob混淆截取学习记录
 categories: [js]
-tags: [ob,混淆]
+tags: [ob混淆]
 date: 2022-09-01 15:54:20
 ---
 
